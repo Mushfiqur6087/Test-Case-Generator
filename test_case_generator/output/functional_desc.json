@@ -1,0 +1,52 @@
+{
+  "project_name": "ParaBank Demo",
+  "website_url": "https://parabank.parasoft.com",
+  "navigation_overview": "The website has a sidebar menu on the left after login. Public pages: Login, Register, Forgot Password. Authenticated pages accessible from sidebar: Accounts Overview, Transfer Funds, Bill Pay, Find Transactions, Update Contact Info, Request Loan.",
+  "modules": [
+    {
+      "id": 1,
+      "title": "Login",
+      "description": "The login page allows users to authenticate to the system.\n\nUI Elements:\n- Username input field (required)\n- Password input field (required)\n- Log In button\n- Register link\n- Forgot login info link\n\nValidation:\n- Both fields are required\n- Invalid credentials show error message 'The username and password could not be verified.'\n- Successful login redirects to accounts overview page"
+    },
+    {
+      "id": 2,
+      "title": "Forgot Password",
+      "description": "Password recovery page.\n\nUI Elements:\n- First Name input (required)\n- Last Name input (required)\n- Address input (required)\n- City input (required)\n- State input (required)\n- Zip Code input (required)\n- SSN input (required)\n- Find My Login Info button\n\nValidation:\n- All fields required\n- SSN must match existing customer record\n- On success, displays username and password"
+    },
+    {
+      "id": 3,
+      "title": "Register",
+      "description": "New user registration form.\n\nUI Elements:\n- First Name (required)\n- Last Name (required)\n- Address (required)\n- City (required)\n- State (required)\n- Zip Code (required)\n- Phone (optional)\n- SSN (required)\n- Username (required)\n- Password (required)\n- Confirm password (required)\n- Register button\n\nValidation:\n- All required fields must be filled\n- Password must match confirm password\n- Username must be unique in the system\n- SSN format validation"
+    },
+    {
+      "id": 4,
+      "title": "Accounts Overview",
+      "description": "Dashboard showing all accounts.\n\nUI Elements:\n- Table displaying accounts with columns: Account, Balance, Available Amount\n- Each account number is a clickable link\n- Total balance displayed at bottom\n\nBehavior:\n- Shows all accounts belonging to logged-in user\n- Clicking account number navigates to account details\n- Balance shows current balance\n- Available amount may differ due to pending transactions"
+    },
+    {
+      "id": 5,
+      "title": "Transfer Funds",
+      "description": "Transfer money between accounts.\n\nUI Elements:\n- Amount input field (required, must be numeric)\n- From Account dropdown (required, shows user's accounts)\n- To Account dropdown (required, shows user's accounts)\n- Transfer button\n\nBusiness Rules:\n- Cannot transfer to the same account\n- Amount must be a positive number\n- Must have sufficient balance in source account\n- Transfer confirmation message shown on success\n- Transaction appears in both account histories"
+    },
+    {
+      "id": 6,
+      "title": "Bill Pay",
+      "description": "Pay bills to payees.\n\nUI Elements:\n- Payee Name input (required)\n- Address input (required)\n- City input (required)\n- State input (required)\n- Zip Code input (required)\n- Phone input (optional)\n- Account Number input (required, payee's account)\n- Verify Account input (required, must match Account Number)\n- Amount input (required, numeric)\n- From Account dropdown (required)\n- Send Payment button\n\nValidation:\n- Account numbers must match\n- Amount must be positive\n- Sufficient balance required\n- Success message confirms payment details"
+    },
+    {
+      "id": 7,
+      "title": "Find Transactions",
+      "description": "Search for transactions in an account.\n\nUI Elements:\n- Select Account dropdown\n- Find by Transaction ID section with input and Find button\n- Find by Date section with date input and Find button\n- Find by Date Range section with From/To date inputs and Find button\n- Find by Amount section with amount input and Find button\n- Find by Amount Range section with min/max inputs and Find button\n- Results table showing matching transactions\n\nBehavior:\n- Only one search criteria can be used at a time\n- Results display transaction details\n- Date format should be MM-DD-YYYY\n- Amount searches find exact or range matches"
+    },
+    {
+      "id": 8,
+      "title": "Update Contact Info",
+      "description": "Update user profile information.\n\nUI Elements:\n- First Name input (required, pre-filled)\n- Last Name input (required, pre-filled)\n- Address input (required, pre-filled)\n- City input (required, pre-filled)\n- State input (required, pre-filled)\n- Zip Code input (required, pre-filled)\n- Phone input (optional, pre-filled)\n- Update Profile button\n\nBehavior:\n- Form pre-populated with current user data\n- All required fields must remain filled\n- Success message confirms update"
+    },
+    {
+      "id": 9,
+      "title": "Request Loan",
+      "description": "Apply for a new loan.\n\nUI Elements:\n- Loan Amount input (required, numeric)\n- Down Payment input (required, numeric)\n- From Account dropdown (required, for down payment)\n- Apply Now button\n\nBusiness Rules:\n- Loan approval based on available funds and debt-to-income\n- Down payment deducted from selected account\n- If approved, new loan account created\n- Results page shows approval status, new account number if approved"
+    }
+  ]
+}

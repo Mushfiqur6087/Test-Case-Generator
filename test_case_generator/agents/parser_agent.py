@@ -1,0 +1,138 @@
+from typing import Dict, Any
+
+from .base import BaseAgent
+from ..models.schemas import (
+    ParsedModule,
+    ParsedFunctionalDescription
+)
+
+
+class ParserAgent(BaseAgent):
+    """Agent responsible for parsing functional description JSON"""
+
+    @property
+    def name(self) -> str:
+        return "Parser Agent"
+
+    @property
+    def system_prompt(self) -> str:
+        return """You are an expert software test analyst specializing in parsing functional descriptions for test case generation.
+
+CRITICAL RULES:
+1. Extract ONLY what is explicitly mentioned in the functional description
+2. DO NOT infer, assume, or add information not present in the text
+3. DO NOT specify UI element types (button/input/dropdown) - just extract names as written
+4. Use the EXACT wording from the description whenever possible
+
+Your task is to analyze functional descriptions and extract:
+
+1. Mentioned Items: Fields, buttons, links, and interactive elements mentioned
+2. Workflows: User actions that involve form submission or data processing on THIS page
+   - A workflow is an action that COMPLETES on this page (e.g., "Login with credentials")
+   - Navigation links to OTHER pages are NOT workflows for this page
+3. Business Rules: Validation rules, constraints, and business logic stated
+4. Expected Behaviors: What happens on success or failure
+5. Authentication: Whether the page requires user to be logged in
+
+WORKFLOW GUIDANCE:
+- Focus on actions that complete on THIS page with a testable outcome
+- Links to other pages (Register, Forgot Password) are navigation elements, not workflows
+- If a page has multiple forms, each form's submission is a separate workflow"""
+
+    def run(self, functional_desc: Dict[str, Any]) -> ParsedFunctionalDescription:
+        """Parse the functional description JSON and extract structured data"""
+
+        # Validate basic structure
+        if not isinstance(functional_desc, dict):
+            raise ValueError("Functional description must be a dictionary")
+
+        project_name = functional_desc.get("project_name", "Unknown Project")
+        base_url = functional_desc.get("website_url", "")
+        navigation_overview = functional_desc.get("navigation_overview", "")
+        raw_modules = functional_desc.get("modules", [])
+
+        parsed_modules = []
+        for module in raw_modules:
+            parsed_module = self._parse_module(module)
+            parsed_modules.append(parsed_module)
+
+        return ParsedFunctionalDescription(
+            project_name=project_name,
+            base_url=base_url,
+            navigation_overview=navigation_overview,
+            modules=parsed_modules
+        )
+
+    def _parse_module(self, module: Dict[str, Any]) -> ParsedModule:
+        """Parse a single module using LLM to extract details"""
+
+        module_id = module.get("id", 0)
+        title = module.get("title", "Unknown Module")
+        description = module.get("description", "")
+
+        # Use LLM to extract structured information from description
+        extraction_prompt = f"""Analyze this functional description and extract information for test case generation.
+
+Module Title: {title}
+Description: {description}
+
+IMPORTANT: Extract ONLY what is explicitly mentioned. Do NOT add assumptions or infer details not present.
+
+Return a JSON object with these fields:
+{{
+    "mentioned_items": ["Item1", "Item2", ...],
+    "workflows": ["Workflow1", ...],
+    "business_rules": ["Rule1", "Rule2", ...],
+    "expected_behaviors": ["Behavior1", "Behavior2", ...],
+    "requires_auth": true/false
+}}
+
+Field Descriptions:
+- mentioned_items: Fields, buttons, and interactive elements mentioned (just names). Example: ["Username", "Password", "Log In"]
+- workflows: PRIMARY actions that COMPLETE on this page with a testable outcome.
+  * A workflow involves form submission or data processing
+  * Navigation links to other pages are NOT workflows
+  * Most pages have only 1-2 primary workflows
+  * Example for login page: ["Login with credentials"] (NOT "Navigate to register")
+- business_rules: Validation rules and constraints explicitly stated in the description
+- expected_behaviors: Success/failure outcomes explicitly mentioned
+- requires_auth: false for login/register/forgot password/public pages, otherwise true
+
+Example for a Login page:
+{{
+    "mentioned_items": ["Username", "Password", "Log In", "Register link", "Forgot login info link"],
+    "workflows": ["Login with credentials"],
+    "business_rules": ["Both fields are required", "Invalid credentials show error"],
+    "expected_behaviors": ["Successful login redirects to dashboard", "Error message shown on invalid credentials"],
+    "requires_auth": false
+}}
+"""
+
+        try:
+            result = self.call_llm_json(extraction_prompt)
+        except Exception as e:
+            print(f"Warning: LLM extraction failed for module {title}: {e}")
+            # Return module with empty extracted data
+            return ParsedModule(
+                id=module_id,
+                title=title,
+                raw_description=description,
+                mentioned_items=[],
+                workflows=[],
+                business_rules=[],
+                expected_behaviors=[],
+                requires_auth=True
+            )
+
+        return ParsedModule(
+            id=module_id,
+            title=title,
+            raw_description=description,
+            mentioned_items=result.get("mentioned_items", []),
+            workflows=result.get("workflows", []),
+            business_rules=result.get("business_rules", []),
+            expected_behaviors=result.get("expected_behaviors", []),
+            requires_auth=result.get("requires_auth", True)
+        )
+
+
