@@ -42,15 +42,8 @@ venv.bak/
 debug_log.txt
 *.log
 
-# Output files (keep directory structure but ignore generated files)
-output/*.json
-output/*.png
-output/*.md
-!output/.gitkeep
-
-# Credentials
-credentials.json
-*credentials*.json
+# Keep output files in git for demo purposes
+# output/ files are included
 
 # Environment variables
 .env

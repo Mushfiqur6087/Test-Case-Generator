@@ -184,6 +184,7 @@ fi
 exit $EXIT_CODE
 
 
-#   export OPENROUTER_API_KEY="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"
-#   export MODEL="google/gemini-2.5-pro"
+# Example usage with environment variables:
+#   export OPENROUTER_API_KEY="your-api-key-here"
+#   export MODEL="google/gemini-2.0-flash-exp:free"
 #   ./run_generator.sh -i functional_desc.json -d

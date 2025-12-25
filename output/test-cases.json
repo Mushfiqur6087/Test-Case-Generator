@@ -1,0 +1,948 @@
+{
+  "project_name": "Parabank Functional Overview",
+  "base_url": "https://parabank.parasoft.com/parabank/index.htm",
+  "generated_at": "2025-12-25T18:56:34.051829",
+  "navigation_graph": {
+    "login_module_id": 1,
+    "graph_image_path": "output/navigation_graph.png",
+    "nodes": [
+      {
+        "module_id": 1,
+        "title": "Login",
+        "requires_auth": false,
+        "url_path": "/index.htm",
+        "connected_to": [
+          2,
+          3,
+          5
+        ],
+        "test_case_ids": [
+          "LOGIN-001",
+          "LOGIN-002",
+          "LOGIN-003",
+          "LOGIN-004",
+          "LOGIN-005",
+          "LOGIN-006",
+          "LOGIN-007"
+        ]
+      },
+      {
+        "module_id": 2,
+        "title": "Forgot Password",
+        "requires_auth": false,
+        "url_path": "/lookup.htm",
+        "connected_to": [
+          1,
+          3
+        ],
+        "test_case_ids": [
+          "FORPAS-001",
+          "FORPAS-002",
+          "FORPAS-003",
+          "FORPAS-004",
+          "FORPAS-005",
+          "FORPAS-006",
+          "FORPAS-007",
+          "FORPAS-008",
+          "FORPAS-009"
+        ]
+      },
+      {
+        "module_id": 3,
+        "title": "Register",
+        "requires_auth": false,
+        "url_path": "/register.htm",
+        "connected_to": [
+          1,
+          2
+        ],
+        "test_case_ids": [
+          "REGIST-001",
+          "REGIST-002",
+          "REGIST-003",
+          "REGIST-004",
+          "REGIST-005",
+          "REGIST-006",
+          "REGIST-007",
+          "REGIST-008",
+          "REGIST-009",
+          "REGIST-010",
+          "REGIST-011",
+          "REGIST-012",
+          "REGIST-013",
+          "REGIST-014",
+          "REGIST-015",
+          "REGIST-016",
+          "REGIST-017",
+          "REGIST-018",
+          "REGIST-019",
+          "REGIST-020",
+          "REGIST-021"
+        ]
+      },
+      {
+        "module_id": 4,
+        "title": "Open New Account",
+        "requires_auth": true,
+        "url_path": "/openaccount.htm",
+        "connected_to": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "test_case_ids": [
+          "ONA-001",
+          "ONA-002",
+          "ONA-003",
+          "ONA-004",
+          "ONA-005",
+          "ONA-006"
+        ]
+      },
+      {
+        "module_id": 5,
+        "title": "Account Overview",
+        "requires_auth": true,
+        "url_path": "/overview.htm",
+        "connected_to": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "test_case_ids": []
+      },
+      {
+        "module_id": 6,
+        "title": "Transfer Funds",
+        "requires_auth": true,
+        "url_path": "/transfer.htm",
+        "connected_to": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "test_case_ids": []
+      },
+      {
+        "module_id": 7,
+        "title": "Bill Payments",
+        "requires_auth": true,
+        "url_path": "/billpay.htm",
+        "connected_to": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "test_case_ids": []
+      },
+      {
+        "module_id": 8,
+        "title": "Find Transaction",
+        "requires_auth": true,
+        "url_path": "/findtrans.htm",
+        "connected_to": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "test_case_ids": []
+      },
+      {
+        "module_id": 9,
+        "title": "Update Profile",
+        "requires_auth": true,
+        "url_path": "/updateprofile.htm",
+        "connected_to": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "test_case_ids": []
+      },
+      {
+        "module_id": 10,
+        "title": "Request Loan",
+        "requires_auth": true,
+        "url_path": "/requestloan.htm",
+        "connected_to": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11
+        ],
+        "test_case_ids": []
+      },
+      {
+        "module_id": 11,
+        "title": "Logout",
+        "requires_auth": true,
+        "url_path": "/logout.htm",
+        "connected_to": [
+          1
+        ],
+        "test_case_ids": []
+      }
+    ]
+  },
+  "test_cases": [
+    {
+      "id": "LOGIN-001",
+      "title": "Successful login using valid username",
+      "module_id": 1,
+      "module_title": "Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User has a registered account with a valid username",
+      "steps": [
+        "Enter valid username into the username field",
+        "Enter valid password into the password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "User is redirected to the account dashboard"
+    },
+    {
+      "id": "LOGIN-002",
+      "title": "Successful login using valid email address",
+      "module_id": 1,
+      "module_title": "Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User has a registered account with a valid email address",
+      "steps": [
+        "Enter valid email address into the username field",
+        "Enter valid password into the password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "User is redirected to the account dashboard"
+    },
+    {
+      "id": "LOGIN-003",
+      "title": "Login failure with unregistered credentials",
+      "module_id": 1,
+      "module_title": "Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter an unregistered username into the username field",
+        "Enter any password into the password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "An error message is displayed and the input fields remain populated with the entered values"
+    },
+    {
+      "id": "LOGIN-004",
+      "title": "Login failure with incorrect password",
+      "module_id": 1,
+      "module_title": "Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "User has a registered account",
+      "steps": [
+        "Enter a valid registered username into the username field",
+        "Enter an incorrect password into the password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "An error message is displayed and the input fields remain populated with the entered values"
+    },
+    {
+      "id": "LOGIN-005",
+      "title": "Retry login after authentication error",
+      "module_id": 1,
+      "module_title": "Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "User has a registered account",
+      "steps": [
+        "Enter an incorrect password into the password field",
+        "Click the Log In button",
+        "Clear the password field",
+        "Enter the correct password into the password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "User is successfully redirected to the account dashboard after the second attempt"
+    },
+    {
+      "id": "LOGIN-006",
+      "title": "Login attempt with empty fields",
+      "module_id": 1,
+      "module_title": "Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave username and password fields empty",
+        "Click the Log In button"
+      ],
+      "expected_result": "An error message is displayed indicating that credentials are required"
+    },
+    {
+      "id": "LOGIN-007",
+      "title": "Login with special characters in username",
+      "module_id": 1,
+      "module_title": "Login",
+      "workflow": "Login with credentials",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User has a registered account containing special characters in the username",
+      "steps": [
+        "Enter username containing special characters (e.g., user!@#) into the username field",
+        "Enter valid password into the password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "User is redirected to the account dashboard"
+    },
+    {
+      "id": "FORPAS-001",
+      "title": "Successful customer lookup with valid details",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "A registered customer record exists in the system",
+      "steps": [
+        "Enter a valid First Name into the First Name field",
+        "Enter a valid Last Name into the Last Name field",
+        "Enter a valid Address into the Address field",
+        "Enter a valid City into the City field",
+        "Select a valid State from the State dropdown",
+        "Enter a valid Zip Code into the Zip Code field",
+        "Enter a valid SSN into the SSN field",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "The page displays the appropriate recovery details for the matching record"
+    },
+    {
+      "id": "FORPAS-002",
+      "title": "Error message displayed when no matching record is found",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "No customer record exists with the provided details",
+      "steps": [
+        "Enter non-existent First Name into the First Name field",
+        "Enter non-existent Last Name into the Last Name field",
+        "Enter non-existent Address into the Address field",
+        "Enter non-existent City into the City field",
+        "Select any State from the State dropdown",
+        "Enter a non-existent Zip Code into the Zip Code field",
+        "Enter a non-existent SSN into the SSN field",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "The page displays an error message indicating no matching record was found"
+    },
+    {
+      "id": "FORPAS-003",
+      "title": "Validation error when First Name is left blank",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the First Name field empty",
+        "Fill all other required fields with valid data",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "A prompt appears requesting the user to complete the First Name field"
+    },
+    {
+      "id": "FORPAS-004",
+      "title": "Validation error when Last Name is left blank",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the Last Name field empty",
+        "Fill all other required fields with valid data",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "A prompt appears requesting the user to complete the Last Name field"
+    },
+    {
+      "id": "FORPAS-005",
+      "title": "Validation error when Address is left blank",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the Address field empty",
+        "Fill all other required fields with valid data",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "A prompt appears requesting the user to complete the Address field"
+    },
+    {
+      "id": "FORPAS-006",
+      "title": "Validation error when City is left blank",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the City field empty",
+        "Fill all other required fields with valid data",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "A prompt appears requesting the user to complete the City field"
+    },
+    {
+      "id": "FORPAS-007",
+      "title": "Validation error when Zip Code is left blank",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the Zip Code field empty",
+        "Fill all other required fields with valid data",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "A prompt appears requesting the user to complete the Zip Code field"
+    },
+    {
+      "id": "FORPAS-008",
+      "title": "Validation error when SSN is left blank",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the SSN field empty",
+        "Fill all other required fields with valid data",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "A prompt appears requesting the user to complete the SSN field"
+    },
+    {
+      "id": "FORPAS-009",
+      "title": "Customer lookup with special characters in name fields",
+      "module_id": 2,
+      "module_title": "Forgot Password",
+      "workflow": "Customer Lookup",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "A record exists with special characters in the name (e.g., O'Connor)",
+      "steps": [
+        "Enter 'O'Connor' into the Last Name field",
+        "Fill all other fields with matching valid data",
+        "Click the Find My Login Info button"
+      ],
+      "expected_result": "The page successfully finds and displays the recovery details for the record"
+    },
+    {
+      "id": "REGIST-001",
+      "title": "Successful login with valid credentials",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User has an existing account with a valid username and password",
+      "steps": [
+        "Enter a valid username into the Username field",
+        "Enter the corresponding valid password into the Password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "The user is successfully authenticated and granted access to their account"
+    },
+    {
+      "id": "REGIST-002",
+      "title": "Successful account registration with all valid fields",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "The registration form is loaded and the user is not logged in",
+      "steps": [
+        "Enter 'John' into the First Name field",
+        "Enter 'Doe' into the Last Name field",
+        "Enter '123 Maple Street' into the Address field",
+        "Enter 'Springfield' into the City field",
+        "Enter 'Illinois' into the State field",
+        "Enter '62704' into the Zip Code field",
+        "Enter '555-0199' into the Phone # field",
+        "Enter '999-00-1111' into the SSN field",
+        "Enter 'johndoe_unique' into the Username field",
+        "Enter 'Password123!' into the Password field",
+        "Enter 'Password123!' into the Confirm Password field",
+        "Click the Register button"
+      ],
+      "expected_result": "The account is created and the user is automatically redirected to the logged-in state/dashboard"
+    },
+    {
+      "id": "REGIST-003",
+      "title": "Login failure with empty username",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Leave the Username field empty",
+        "Enter a valid password into the Password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "The system prevents login and displays a validation error indicating the username is mandatory"
+    },
+    {
+      "id": "REGIST-004",
+      "title": "Login failure with empty password",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username into the Username field",
+        "Leave the Password field empty",
+        "Click the Log In button"
+      ],
+      "expected_result": "The system prevents login and displays a validation error indicating the password is mandatory"
+    },
+    {
+      "id": "REGIST-005",
+      "title": "Registration fails when First Name is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the First Name field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating First Name is mandatory and no account is created"
+    },
+    {
+      "id": "REGIST-006",
+      "title": "Registration fails when Last Name is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the Last Name field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating Last Name is mandatory and no account is created"
+    },
+    {
+      "id": "REGIST-007",
+      "title": "Registration fails when Username is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the Username field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating Username is mandatory"
+    },
+    {
+      "id": "REGIST-008",
+      "title": "Registration fails when Password is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the Password field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating Password is mandatory"
+    },
+    {
+      "id": "REGIST-009",
+      "title": "Registration fails when Confirm Password is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the Confirm Password field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating Confirm Password is mandatory"
+    },
+    {
+      "id": "REGIST-010",
+      "title": "Verify navigation to Forgot Login Info page",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click the 'Forgot login info?' link"
+      ],
+      "expected_result": "The user is redirected to the password recovery or account assistance page"
+    },
+    {
+      "id": "REGIST-011",
+      "title": "Verify navigation to Register page",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click the 'Register' link"
+      ],
+      "expected_result": "The user is redirected to the account registration page"
+    },
+    {
+      "id": "REGIST-012",
+      "title": "Login failure with both fields empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the Username field empty",
+        "Leave the Password field empty",
+        "Click the Log In button"
+      ],
+      "expected_result": "The system prevents login and displays validation errors for both mandatory fields"
+    },
+    {
+      "id": "REGIST-013",
+      "title": "Registration fails when Address is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the Address field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating Address is mandatory"
+    },
+    {
+      "id": "REGIST-014",
+      "title": "Registration fails when City is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the City field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating City is mandatory"
+    },
+    {
+      "id": "REGIST-015",
+      "title": "Registration fails when State is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the State field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating State is mandatory"
+    },
+    {
+      "id": "REGIST-016",
+      "title": "Registration fails when Zip Code is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the Zip Code field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating Zip Code is mandatory"
+    },
+    {
+      "id": "REGIST-017",
+      "title": "Registration fails when Phone # is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the Phone # field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating Phone # is mandatory"
+    },
+    {
+      "id": "REGIST-018",
+      "title": "Registration fails when SSN is empty",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Leave the SSN field empty",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system displays a validation error indicating SSN is mandatory"
+    },
+    {
+      "id": "REGIST-019",
+      "title": "Login with special characters in username and password",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Login with credentials",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "An account exists where the username and password contain special characters (e.g., !@#$%^&*)",
+      "steps": [
+        "Enter the username containing special characters into the Username field",
+        "Enter the password containing special characters into the Password field",
+        "Click the Log In button"
+      ],
+      "expected_result": "The user is successfully authenticated and granted access to their account"
+    },
+    {
+      "id": "REGIST-020",
+      "title": "Registration with special characters in name and address fields",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Enter 'O'Connor-Smith' into the Last Name field",
+        "Enter 'Apt #4, 1/2 St.' into the Address field",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system successfully creates the account and logs the user in"
+    },
+    {
+      "id": "REGIST-021",
+      "title": "Registration with very long strings in mandatory fields",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register a new account",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "The registration form is loaded",
+      "steps": [
+        "Enter a 100-character string into the First Name field",
+        "Enter a 100-character string into the Username field",
+        "Fill all other mandatory fields with valid data",
+        "Click the Register button"
+      ],
+      "expected_result": "The system successfully creates the account and logs the user in"
+    },
+    {
+      "id": "ONA-001",
+      "title": "Open New Savings Account with valid funding source",
+      "module_id": 4,
+      "module_title": "Open New Account",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the Open New Account page and has at least one existing account with a balance of $100.00 or more",
+      "steps": [
+        "Select 'Savings' from the account type dropdown",
+        "Select an existing account from the funding source dropdown",
+        "Click the 'Open New Account' button"
+      ],
+      "expected_result": "A new savings account is created with a unique account number and a $100.00 credit, while the source account is debited $100.00"
+    },
+    {
+      "id": "ONA-002",
+      "title": "Open New Checking Account with valid funding source",
+      "module_id": 4,
+      "module_title": "Open New Account",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the Open New Account page and has at least one existing account with a balance of $100.00 or more",
+      "steps": [
+        "Select 'Checking' from the account type dropdown",
+        "Select an existing account from the funding source dropdown",
+        "Click the 'Open New Account' button"
+      ],
+      "expected_result": "A new checking account is created with a unique account number and a $100.00 credit, while the source account is debited $100.00"
+    },
+    {
+      "id": "ONA-003",
+      "title": "Attempt to open account with insufficient funds in source account",
+      "module_id": 4,
+      "module_title": "Open New Account",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "User is on the Open New Account page and selects a source account with a balance less than $100.00",
+      "steps": [
+        "Select 'Savings' from the account type dropdown",
+        "Select the account with insufficient funds from the funding source dropdown",
+        "Click the 'Open New Account' button"
+      ],
+      "expected_result": "The system displays an error message stating that the required opening deposit of $100.00 is not available in the selected source account"
+    },
+    {
+      "id": "ONA-004",
+      "title": "Attempt to open account without selecting an account type",
+      "module_id": 4,
+      "module_title": "Open New Account",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Open New Account page",
+      "steps": [
+        "Leave the account type dropdown unselected",
+        "Select an existing account from the funding source dropdown",
+        "Click the 'Open New Account' button"
+      ],
+      "expected_result": "The system displays a validation error indicating that an account type must be selected"
+    },
+    {
+      "id": "ONA-005",
+      "title": "Attempt to open account without selecting a funding source",
+      "module_id": 4,
+      "module_title": "Open New Account",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Open New Account page",
+      "steps": [
+        "Select 'Savings' from the account type dropdown",
+        "Leave the funding source dropdown unselected",
+        "Click the 'Open New Account' button"
+      ],
+      "expected_result": "The system displays a validation error indicating that a funding source must be selected"
+    },
+    {
+      "id": "ONA-006",
+      "title": "Verify unique account number generation for consecutive requests",
+      "module_id": 4,
+      "module_title": "Open New Account",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "edge_case",
+      "priority": "Medium",
+      "preconditions": "User is on the Open New Account page and has sufficient funds for multiple accounts",
+      "steps": [
+        "Open a Savings account using a valid funding source",
+        "Return to the Open New Account page",
+        "Open a second Savings account using the same funding source"
+      ],
+      "expected_result": "Two different unique account numbers are generated for the two new accounts"
+    }
+  ],
+  "summary": {
+    "total_tests": 43,
+    "by_type": {
+      "positive": 10,
+      "negative": 27,
+      "edge_case": 6
+    },
+    "by_priority": {
+      "High": 18,
+      "Medium": 20,
+      "Low": 5
+    },
+    "by_module": {
+      "Login": 7,
+      "Forgot Password": 9,
+      "Register": 21,
+      "Open New Account": 6
+    }
+  }
+}
