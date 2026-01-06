@@ -104,9 +104,16 @@ class TestCase:
     steps: List[str] = field(default_factory=list)  # Test steps (no navigation)
     expected_result: str = ""    # Single expected outcome
 
+    # Verification fields (populated by VerificationAgent for positive tests)
+    reads_state: List[str] = field(default_factory=list)   # State this test reads/checks (e.g., ["account_balance"])
+    writes_state: List[str] = field(default_factory=list)  # State this test modifies (e.g., ["account_balance"])
+    verification_test_ids: List[str] = field(default_factory=list)  # Test IDs that can verify this test's result
+    pre_verification_steps: List[str] = field(default_factory=list)   # Steps to verify initial state
+    post_verification_steps: List[str] = field(default_factory=list)  # Steps to verify final state
+
     def to_dict(self) -> dict:
         """Convert to JSON-serializable dictionary"""
-        return {
+        result = {
             "id": self.id,
             "title": self.title,
             "module_id": self.module_id,
@@ -118,6 +125,21 @@ class TestCase:
             "steps": self.steps,
             "expected_result": self.expected_result
         }
+
+        # Only include verification fields for positive tests that have them
+        if self.test_type == "positive":
+            if self.reads_state:
+                result["reads_state"] = self.reads_state
+            if self.writes_state:
+                result["writes_state"] = self.writes_state
+            if self.verification_test_ids:
+                result["verification_test_ids"] = self.verification_test_ids
+            if self.pre_verification_steps:
+                result["pre_verification_steps"] = self.pre_verification_steps
+            if self.post_verification_steps:
+                result["post_verification_steps"] = self.post_verification_steps
+
+        return result
 
 
 # ============================================================================

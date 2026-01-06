@@ -9,6 +9,7 @@ This is an **LLM-powered Test Case Generator** that automatically generates comp
 **Key Features:**
 - Multi-agent pipeline with specialized responsibilities
 - Generates positive, negative, and edge case tests
+- **State verification for positive tests** - adds pre/post verification steps to validate expected results
 - Creates visual navigation graph of the application
 - Supports any LLM via OpenRouter API
 - Debug logging for troubleshooting LLM interactions
@@ -28,6 +29,7 @@ test_case_generator/
 │   ├── navigation_agent.py      # Builds navigation graph + generates image
 │   ├── chunker_agent.py         # Splits modules into workflow chunks
 │   ├── test_generation_agent.py # Generates test cases per workflow
+│   ├── verification_agent.py    # Adds state verification to positive tests
 │   └── assembler_agent.py       # Deduplicates, orders, exports output
 └── models/
     ├── __init__.py
@@ -108,11 +110,23 @@ Input (functional_desc.json, credentials.json)
     │
     ▼
 ┌─────────────────────────────────────────────────────────────┐
+│  VerificationAgent                                          │
+│  - Tags positive tests with reads_state/writes_state        │
+│  - Links tests that can verify each other's results         │
+│  - Generates pre/post verification steps                    │
+│  - Creates missing state check tests if needed              │
+│  - Output: List[TestCase] with verification data            │
+└─────────────────────────────────────────────────────────────┘
+    │
+    ▼
+┌─────────────────────────────────────────────────────────────┐
 │  AssemblerAgent                                             │
 │  - Removes duplicate test cases                             │
 │  - Sorts by module, priority, and type                      │
 │  - Assigns proper IDs (MODULE-001 format)                   │
+│  - Updates verification_test_ids with actual IDs            │
 │  - Links test cases to navigation nodes                     │
+│  - Generates verification coverage summary                  │
 │  - Exports to JSON                                          │
 │  - Output: TestSuiteOutput                                  │
 └─────────────────────────────────────────────────────────────┘
@@ -162,6 +176,36 @@ Generates test cases per workflow:
 - **Edge case tests** (1-2): Boundaries, special characters
 - Also supports `generate_for_type()` for specific test types
 
+#### VerificationAgent (`agents/verification_agent.py`)
+Adds state verification to positive test cases:
+- **State tagging**: Uses LLM to identify what state each test reads/writes
+- **Test linking**: Links state-writing tests to state-reading tests for verification
+- **Verification steps**: Generates pre/post verification steps for state-changing tests
+- **Missing state checks**: Creates new tests for states that have no verification test
+
+**State Categories:**
+- `account_balance`: Bank account balances
+- `user_profile`: User personal information
+- `transaction_history`: Records of transactions
+- `loan_status`: Loan applications/status
+- `payee_list`: Saved payees/recipients
+- `account_list`: List of user accounts
+- `session_status`: Login/logout state
+
+**Key Methods:**
+- `run(test_cases)`: Main entry point, processes all tests
+- `_tag_state_for_tests()`: Tags tests with reads_state/writes_state
+- `_link_verification_tests()`: Links writers to readers
+- `_generate_verification_steps()`: Creates pre/post steps
+- `_generate_missing_state_checks()`: Creates new verification tests
+- `update_verification_ids()`: Updates titles to actual test IDs
+- `get_verification_summary()`: Returns coverage statistics
+
+**Why Only Positive Tests?**
+- Positive tests: Action succeeds, state changes → Needs verification
+- Negative tests: Validation fails, no state change → No verification needed
+- Edge cases: Boundary testing → Typically no meaningful state change
+
 #### AssemblerAgent (`agents/assembler_agent.py`)
 Final assembly and export:
 - Deduplicates based on title + first 3 steps
@@ -190,9 +234,17 @@ WorkflowChunk(chunk_id, module_id, module_title, workflow_name,
 NavigationNode(module_id, title, requires_auth, url_path, connected_to, test_case_ids)
 NavigationGraph(nodes, login_module_id, graph_image_path)
 
-# Test Output
-TestCase(id, title, module_id, module_title, workflow, test_type,
-         priority, preconditions, steps, expected_result)
+# Test Output (with verification fields for positive tests)
+TestCase(
+    id, title, module_id, module_title, workflow, test_type,
+    priority, preconditions, steps, expected_result,
+    # Verification fields (only populated for positive tests)
+    reads_state,              # List[str] - state this test reads/checks
+    writes_state,             # List[str] - state this test modifies
+    verification_test_ids,    # List[str] - test IDs that verify this test's result
+    pre_verification_steps,   # List[str] - steps to verify initial state
+    post_verification_steps   # List[str] - steps to verify final state
+)
 TestSuiteOutput(project_name, base_url, generated_at, navigation_graph,
                 test_cases, summary)
 ```
@@ -259,27 +311,52 @@ TestSuiteOutput(project_name, base_url, generated_at, navigation_graph,
   },
   "test_cases": [
     {
-      "id": "LOGIN-001",
-      "title": "Valid login with correct credentials",
-      "module_id": 1,
-      "module_title": "Login",
-      "workflow": "Login with credentials",
+      "id": "TRAFUN-001",
+      "title": "Transfer funds between accounts",
+      "module_id": 2,
+      "module_title": "Transfer Funds",
+      "workflow": "Transfer money",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "Registered user exists",
+      "preconditions": "User is logged in with multiple accounts",
       "steps": [
-        "Enter valid username",
-        "Enter valid password",
-        "Click Log In"
+        "Select source account",
+        "Select destination account",
+        "Enter amount: $100",
+        "Click Transfer"
       ],
-      "expected_result": "User is redirected to Accounts Overview"
+      "expected_result": "Transfer confirmation is displayed",
+      "reads_state": [],
+      "writes_state": ["account_balance", "transaction_history"],
+      "verification_test_ids": ["ACCOVR-001"],
+      "pre_verification_steps": [
+        "Navigate to Accounts Overview",
+        "Note source account balance",
+        "Note destination account balance"
+      ],
+      "post_verification_steps": [
+        "Navigate to Accounts Overview",
+        "Verify source balance decreased by $100",
+        "Verify destination balance increased by $100"
+      ]
     }
   ],
   "summary": {
     "total_tests": 45,
     "by_type": {"positive": 20, "negative": 18, "edge_case": 7},
     "by_priority": {"High": 25, "Medium": 15, "Low": 5},
-    "by_module": {"Login": 8, "Transfer Funds": 12, "User Profile": 10}
+    "by_module": {"Login": 8, "Transfer Funds": 12, "User Profile": 10},
+    "verification_coverage": {
+      "total_positive_tests": 20,
+      "tests_that_write_state": 15,
+      "tests_that_read_state": 12,
+      "tests_with_verification_links": 14,
+      "tests_with_pre_verification_steps": 15,
+      "tests_with_post_verification_steps": 15,
+      "unique_states_written": ["account_balance", "user_profile", "session_status"],
+      "unique_states_read": ["account_balance", "user_profile"],
+      "unverified_states": ["session_status"]
+    }
   }
 }
 ```

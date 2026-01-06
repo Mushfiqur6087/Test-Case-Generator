@@ -17,6 +17,7 @@ from .agents import (
     NavigationAgent,
     ChunkerAgent,
     TestGenerationAgent,
+    VerificationAgent,
     AssemblerAgent
 )
 from .agents.base import BaseAgent
@@ -60,6 +61,9 @@ class TestCaseGenerator:
         self.test_gen_agent = TestGenerationAgent(
             api_key=api_key, model=model, debug=debug, debug_file=debug_file
         )
+        self.verification_agent = VerificationAgent(
+            api_key=api_key, model=model, debug=debug, debug_file=debug_file
+        )
         self.assembler_agent = AssemblerAgent(
             api_key=api_key, model=model, debug=debug, debug_file=debug_file
         )
@@ -92,7 +96,7 @@ class TestCaseGenerator:
         os.makedirs(output_dir, exist_ok=True)
 
         # Load inputs
-        print("\n[1/6] Loading input files...")
+        print("\n[1/7] Loading input files...")
         functional_desc = self._load_json(functional_desc_path)
         if credentials_path:
             _ = self._load_json(credentials_path)  # For future use with test data
@@ -101,7 +105,7 @@ class TestCaseGenerator:
             print(f"  - Loaded: {functional_desc_path}")
 
         # Step 1: Parse functional description
-        print("\n[2/6] Parsing functional description...")
+        print("\n[2/7] Parsing functional description...")
         parsed_desc = self.parser_agent.run(functional_desc)
         print(f"  - Project: {parsed_desc.project_name}")
         print(f"  - Modules found: {len(parsed_desc.modules)}")
@@ -109,13 +113,13 @@ class TestCaseGenerator:
             print(f"    • {m.title}: {len(m.workflows)} workflows, {len(m.mentioned_items)} items")
 
         # Step 2: Build navigation graph
-        print("\n[3/6] Building navigation graph...")
+        print("\n[3/7] Building navigation graph...")
         nav_graph = self.navigation_agent.run(parsed_desc)
         print(f"  - Login module ID: {nav_graph.login_module_id}")
         print(f"  - Page nodes: {len(nav_graph.nodes)}")
 
         # Step 3: Split modules into workflow chunks
-        print("\n[4/6] Splitting modules into workflow chunks...")
+        print("\n[4/7] Splitting modules into workflow chunks...")
         all_chunks: List[WorkflowChunk] = []
 
         for module in parsed_desc.modules:
@@ -126,7 +130,7 @@ class TestCaseGenerator:
                 print(f"    • {chunk.workflow_name}")
 
         # Step 4: Generate test cases for each chunk
-        print("\n[5/6] Generating test cases...")
+        print("\n[5/7] Generating test cases...")
         all_tests: List[TestCase] = []
 
         for chunk in all_chunks:
@@ -135,13 +139,22 @@ class TestCaseGenerator:
             print(f"    • Generated {len(tests)} test cases")
             all_tests.extend(tests)
 
-        # Step 5: Assemble final output
-        print("\n[6/6] Assembling final output...")
+        # Step 5: Add verification to positive tests
+        print("\n[6/7] Adding verification to positive tests...")
+        positive_count = len([tc for tc in all_tests if tc.test_type == "positive"])
+        print(f"  - Found {positive_count} positive tests to process")
+        all_tests = self.verification_agent.run(all_tests, parsed_desc=parsed_desc)
+        verified_count = len([tc for tc in all_tests if tc.writes_state])
+        print(f"  - Added verification info to {verified_count} state-changing tests")
+
+        # Step 6: Assemble final output
+        print("\n[7/7] Assembling final output...")
         output = self.assembler_agent.run(
             test_cases=all_tests,
             nav_graph=nav_graph,
             project_name=parsed_desc.project_name,
-            base_url=parsed_desc.base_url
+            base_url=parsed_desc.base_url,
+            verification_agent=self.verification_agent
         )
 
         # Generate navigation graph image
@@ -201,6 +214,19 @@ class TestCaseGenerator:
         for m, count in summary.get('by_module', {}).items():
             print(f"  - {m}: {count}")
 
+        # Print verification coverage
+        verification = summary.get('verification_coverage', {})
+        if verification:
+            print(f"\nVerification Coverage:")
+            print(f"  - Positive tests: {verification.get('total_positive_tests', 0)}")
+            print(f"  - Tests that write state: {verification.get('tests_that_write_state', 0)}")
+            print(f"  - Tests that read state: {verification.get('tests_that_read_state', 0)}")
+            print(f"  - Tests with verification links: {verification.get('tests_with_verification_links', 0)}")
+            print(f"  - Tests with pre-verification steps: {verification.get('tests_with_pre_verification_steps', 0)}")
+            print(f"  - Tests with post-verification steps: {verification.get('tests_with_post_verification_steps', 0)}")
+            if verification.get('unverified_states'):
+                print(f"  - Unverified states: {', '.join(verification.get('unverified_states', []))}")
+
         print(f"\nNavigation Graph:")
         print(f"  - Total nodes: {len(output.navigation_graph.nodes)}")
         if output.navigation_graph.graph_image_path:
@@ -247,8 +273,8 @@ def main():
     parser.add_argument(
         "--model",
         type=str,
-        default="google/gemini-2.0-flash-exp:free",
-        help="Model to use (default: google/gemini-2.0-flash-exp:free)"
+        default="google/gemini-1.5-flash:free",
+        help="Model to use (default: google/gemini-1.5-flash:free)"
     )
     parser.add_argument(
         "--debug",

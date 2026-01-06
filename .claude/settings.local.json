@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(python -m test_case_generator.agents.parser_agent:*)",
-      "Bash(python -m py_compile:*)"
+      "Bash(python -m py_compile:*)",
+      "Bash(python -c \"from test_case_generator.agents import VerificationAgent; from test_case_generator.main import TestCaseGenerator; from test_case_generator.models.schemas import TestCase; print\\(''All imports successful!''\\); tc = TestCase\\(id=''TEST-001'', title=''Test'', module_id=1, module_title=''Test'', workflow=''Test'', test_type=''positive'', priority=''High'', preconditions=''None''\\); print\\(f''TestCase fields: {list\\(tc.__dict__.keys\\(\\)\\)}''\\)\")",
+      "Bash(ls:*)",
+      "Bash(python -c \"\nfrom test_case_generator.agents.verification_agent import VerificationAgent\nfrom test_case_generator.models.schemas import ParsedFunctionalDescription, ParsedModule, TestCase\n\n# Test that we can create the agent\nagent = VerificationAgent\\(api_key=''test'', model=''test''\\)\nprint\\(f''✓ VerificationAgent created''\\)\nprint\\(f''  - State categories \\(empty initially\\): {agent.state_categories}''\\)\nprint\\(f''  - Has extract_state_categories method: {hasattr\\(agent, \"\"extract_state_categories\"\"\\)}''\\)\n\n# Create a test case\ntc = TestCase\\(\n    id=''TEST-001'',\n    title=''Test transfer'',\n    module_id=1,\n    module_title=''Transfer'',\n    workflow=''Transfer funds'',\n    test_type=''positive'',\n    priority=''High'',\n    preconditions=''None''\n\\)\nprint\\(f''✓ TestCase created with verification fields''\\)\nprint\\(f''  - reads_state: {tc.reads_state}''\\)\nprint\\(f''  - writes_state: {tc.writes_state}''\\)\nprint\\(f''  - verification_test_ids: {tc.verification_test_ids}''\\)\nprint\\(''\\\\n✓ All imports and objects working correctly!''\\)\n\")"
     ]
   }
 }
