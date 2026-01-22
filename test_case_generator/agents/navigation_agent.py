@@ -121,8 +121,6 @@ Return a JSON object where keys are module IDs (as strings) and values contain:
 
 Navigation Rules:
 - Public pages (login, register, forgot password) typically connect to each other
-- After login, user can access all menu items from the sidebar
-- Authenticated pages can navigate to each other via sidebar menu
 - Logout returns to login page
 - Use the navigation overview to understand the menu structure
 """
