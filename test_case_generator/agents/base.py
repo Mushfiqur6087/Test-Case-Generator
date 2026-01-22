@@ -1,30 +1,49 @@
 import json
 import httpx
+import time
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
 from datetime import datetime
 
 
 class BaseAgent(ABC):
-    """Base class for all agents with OpenRouter integration and debug logging"""
+    """Base class for all agents with OpenAI/OpenRouter integration and debug logging"""
 
     # Class-level tracking to avoid duplicate logging
     _debug_initialized = False
     _logged_system_prompts = set()
+    _last_api_call_time = 0  # Track last API call time for rate limiting
 
     def __init__(
         self,
         api_key: str,
-        model: str = "openai/gpt-4o",
-        base_url: str = "https://openrouter.ai/api/v1",
+        model: str = "gpt-4o",
+        provider: str = "openai",
         debug: bool = False,
-        debug_file: str = "debug_log.txt"
+        debug_file: str = "debug_log.txt",
+        api_delay: float = 0  # Delay in seconds between API calls
     ):
         self.api_key = api_key
         self.model = model
-        self.base_url = base_url
+        self.provider = provider.lower()
         self.debug = debug
         self.debug_file = debug_file
+        self.api_delay = api_delay
+        
+        # Set base URL and default delay based on provider
+        if self.provider == "openai":
+            self.base_url = "https://api.openai.com/v1"
+            if api_delay == 0:
+                self.api_delay = 0.5  # Small delay for OpenAI
+        elif self.provider == "github":
+            self.base_url = "https://models.inference.ai.azure.com"
+            if api_delay == 0:
+                self.api_delay = 6.5  # GitHub has 10 req/min limit, so ~6 sec between calls
+        else:  # openrouter
+            self.base_url = "https://openrouter.ai/api/v1"
+            if api_delay == 0:
+                self.api_delay = 1.0  # Moderate delay for OpenRouter
+        
         self.client = httpx.Client(timeout=120.0)
         self._system_prompt_logged = False  # Track if this agent's system prompt was logged
 
@@ -77,7 +96,16 @@ class BaseAgent(ABC):
         max_tokens: int = 4096,
         response_format: Optional[Dict] = None
     ) -> str:
-        """Call OpenRouter API with the given prompt"""
+        """Call OpenAI or OpenRouter API with the given prompt"""
+
+        # Rate limiting: wait if needed before making API call
+        if self.api_delay > 0:
+            time_since_last_call = time.time() - BaseAgent._last_api_call_time
+            if time_since_last_call < self.api_delay:
+                sleep_time = self.api_delay - time_since_last_call
+                if self.debug:
+                    print(f"  [Rate limit protection] Waiting {sleep_time:.1f}s before next API call...")
+                time.sleep(sleep_time)
 
         # Log input if debug enabled
         if self.debug:
@@ -87,12 +115,16 @@ class BaseAgent(ABC):
                 self._system_prompt_logged = True
             self._log_debug("USER PROMPT", user_prompt)
 
+        # Build headers based on provider
         headers = {
             "Authorization": f"Bearer {self.api_key}",
-            "Content-Type": "application/json",
-            "HTTP-Referer": "https://test-case-generator.local",
-            "X-Title": "Test Case Generator"
+            "Content-Type": "application/json"
         }
+        
+        # Add OpenRouter-specific headers
+        if self.provider == "openrouter":
+            headers["HTTP-Referer"] = "https://test-case-generator.local"
+            headers["X-Title"] = "Test Case Generator"
 
         payload = {
             "model": self.model,
@@ -112,9 +144,13 @@ class BaseAgent(ABC):
             headers=headers,
             json=payload
         )
+        
+        # Update last API call time
+        BaseAgent._last_api_call_time = time.time()
 
         if response.status_code != 200:
-            error_msg = f"OpenRouter API error: {response.status_code} - {response.text}"
+            provider_name = self.provider.upper()
+            error_msg = f"{provider_name} API error: {response.status_code} - {response.text}"
             if self.debug:
                 self._log_debug("ERROR", error_msg)
             raise Exception(error_msg)
@@ -132,7 +168,7 @@ class BaseAgent(ABC):
         self,
         user_prompt: str,
         temperature: float = 0.3,
-        max_tokens: int = 4096
+        max_tokens: int = 1500
     ) -> Dict[str, Any]:
         """Call LLM and parse response as JSON"""
         # Add instruction to return JSON

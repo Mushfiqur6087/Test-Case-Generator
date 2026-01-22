@@ -34,12 +34,14 @@ class TestCaseGenerator:
     def __init__(
         self,
         api_key: str,
-        model: str = "openai/gpt-4o",
+        model: str = "gpt-4o",
+        provider: str = "openai",
         debug: bool = False,
         debug_file: str = "debug_log.txt"
     ):
         self.api_key = api_key
         self.model = model
+        self.provider = provider
         self.debug = debug
         self.debug_file = debug_file
 
@@ -50,22 +52,22 @@ class TestCaseGenerator:
 
         # Initialize agents with debug settings
         self.parser_agent = ParserAgent(
-            api_key=api_key, model=model, debug=debug, debug_file=debug_file
+            api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
         )
         self.navigation_agent = NavigationAgent(
-            api_key=api_key, model=model, debug=debug, debug_file=debug_file
+            api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
         )
         self.chunker_agent = ChunkerAgent(
-            api_key=api_key, model=model, debug=debug, debug_file=debug_file
+            api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
         )
         self.test_gen_agent = TestGenerationAgent(
-            api_key=api_key, model=model, debug=debug, debug_file=debug_file
+            api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
         )
         self.verification_agent = VerificationAgent(
-            api_key=api_key, model=model, debug=debug, debug_file=debug_file
+            api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
         )
         self.assembler_agent = AssemblerAgent(
-            api_key=api_key, model=model, debug=debug, debug_file=debug_file
+            api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
         )
 
     def generate(
@@ -268,13 +270,20 @@ def main():
         "--api-key",
         type=str,
         required=False,
-        help="OpenRouter API key"
+        help="API key (OpenAI, GitHub Models, or OpenRouter)"
     )
     parser.add_argument(
         "--model",
         type=str,
-        default="google/gemini-1.5-flash:free",
-        help="Model to use (default: google/gemini-1.5-flash:free)"
+        default="gpt-4o",
+        help="Model to use (default: gpt-4o)"
+    )
+    parser.add_argument(
+        "--provider",
+        type=str,
+        default="openai",
+        choices=["openai", "github", "openrouter"],
+        help="API provider: openai, github, or openrouter (default: openai)"
     )
     parser.add_argument(
         "--debug",
@@ -302,6 +311,7 @@ def main():
         generator = TestCaseGenerator(
             api_key=args.api_key,
             model=args.model,
+            provider=args.provider,
             debug=args.debug,
             debug_file=args.debug_file
         )
@@ -315,7 +325,7 @@ def main():
         parser.print_help()
         print("\n" + "-" * 60)
         print("\nExample usage:")
-        print('  python main.py --generate --input parabank.json --api-key "sk-or-v1-xxx" --debug')
+        print('  python main.py --generate --input parabank.json --api-key "sk-xxx" --provider openai --debug')
 
 
 if __name__ == "__main__":
