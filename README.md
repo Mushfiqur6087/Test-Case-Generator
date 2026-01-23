@@ -49,7 +49,7 @@ An intelligent test case generation system that automatically creates comprehens
 │  └──────┬──────┘                                                        │
 │         ▼                                                               │
 │  ┌─────────────┐                                                        │
-│  │ Flag        │ Identify tests needing post-verification               │
+│  │ Flag        │ Identify POSITIVE tests needing post-verification      │
 │  └──────┬──────┘                                                        │
 │         ▼                                                               │
 │  ┌─────────────┐                                                        │
@@ -61,7 +61,11 @@ An intelligent test case generation system that automatically creates comprehens
 │  └──────┬──────┘                                                        │
 │         ▼                                                               │
 │  ┌─────────────┐                                                        │
-│  │ JSON/MD     │ Export with verification coverage info                 │
+│  │ Exec Plan   │ Compile execution sequences for verification           │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ JSON/MD     │ Export with verification coverage + execution plans    │
 │  └─────────────┘                                                        │
 │                                                                         │
 └─────────────────────────────────────────────────────────────────────────┘

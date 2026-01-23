@@ -7,7 +7,7 @@ This script orchestrates the test case generation process using multiple agents.
 Pipeline:
     Input → ParserAgent → NavigationAgent → ChunkerAgent → TestGenerationAgent 
     → AssemblerAgent → SummaryAgent → VerificationFlagAgent → IdealVerificationAgent 
-    → VerificationMatcherAgent (RAG) → JSON Output
+    → VerificationMatcherAgent (RAG) → ExecutionPlanAgent → JSON Output
 """
 
 import json
@@ -23,7 +23,8 @@ from .agents import (
     SummaryAgent,
     VerificationFlagAgent,
     IdealVerificationAgent,
-    VerificationMatcherAgent
+    VerificationMatcherAgent,
+    ExecutionPlanAgent
 )
 from .agents.base import BaseAgent
 from .models.schemas import (
@@ -85,6 +86,9 @@ class TestCaseGenerator:
         self.verification_matcher_agent = VerificationMatcherAgent(
             api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
         )
+        self.execution_plan_agent = ExecutionPlanAgent(
+            api_key=api_key, model=model, provider=provider, debug=debug, debug_file=debug_file
+        )
 
     def generate(
         self,
@@ -114,7 +118,7 @@ class TestCaseGenerator:
         os.makedirs(output_dir, exist_ok=True)
 
         # Load inputs
-        print("\n[1/10] Loading input files...")
+        print("\n[1/11] Loading input files...")
         functional_desc = self._load_json(functional_desc_path)
         if credentials_path:
             _ = self._load_json(credentials_path)  # For future use with test data
@@ -123,7 +127,7 @@ class TestCaseGenerator:
             print(f"  - Loaded: {functional_desc_path}")
 
         # Step 1: Parse functional description
-        print("\n[2/10] Parsing functional description...")
+        print("\n[2/11] Parsing functional description...")
         parsed_desc = self.parser_agent.run(functional_desc)
         print(f"  - Project: {parsed_desc.project_name}")
         print(f"  - Modules found: {len(parsed_desc.modules)}")
@@ -131,13 +135,13 @@ class TestCaseGenerator:
             print(f"    • {m.title}: {len(m.workflows)} workflows, {len(m.mentioned_items)} items")
 
         # Step 2: Build navigation graph
-        print("\n[3/10] Building navigation graph...")
+        print("\n[3/11] Building navigation graph...")
         nav_graph = self.navigation_agent.run(parsed_desc)
         print(f"  - Login module ID: {nav_graph.login_module_id}")
         print(f"  - Page nodes: {len(nav_graph.nodes)}")
 
         # Step 3: Split modules into workflow chunks
-        print("\n[4/10] Splitting modules into workflow chunks...")
+        print("\n[4/11] Splitting modules into workflow chunks...")
         all_chunks: List[WorkflowChunk] = []
 
         for module in parsed_desc.modules:
@@ -148,7 +152,7 @@ class TestCaseGenerator:
                 print(f"    • {chunk.workflow_name}")
 
         # Step 4: Generate test cases for each chunk
-        print("\n[5/10] Generating test cases...")
+        print("\n[5/11] Generating test cases...")
         all_tests: List[TestCase] = []
 
         for chunk in all_chunks:
@@ -158,7 +162,7 @@ class TestCaseGenerator:
             all_tests.extend(tests)
 
         # Step 5: Assemble and assign IDs
-        print("\n[6/10] Assembling test cases...")
+        print("\n[6/11] Assembling test cases...")
         output = self.assembler_agent.run(
             test_cases=all_tests,
             nav_graph=nav_graph,
@@ -168,7 +172,7 @@ class TestCaseGenerator:
         print(f"  - Assembled {len(output.test_cases)} unique test cases")
 
         # Step 6: Generate module summaries
-        print("\n[7/10] Generating module summaries...")
+        print("\n[7/11] Generating module summaries...")
         module_summaries = self.summary_agent.run(parsed_desc.modules)
         output.module_summaries = module_summaries
         print(f"  - Generated summaries for {len(module_summaries)} modules")
@@ -177,20 +181,20 @@ class TestCaseGenerator:
             action_str = f", modifies: {', '.join(ms.action_states)}" if ms.action_states else ""
             print(f"    • {ms.module_title}{verify_str}{action_str}")
 
-        # Step 7: Flag tests needing post-verification
-        print("\n[8/10] Flagging tests for post-verification...")
+        # Step 7: Flag tests needing post-verification (POSITIVE TESTS ONLY)
+        print("\n[8/11] Flagging positive tests for post-verification...")
         flagged_tests = self.verification_flag_agent.run(output.test_cases, module_summaries)
         flagged_count = sum(1 for tc in flagged_tests if tc.needs_post_verification)
-        print(f"  - Flagged {flagged_count} tests as needing post-verification")
+        print(f"  - Flagged {flagged_count} positive tests as needing post-verification")
         
         # Step 8: Generate ideal verification scenarios
-        print("\n[9/10] Generating ideal verification scenarios...")
+        print("\n[9/11] Generating ideal verification scenarios...")
         ideal_verifications = self.ideal_verification_agent.run(flagged_tests, module_summaries)
         total_ideals = sum(len(v) for v in ideal_verifications.values())
         print(f"  - Generated {total_ideals} ideal verification scenarios for {len(ideal_verifications)} tests")
 
         # Step 9: Match verifications to actual test cases using RAG
-        print("\n[10/10] Matching verifications with RAG...")
+        print("\n[10/11] Matching verifications with RAG...")
         final_tests = self.verification_matcher_agent.run(
             flagged_tests=flagged_tests,
             ideal_verifications=ideal_verifications,
@@ -200,8 +204,18 @@ class TestCaseGenerator:
         )
         output.test_cases = final_tests
 
-        # Update summary with verification coverage
+        # Step 10: Generate execution plans (FINAL STEP)
+        print("\n[11/11] Generating execution plans...")
+        execution_plans = self.execution_plan_agent.run(output.test_cases)
+        output.execution_plans = execution_plans
+        plan_summary = self.execution_plan_agent.generate_execution_plan_summary(execution_plans)
+        print(f"  - Generated {plan_summary['total_plans']} execution plans")
+        print(f"  - Automated steps: {plan_summary['total_automated_steps']}, Manual steps: {plan_summary['total_manual_steps']}")
+        print(f"  - Automation rate: {plan_summary['automation_rate']}%")
+
+        # Update summary with verification coverage and execution plan info
         output.summary = self._generate_enhanced_summary(output.test_cases, module_summaries)
+        output.summary['execution_plans'] = plan_summary
 
         # Generate navigation graph image
         print("\n  Generating navigation graph image...")

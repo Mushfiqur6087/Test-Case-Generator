@@ -81,6 +81,29 @@ def generate_markdown(data: dict) -> str:
                     lines.append(f"- {gap}")
                 lines.append("")
 
+        # Execution plans summary
+        exec_plans = summary.get('execution_plans', {})
+        if exec_plans and exec_plans.get('total_plans', 0) > 0:
+            lines.append("### Execution Plans")
+            lines.append("")
+            lines.append("| Metric | Value |")
+            lines.append("|--------|-------|")
+            lines.append(f"| Total Plans | {exec_plans.get('total_plans', 0)} |")
+            lines.append(f"| Automated Steps | {exec_plans.get('total_automated_steps', 0)} |")
+            lines.append(f"| Manual Steps | {exec_plans.get('total_manual_steps', 0)} |")
+            lines.append(f"| Automation Rate | {exec_plans.get('automation_rate', 0)}% |")
+            lines.append("")
+            
+            coverage_dist = exec_plans.get('coverage_distribution', {})
+            if coverage_dist:
+                lines.append("#### Coverage Distribution")
+                lines.append("")
+                lines.append("| Coverage Level | Count |")
+                lines.append("|----------------|-------|")
+                for level, count in coverage_dist.items():
+                    lines.append(f"| {level.title()} | {count} |")
+                lines.append("")
+
     # Group test cases by module
     test_cases = data.get('test_cases', [])
     modules = defaultdict(list)
@@ -173,6 +196,74 @@ def generate_markdown(data: dict) -> str:
 
         lines.append("---")
         lines.append("")
+
+    # Execution Plans Section (after test cases)
+    execution_plans = data.get('execution_plans', {})
+    if execution_plans:
+        lines.append("## Execution Plans")
+        lines.append("")
+        lines.append("This section shows the recommended test execution sequence for each test case that requires post-verification.")
+        lines.append("")
+        
+        for test_id, plan in execution_plans.items():
+            source_title = plan.get('source_test_title', 'Unknown')
+            coverage = plan.get('verification_coverage', 'unknown')
+            coverage_icon = '✓' if coverage == 'full' else ('⚠' if coverage in ['partial', 'minimal'] else '✗')
+            
+            lines.append(f"### {test_id}: {source_title}")
+            lines.append("")
+            lines.append(f"**Coverage:** {coverage_icon} {coverage.title()}")
+            lines.append("")
+            
+            # Execution order
+            exec_order = plan.get('execution_order', [])
+            if exec_order:
+                lines.append("**Verification Sequence:**")
+                lines.append("")
+                for step in exec_order:
+                    step_num = step.get('step', '?')
+                    action = step.get('action', 'execute_test')
+                    test_id_ref = step.get('test_id', 'N/A')
+                    test_title = step.get('test_title', 'N/A')
+                    purpose = step.get('purpose', '')
+                    exec_note = step.get('execution_note', '')
+                    confidence = step.get('confidence', 0)
+                    
+                    action_icon = '🔄' if action == 'execute_test_partial' else '▶️'
+                    lines.append(f"{step_num}. {action_icon} **{test_id_ref}** - {test_title}")
+                    if purpose:
+                        lines.append(f"   - *Purpose:* {purpose[:100]}")
+                    if exec_note:
+                        lines.append(f"   - *Note:* {exec_note}")
+                    if confidence > 0:
+                        lines.append(f"   - *Confidence:* {confidence:.0%}")
+                    lines.append("")
+            
+            # Manual steps
+            manual_steps = plan.get('manual_steps', [])
+            if manual_steps:
+                lines.append("**Manual Verification Required:**")
+                lines.append("")
+                for ms in manual_steps:
+                    purpose = ms.get('purpose', 'N/A')
+                    suggested = ms.get('suggested_step', '')
+                    reason = ms.get('reason', '')
+                    
+                    lines.append(f"- ⚠ {purpose}")
+                    if suggested:
+                        lines.append(f"  - *Suggested:* {suggested}")
+                    if reason:
+                        lines.append(f"  - *Reason:* {reason}")
+                lines.append("")
+            
+            # Notes
+            notes = plan.get('notes', '')
+            if notes:
+                lines.append(f"**Quick Reference:** {notes}")
+                lines.append("")
+            
+            lines.append("---")
+            lines.append("")
 
     # Navigation Graph Info
     nav_graph = data.get('navigation_graph', {})

@@ -240,11 +240,12 @@ class TestSuiteOutput:
     navigation_graph: NavigationGraph
     test_cases: List[TestCase] = field(default_factory=list)
     module_summaries: Dict[int, ModuleSummary] = field(default_factory=dict)
+    execution_plans: Dict = field(default_factory=dict)  # test_id -> ExecutionSequence
     summary: Dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         """Convert to JSON-serializable dictionary"""
-        return {
+        result = {
             "project_name": self.project_name,
             "base_url": self.base_url,
             "generated_at": self.generated_at,
@@ -253,3 +254,12 @@ class TestSuiteOutput:
             "test_cases": [tc.to_dict() for tc in self.test_cases],
             "summary": self.summary
         }
+        
+        # Include execution plans if present
+        if self.execution_plans:
+            result["execution_plans"] = {
+                test_id: plan.to_dict() if hasattr(plan, 'to_dict') else plan
+                for test_id, plan in self.execution_plans.items()
+            }
+        
+        return result

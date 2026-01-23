@@ -8,6 +8,7 @@ from .summary_agent import SummaryAgent
 from .verification_flag_agent import VerificationFlagAgent
 from .ideal_verification_agent import IdealVerificationAgent
 from .verification_matcher_agent import VerificationMatcherAgent
+from .execution_plan_agent import ExecutionPlanAgent
 from .rag_indexer import RAGIndexer
 
 __all__ = [
@@ -21,5 +22,6 @@ __all__ = [
     "VerificationFlagAgent",
     "IdealVerificationAgent",
     "VerificationMatcherAgent",
+    "ExecutionPlanAgent",
     "RAGIndexer",
 ]
