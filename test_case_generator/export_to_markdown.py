@@ -60,35 +60,25 @@ def generate_markdown(data: dict) -> str:
                 lines.append(f"| {priority} | {count} |")
             lines.append("")
 
-        # Verification coverage
-        verification = summary.get('verification_coverage', {})
-        if verification:
-            lines.append("### Verification Coverage")
+        # Post-verification summary
+        post_verif = summary.get('post_verification', {})
+        if post_verif and post_verif.get('tests_needing_verification', 0) > 0:
+            lines.append("### Post-Verification Coverage")
             lines.append("")
             lines.append("| Metric | Count |")
             lines.append("|--------|-------|")
-            lines.append(f"| Positive Tests | {verification.get('total_positive_tests', 0)} |")
-            lines.append(f"| Tests that Write State | {verification.get('tests_that_write_state', 0)} |")
-            lines.append(f"| Tests that Read State | {verification.get('tests_that_read_state', 0)} |")
-            lines.append(f"| Tests with Verification Links | {verification.get('tests_with_verification_links', 0)} |")
-            lines.append(f"| Tests with Pre-Verification Steps | {verification.get('tests_with_pre_verification_steps', 0)} |")
-            lines.append(f"| Tests with Post-Verification Steps | {verification.get('tests_with_post_verification_steps', 0)} |")
+            lines.append(f"| Tests Needing Verification | {post_verif.get('tests_needing_verification', 0)} |")
+            lines.append(f"| Full Coverage | {post_verif.get('full_coverage', 0)} |")
+            lines.append(f"| Partial Coverage | {post_verif.get('partial_coverage', 0)} |")
+            lines.append(f"| No Coverage | {post_verif.get('no_coverage', 0)} |")
             lines.append("")
-
-            # State categories
-            unique_writes = verification.get('unique_states_written', [])
-            unique_reads = verification.get('unique_states_read', [])
-            unverified = verification.get('unverified_states', [])
-
-            if unique_writes or unique_reads:
-                lines.append("**State Categories:**")
+            
+            gaps = post_verif.get('coverage_gaps', [])
+            if gaps:
+                lines.append("#### Coverage Gaps")
                 lines.append("")
-                if unique_writes:
-                    lines.append(f"- **Written:** {', '.join(unique_writes)}")
-                if unique_reads:
-                    lines.append(f"- **Read:** {', '.join(unique_reads)}")
-                if unverified:
-                    lines.append(f"- **Unverified:** {', '.join(unverified)}")
+                for gap in gaps:
+                    lines.append(f"- {gap}")
                 lines.append("")
 
     # Group test cases by module
@@ -142,79 +132,46 @@ def generate_markdown(data: dict) -> str:
                 lines.append(f"- **Priority:** {priority}")
                 lines.append(f"- **Preconditions:** {preconditions}")
 
-                # State information (for positive tests with verification)
-                reads_state = tc.get('reads_state', [])
-                writes_state = tc.get('writes_state', [])
-                verification_ids = tc.get('verification_test_ids', [])
-
-                if reads_state or writes_state:
-                    lines.append("")
-                    if reads_state:
-                        lines.append(f"- **Reads State:** {', '.join(reads_state)}")
-                    if writes_state:
-                        lines.append(f"- **Writes State:** {', '.join(writes_state)}")
-                    if verification_ids:
-                        lines.append(f"- **Verified By:** {', '.join(verification_ids)}")
-
-                # Pre-verification steps
-                pre_steps = tc.get('pre_verification_steps', [])
-                if pre_steps:
-                    lines.append("")
-                    lines.append("**Pre-Verification Steps:**")
-                    for i, step in enumerate(pre_steps, 1):
-                        lines.append(f"{i}. {step}")
-
                 # Main test steps
                 lines.append("")
                 lines.append("**Test Steps:**")
                 for i, step in enumerate(steps, 1):
                     lines.append(f"{i}. {step}")
 
-                # Post-verification steps
-                post_steps = tc.get('post_verification_steps', [])
-                if post_steps:
-                    lines.append("")
-                    lines.append("**Post-Verification Steps:**")
-                    for i, step in enumerate(post_steps, 1):
-                        lines.append(f"{i}. {step}")
-
                 # Expected result
                 lines.append("")
                 lines.append(f"**Expected Result:** {expected}")
+
+                # Post-verification info (for positive tests that need it)
+                if tc.get('needs_post_verification') and tc.get('post_verifications'):
+                    lines.append("")
+                    lines.append(f"**Post-Verification Required:** ✓ ({tc.get('verification_coverage', 'unknown')} coverage)")
+                    lines.append("")
+                    lines.append("| Verification | Status | Matched Test | Note |")
+                    lines.append("|--------------|--------|--------------|------|")
+                    
+                    for pv in tc.get('post_verifications', []):
+                        ideal = pv.get('ideal', 'N/A')[:40]
+                        status = pv.get('status', 'unknown')
+                        status_icon = '✓' if status == 'found' else ('⚠' if status == 'partial' else '✗')
+                        matched_id = pv.get('matched_test_id', '-')
+                        note = pv.get('execution_note', pv.get('reason', '-'))[:50]
+                        lines.append(f"| {ideal}... | {status_icon} {status} | {matched_id} | {note} |")
+                    lines.append("")
+                    
+                    # Coverage gaps for this test
+                    gaps = tc.get('coverage_gaps', [])
+                    if gaps:
+                        lines.append("**Coverage Gaps:**")
+                        for gap in gaps[:3]:
+                            lines.append(f"- ⚠ {gap}")
+                        lines.append("")
+
                 lines.append("")
                 lines.append("---")
                 lines.append("")
 
         lines.append("---")
-        lines.append("")
-
-    # Verification Chain
-    # Build verification relationships
-    verification_chain = {}
-    for tc in test_cases:
-        if tc.get('test_type') == 'positive' and tc.get('verification_test_ids'):
-            verification_chain[tc.get('id')] = {
-                'title': tc.get('title'),
-                'writes': tc.get('writes_state', []),
-                'verified_by': tc.get('verification_test_ids', [])
-            }
-
-    if verification_chain:
-        lines.append("## Verification Chain")
-        lines.append("")
-        lines.append("This section shows which test cases verify the results of other tests.")
-        lines.append("")
-        lines.append("| Test ID | Test Name | Writes State | Verified By |")
-        lines.append("|---------|-----------|--------------|-------------|")
-
-        for test_id, info in verification_chain.items():
-            writes_str = ', '.join(info['writes']) if info['writes'] else 'N/A'
-            verified_by_str = ', '.join(info['verified_by']) if info['verified_by'] else 'N/A'
-            title = info['title'].replace('|', '\\|')
-            writes_str = writes_str.replace('|', '\\|')
-            verified_by_str = verified_by_str.replace('|', '\\|')
-            lines.append(f"| {test_id} | {title} | {writes_str} | {verified_by_str} |")
-
         lines.append("")
 
     # Navigation Graph Info

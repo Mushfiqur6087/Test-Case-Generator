@@ -11,9 +11,9 @@ from ..models.schemas import (
 
 # Import graph visualization libraries
 try:
-    import networkx as nx
-    import matplotlib.pyplot as plt
-    import matplotlib.patches as mpatches
+    import networkx as nx # type: ignore
+    import matplotlib.pyplot as plt # type: ignore
+    import matplotlib.patches as mpatches # type: ignore
     GRAPH_LIBS_AVAILABLE = True
 except ImportError:
     GRAPH_LIBS_AVAILABLE = False
@@ -126,7 +126,7 @@ Navigation Rules:
 """
 
         try:
-            result = self.call_llm_json(prompt)
+            result = self.call_llm_json(prompt, max_tokens=4000)
             # Convert string keys to int and validate connected_to
             parsed = {}
             for k, v in result.items():

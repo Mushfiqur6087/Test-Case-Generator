@@ -109,7 +109,7 @@ IMPORTANT:
 """
 
         try:
-            result = self.call_llm_json(prompt)
+            result = self.call_llm_json(prompt, max_tokens=4000)
             chunks = []
 
             for i, chunk_data in enumerate(result.get("workflow_chunks", [])):

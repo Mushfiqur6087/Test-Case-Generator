@@ -1,45 +1,29 @@
 # Parabank Functional Overview
 
 **Base URL:** https://parabank.parasoft.com/parabank/index.htm
-**Generated:** 2026-01-22T18:33:45.118566
+**Generated:** 2026-01-23T09:48:49.739829
 
 ## Summary
 
 | Metric | Count |
 |--------|-------|
-| **Total Tests** | 122 |
+| **Total Tests** | 112 |
 
 ### By Type
 
 | Type | Count |
 |------|-------|
-| Positive | 25 |
+| Positive | 28 |
 | Negative | 59 |
-| Edge Case | 38 |
+| Edge Case | 25 |
 
 ### By Priority
 
 | Priority | Count |
 |----------|-------|
-| High | 33 |
-| Medium | 51 |
-| Low | 38 |
-
-### Verification Coverage
-
-| Metric | Count |
-|--------|-------|
-| Positive Tests | 25 |
-| Tests that Write State | 18 |
-| Tests that Read State | 24 |
-| Tests with Verification Links | 17 |
-| Tests with Pre-Verification Steps | 18 |
-| Tests with Post-Verification Steps | 18 |
-
-**State Categories:**
-
-- **Written:** bill_payment_details, account_list, account_balance, transfer_details, transaction_history, session_status, loan_status, transaction_search_results, user_profile
-- **Read:** bill_payment_details, account_list, account_balance, transfer_details, transaction_history, loan_status, transaction_search_results, payee_list, registration_data, user_profile, session_status
+| High | 75 |
+| Medium | 12 |
+| Low | 25 |
 
 ---
 
@@ -49,53 +33,29 @@
 
 #### Functional Tests
 
-**LOGIN-001** - Login with valid username and password
+**LOGIN-001** - Successful login with valid username and password
 
 - **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** registration_data
-- **Writes State:** session_status
-- **Verified By:** ACCOVE-006, BILPAY-001, LOGOUT-002, LOGOUT-001, LOGOUT-003
-
-**Pre-Verification Steps:**
-1. Navigate to the login page
-2. Verify the session_status is not active (user is logged out)
+- **Preconditions:** User has a registered account with valid credentials
 
 **Test Steps:**
-1. Enter a valid username in the Username field
-2. Enter the correct password in the Password field
-3. Click the Log In button
-
-**Post-Verification Steps:**
-1. Verify the session_status is active (user is logged in)
-2. Verify user is redirected to the account dashboard
+1. Enter a valid username in the username field
+2. Enter a valid password in the password field
+3. Click on the Log In button
 
 **Expected Result:** User is redirected to the account dashboard
 
 ---
 
-**LOGIN-002** - Login with valid email and password
+**LOGIN-002** - Successful login with valid email and password
 
 - **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** registration_data
-- **Writes State:** session_status
-- **Verified By:** ACCOVE-006, BILPAY-001, LOGOUT-002, LOGOUT-001, LOGOUT-003
-
-**Pre-Verification Steps:**
-1. Navigate to the login page
-2. Verify the session_status is not active (user is logged out)
+- **Preconditions:** User has a registered account with valid credentials
 
 **Test Steps:**
-1. Enter a valid email in the Email field
-2. Enter the correct password in the Password field
-3. Click the Log In button
-
-**Post-Verification Steps:**
-1. Verify the session_status is active (user is logged in)
-2. Verify user is redirected to the account dashboard
+1. Enter a valid email address in the username field
+2. Enter a valid password in the password field
+3. Click on the Log In button
 
 **Expected Result:** User is redirected to the account dashboard
 
@@ -103,145 +63,89 @@
 
 #### Negative Tests
 
-**LOGIN-003** - Login with invalid username and password
-
-- **Priority:** High
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter an invalid username in the Username field
-2. Enter an incorrect password in the Password field
-3. Click the Log In button
-
-**Expected Result:** Error message is displayed indicating invalid credentials, and input fields remain populated
-
----
-
-**LOGIN-004** - Login with invalid email and password
-
-- **Priority:** High
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter an invalid email in the Email field
-2. Enter an incorrect password in the Password field
-3. Click the Log In button
-
-**Expected Result:** Error message is displayed indicating invalid credentials, and input fields remain populated
-
----
-
-**LOGIN-005** - Login with empty username and password
+**LOGIN-003** - Error message displayed for empty username
 
 - **Priority:** Medium
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave the Username field empty
-2. Leave the Password field empty
-3. Click the Log In button
+1. Leave the username field empty
+2. Enter a valid password in the password field
+3. Click on the Log In button
 
-**Expected Result:** Error message is displayed indicating required fields, and input fields remain empty
+**Expected Result:** Error message is displayed indicating that both fields must be populated
 
 ---
 
-**LOGIN-006** - Login with empty email and password
+**LOGIN-004** - Error message displayed for empty password
 
 - **Priority:** Medium
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave the Email field empty
-2. Leave the Password field empty
-3. Click the Log In button
+1. Enter a valid username in the username field
+2. Leave the password field empty
+3. Click on the Log In button
 
-**Expected Result:** Error message is displayed indicating required fields, and input fields remain empty
+**Expected Result:** Error message is displayed indicating that both fields must be populated
 
 ---
 
-**LOGIN-007** - Login with valid username and incorrect password
+**LOGIN-005** - Error message displayed for invalid credentials
+
+- **Priority:** Medium
+- **Preconditions:** User has an account but uses incorrect credentials
+
+**Test Steps:**
+1. Enter an invalid username in the username field
+2. Enter an invalid password in the password field
+3. Click on the Log In button
+
+**Expected Result:** Error message is displayed indicating invalid credentials, input fields remain populated
+
+---
+
+**LOGIN-006** - Error message displayed for partially filled fields
 
 - **Priority:** Medium
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid username in the Username field
-2. Enter an incorrect password in the Password field
-3. Click the Log In button
+1. Enter a valid username in the username field
+2. Leave the password field empty
+3. Click on the Log In button
 
-**Expected Result:** Error message is displayed indicating invalid credentials, and input fields remain populated
-
----
-
-**LOGIN-008** - Login with valid email and incorrect password
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a valid email in the Email field
-2. Enter an incorrect password in the Password field
-3. Click the Log In button
-
-**Expected Result:** Error message is displayed indicating invalid credentials, and input fields remain populated
+**Expected Result:** Error message is displayed indicating that both fields must be populated
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**LOGIN-009** - Login with special characters in username
+**LOGIN-007** - Login attempt with special characters in username and password
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** User has a registered account with valid credentials
 
 **Test Steps:**
-1. Enter a username containing special characters (e.g., @#$%) in the Username field
-2. Enter a valid password in the Password field
-3. Click the Log In button
+1. Enter a valid username with special characters in the username field
+2. Enter a valid password with special characters in the password field
+3. Click on the Log In button
 
-**Expected Result:** Error message is displayed indicating invalid credentials, and input fields remain populated
+**Expected Result:** User is redirected to the account dashboard
 
 ---
 
-**LOGIN-010** - Login with special characters in email
+**LOGIN-008** - Login attempt with maximum length username and password
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** User has a registered account with valid credentials
 
 **Test Steps:**
-1. Enter an email containing special characters (e.g., test@#$.com) in the Email field
-2. Enter a valid password in the Password field
-3. Click the Log In button
+1. Enter a username at maximum length in the username field
+2. Enter a password at maximum length in the password field
+3. Click on the Log In button
 
-**Expected Result:** Error message is displayed indicating invalid credentials, and input fields remain populated
-
----
-
-**LOGIN-011** - Login with maximum character length in username
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a username with the maximum allowed characters (e.g., 255 characters) in the Username field
-2. Enter a valid password in the Password field
-3. Click the Log In button
-
-**Expected Result:** Error message is displayed if credentials are invalid, and input fields remain populated
-
----
-
-**LOGIN-012** - Login with maximum character length in email
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter an email with the maximum allowed characters (e.g., 255 characters) in the Email field
-2. Enter a valid password in the Password field
-3. Click the Log In button
-
-**Expected Result:** Error message is displayed if credentials are invalid, and input fields remain populated
+**Expected Result:** User is redirected to the account dashboard
 
 ---
 
@@ -251,155 +155,115 @@
 
 #### Functional Tests
 
-**FORPAS-001** - Submit valid Customer Lookup form with matching record
+**FORPAS-001** - Submit with all fields filled correctly
 
 - **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** user_profile
+- **Preconditions:** All fields are filled with valid information
 
 **Test Steps:**
-1. Enter a valid First Name in the First Name field
-2. Enter a valid Last Name in the Last Name field
-3. Enter a valid Address in the Address field
-4. Enter a valid City in the City field
-5. Select a valid State from the State dropdown
-6. Enter a valid Zip Code in the Zip Code field
-7. Enter a valid SSN in the SSN field
-8. Click the 'Find My Login Info' button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid SSN
+8. Click on 'Find My Login Info' button
 
-**Expected Result:** Recovery details are displayed for the matching record
+**Expected Result:** The page displays the appropriate recovery details
 
 ---
 
 #### Negative Tests
 
-**FORPAS-002** - Submit Customer Lookup form with no matching record
+**FORPAS-002** - Submit with one field left blank
+
+- **Priority:** High
+- **Preconditions:** All fields are filled except one
+
+**Test Steps:**
+1. Enter a valid first name
+2. Leave last name blank
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid SSN
+8. Click on 'Find My Login Info' button
+
+**Expected Result:** The page prompts the user to complete the blank field
+
+---
+
+**FORPAS-003** - Submit with all fields left blank
 
 - **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid First Name in the First Name field
-2. Enter a valid Last Name in the Last Name field
-3. Enter a valid Address in the Address field
-4. Enter a valid City in the City field
-5. Select a valid State from the State dropdown
-6. Enter a valid Zip Code in the Zip Code field
-7. Enter a valid SSN in the SSN field that does not match any record
-8. Click the 'Find My Login Info' button
+1. Leave all fields blank
+2. Click on 'Find My Login Info' button
 
-**Expected Result:** An error message is displayed indicating no matching record was found
+**Expected Result:** The page prompts the user to complete all fields
 
 ---
 
-**FORPAS-003** - Submit Customer Lookup form with all fields empty
+**FORPAS-004** - Submit with non-matching information
 
 - **Priority:** High
-- **Preconditions:** None
+- **Preconditions:** All fields are filled with non-matching information
 
 **Test Steps:**
-1. Leave all fields empty
-2. Click the 'Find My Login Info' button
+1. Enter a valid first name that does not match any record
+2. Enter a valid last name that does not match any record
+3. Enter a valid address that does not match any record
+4. Enter a valid city that does not match any record
+5. Select a valid state that does not match any record
+6. Enter a valid zip code that does not match any record
+7. Enter a valid SSN that does not match any record
+8. Click on 'Find My Login Info' button
 
-**Expected Result:** An error message is displayed indicating that all fields are required
-
----
-
-**FORPAS-004** - Submit Customer Lookup form with missing First Name
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Leave the First Name field empty
-2. Enter a valid Last Name in the Last Name field
-3. Enter a valid Address in the Address field
-4. Enter a valid City in the City field
-5. Select a valid State from the State dropdown
-6. Enter a valid Zip Code in the Zip Code field
-7. Enter a valid SSN in the SSN field
-8. Click the 'Find My Login Info' button
-
-**Expected Result:** An error message is displayed indicating that the First Name field is required
-
----
-
-**FORPAS-005** - Submit Customer Lookup form with invalid Zip Code format
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a valid First Name in the First Name field
-2. Enter a valid Last Name in the Last Name field
-3. Enter a valid Address in the Address field
-4. Enter a valid City in the City field
-5. Select a valid State from the State dropdown
-6. Enter an invalid Zip Code (e.g., 'ABCDE') in the Zip Code field
-7. Enter a valid SSN in the SSN field
-8. Click the 'Find My Login Info' button
-
-**Expected Result:** An error message is displayed indicating that the Zip Code format is invalid
+**Expected Result:** The page displays an error indicating no matching record found
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**FORPAS-006** - Submit Customer Lookup form with special characters in First Name
+**FORPAS-005** - Submit with maximum length inputs
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** All fields are filled with maximum length valid information
 
 **Test Steps:**
-1. Enter special characters (e.g., '@#$%') in the First Name field
-2. Enter a valid Last Name in the Last Name field
-3. Enter a valid Address in the Address field
-4. Enter a valid City in the City field
-5. Select a valid State from the State dropdown
-6. Enter a valid Zip Code in the Zip Code field
-7. Enter a valid SSN in the SSN field
-8. Click the 'Find My Login Info' button
+1. Enter a valid first name at maximum length
+2. Enter a valid last name at maximum length
+3. Enter a valid address at maximum length
+4. Enter a valid city at maximum length
+5. Select a valid state
+6. Enter a valid zip code at maximum length
+7. Enter a valid SSN at maximum length
+8. Click on 'Find My Login Info' button
 
-**Expected Result:** An error message is displayed indicating that the First Name field contains invalid characters
+**Expected Result:** The page displays the appropriate recovery details
 
 ---
 
-**FORPAS-007** - Submit Customer Lookup form with maximum character length in all fields
+**FORPAS-006** - Submit with special characters in fields
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** All fields are filled with valid information including special characters
 
 **Test Steps:**
-1. Enter the maximum allowed characters in the First Name field
-2. Enter the maximum allowed characters in the Last Name field
-3. Enter the maximum allowed characters in the Address field
-4. Enter the maximum allowed characters in the City field
-5. Select a valid State from the State dropdown
-6. Enter the maximum allowed characters in the Zip Code field
-7. Enter the maximum allowed characters in the SSN field
-8. Click the 'Find My Login Info' button
+1. Enter a valid first name with special characters
+2. Enter a valid last name with special characters
+3. Enter a valid address with special characters
+4. Enter a valid city with special characters
+5. Select a valid state
+6. Enter a valid zip code with special characters
+7. Enter a valid SSN with special characters
+8. Click on 'Find My Login Info' button
 
-**Expected Result:** The system processes the form successfully if the inputs are valid
-
----
-
-**FORPAS-008** - Submit Customer Lookup form with leading and trailing spaces in all fields
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a valid First Name with leading and trailing spaces in the First Name field
-2. Enter a valid Last Name with leading and trailing spaces in the Last Name field
-3. Enter a valid Address with leading and trailing spaces in the Address field
-4. Enter a valid City with leading and trailing spaces in the City field
-5. Select a valid State from the State dropdown
-6. Enter a valid Zip Code with leading and trailing spaces in the Zip Code field
-7. Enter a valid SSN with leading and trailing spaces in the SSN field
-8. Click the 'Find My Login Info' button
-
-**Expected Result:** The system trims the spaces and processes the form successfully if the inputs are valid
+**Expected Result:** The page displays the appropriate recovery details
 
 ---
 
@@ -409,151 +273,352 @@
 
 #### Functional Tests
 
-**REGIST-001** - Successful registration with valid inputs
+**REGIST-001** - Successful account registration
 
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** registration_data
-- **Writes State:** user_profile, session_status
-- **Verified By:** ACCOVE-006, BILPAY-001, LOGOUT-002, LOGOUT-001, FORPAS-001, UPDPRO-001, LOGOUT-003
-
-**Pre-Verification Steps:**
-1. Navigate to Profile/Settings
-2. Note current profile values
-3. Verify user is logged out initially
-
 **Test Steps:**
-1. Enter a valid First Name into the First Name field
-2. Enter a valid Last Name into the Last Name field
-3. Enter a valid Address into the Address field
-4. Enter a valid City into the City field
-5. Select a valid State from the State dropdown
-6. Enter a valid Zip Code into the Zip Code field
-7. Enter a valid Phone Number into the Phone # field
-8. Enter a valid SSN into the SSN field
-9. Enter a valid Username into the Username field
-10. Enter a valid Password into the Password field
-11. Re-enter the same valid Password into the Confirm Password field
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
 12. Click the Register button
 
-**Post-Verification Steps:**
-1. Navigate to Profile/Settings
-2. Verify updated values are displayed
-3. Verify user session state changed as expected
-
-**Expected Result:** The account is successfully created, and the user is automatically logged in.
+**Expected Result:** User account is created and user is automatically logged in
 
 ---
 
 #### Negative Tests
 
-**REGIST-002** - Registration fails when a mandatory field is left empty
+**REGIST-002** - Registration with missing first name
 
 - **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave the First Name field empty
-2. Enter valid inputs for all other fields
-3. Click the Register button
+1. Leave the first name field empty
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
 
-**Expected Result:** An error message is displayed indicating that the First Name field is required, and the account is not created.
+**Expected Result:** Error message indicating first name is mandatory
 
 ---
 
-**REGIST-003** - Registration fails when Password and Confirm Password do not match
+**REGIST-003** - Registration with missing last name
 
 - **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter valid inputs into all fields except the Password and Confirm Password fields
-2. Enter a valid Password into the Password field
-3. Enter a different value into the Confirm Password field
-4. Click the Register button
+1. Enter a valid first name
+2. Leave the last name field empty
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
 
-**Expected Result:** An error message is displayed indicating that the Password and Confirm Password fields must match, and the account is not created.
+**Expected Result:** Error message indicating last name is mandatory
 
 ---
 
-**REGIST-004** - Registration fails when SSN field is left empty
+**REGIST-004** - Registration with missing address
 
 - **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave the SSN field empty
-2. Enter valid inputs for all other fields
-3. Click the Register button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Leave the address field empty
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
 
-**Expected Result:** An error message is displayed indicating that the SSN field is required, and the account is not created.
+**Expected Result:** Error message indicating address is mandatory
 
 ---
 
-**REGIST-005** - Registration fails when all fields are left empty
+**REGIST-005** - Registration with missing city
 
 - **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave all fields empty
-2. Click the Register button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Leave the city field empty
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
 
-**Expected Result:** An error message is displayed indicating that all fields are required, and the account is not created.
+**Expected Result:** Error message indicating city is mandatory
 
 ---
 
-**REGIST-006** - Registration fails when Password field is left empty
+**REGIST-006** - Registration with missing state
 
 - **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter valid inputs into all fields except the Password field
-2. Leave the Password field empty
-3. Click the Register button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Leave the state field empty
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
 
-**Expected Result:** An error message is displayed indicating that the Password field is required, and the account is not created.
+**Expected Result:** Error message indicating state is mandatory
 
 ---
 
-**REGIST-007** - Registration fails when invalid Zip Code is entered
+**REGIST-007** - Registration with missing zip code
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter valid inputs into all fields except the Zip Code field
-2. Enter an invalid value (e.g., alphabetic characters) into the Zip Code field
-3. Click the Register button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Leave the zip code field empty
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
 
-**Expected Result:** An error message is displayed indicating that the Zip Code field must contain a valid value, and the account is not created.
+**Expected Result:** Error message indicating zip code is mandatory
+
+---
+
+**REGIST-008** - Registration with missing phone number
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Leave the phone number field empty
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
+
+**Expected Result:** Error message indicating phone number is mandatory
+
+---
+
+**REGIST-009** - Registration with missing SSN
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Leave the SSN field empty
+9. Enter a valid username
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
+
+**Expected Result:** Error message indicating SSN is mandatory
+
+---
+
+**REGIST-010** - Registration with missing username
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Leave the username field empty
+10. Enter a valid password
+11. Confirm the valid password
+12. Click the Register button
+
+**Expected Result:** Error message indicating username is mandatory
+
+---
+
+**REGIST-011** - Registration with missing password
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Leave the password field empty
+11. Confirm the valid password
+12. Click the Register button
+
+**Expected Result:** Error message indicating password is mandatory
+
+---
+
+**REGIST-012** - Registration with missing confirm password
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Leave the confirm password field empty
+12. Click the Register button
+
+**Expected Result:** Error message indicating confirm password is mandatory
+
+---
+
+**REGIST-013** - Registration with mismatched passwords
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a valid username
+10. Enter a valid password
+11. Enter a different password in confirm password
+12. Click the Register button
+
+**Expected Result:** Error message indicating passwords do not match
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**REGIST-008** - Successful registration with edge case values for fields
+**REGIST-014** - Registration with special characters in username
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid First Name with special characters (e.g., O'Connor) into the First Name field
-2. Enter a valid Last Name with special characters (e.g., Smith-Jones) into the Last Name field
-3. Enter a valid Address with special characters (e.g., Apt #5) into the Address field
-4. Enter a valid City with special characters (e.g., St. Louis) into the City field
-5. Select a valid State from the State dropdown
-6. Enter a valid Zip Code with leading zeros (e.g., 01234) into the Zip Code field
-7. Enter a valid Phone Number with dashes (e.g., 123-456-7890) into the Phone # field
-8. Enter a valid SSN with dashes (e.g., 123-45-6789) into the SSN field
-9. Enter a valid Username with mixed case and numbers (e.g., User123) into the Username field
-10. Enter a valid Password with special characters (e.g., P@ssw0rd!) into the Password field
-11. Re-enter the same valid Password into the Confirm Password field
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Enter a valid SSN
+9. Enter a username with special characters
+10. Enter a valid password
+11. Confirm the valid password
 12. Click the Register button
 
-**Expected Result:** The account is successfully created, and the user is automatically logged in.
+**Expected Result:** User account is created and user is automatically logged in
+
+---
+
+**REGIST-015** - Registration with maximum length inputs
+
+- **Priority:** Low
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid first name with maximum length
+2. Enter a valid last name with maximum length
+3. Enter a valid address with maximum length
+4. Enter a valid city with maximum length
+5. Select a valid state
+6. Enter a valid zip code with maximum length
+7. Enter a valid phone number with maximum length
+8. Enter a valid SSN with maximum length
+9. Enter a valid username with maximum length
+10. Enter a valid password with maximum length
+11. Confirm the valid password with maximum length
+12. Click the Register button
+
+**Expected Result:** User account is created and user is automatically logged in
 
 ---
 
@@ -563,146 +628,103 @@
 
 #### Functional Tests
 
-**ONA-001** - Open a new account with valid account type and funding source
+**ONA-001** - Open New Account with valid account type and funding source
 
 - **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** account_list, account_balance
-- **Writes State:** account_list, account_balance, transaction_history
-- **Verified By:** BILPAY-001, FINTRA-003, FINTRA-007, REQLOA-001, ACCOVE-003, ACCOVE-001, FINTRA-005, ACCOVE-005, FINTRA-006, ACCOVE-004, FINTRA-002, FINTRA-004, FINTRA-001, TRAFUN-001
-
-**Pre-Verification Steps:**
-1. Navigate to Accounts Overview
-2. Note current number of accounts
-3. Navigate to Accounts Overview
-4. Note current account balance(s)
-5. Navigate to Transaction History
-6. Note current transaction count
+- **Preconditions:** User is logged in and has a valid funding source account
 
 **Test Steps:**
 1. Click on 'Open New Account' button
-2. Select a valid account type from the dropdown
-3. Select a valid funding source from the dropdown
-4. Click on 'Open New Account' button
+2. Select 'Savings' as the account type
+3. Select an existing account as the funding source
+4. Enter the required opening deposit amount
+5. Click on 'Open New Account' button
 
-**Post-Verification Steps:**
-1. Navigate to Accounts Overview
-2. Verify account list updated
-3. Navigate to Accounts Overview
-4. Verify balance reflects the change
-5. Navigate to Transaction History
-6. Verify new transaction appears
-
-**Expected Result:** A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account
+**Expected Result:** A new account is created, $100.00 is deducted from the funding source, and a unique account number is generated
 
 ---
 
 #### Negative Tests
 
-**ONA-002** - Attempt to open a new account without selecting an account type
+**ONA-002** - Open New Account without selecting a funding source
 
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Click on 'Open New Account' button
-2. Leave the account type dropdown unselected
-3. Select a valid funding source from the dropdown
-4. Click on 'Open New Account' button
-
-**Expected Result:** An error message is displayed indicating that account type must be selected
-
----
-
-**ONA-003** - Attempt to open a new account without selecting a funding source
-
-- **Priority:** Medium
-- **Preconditions:** None
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Open New Account page
 
 **Test Steps:**
 1. Click on 'Open New Account' button
-2. Select a valid account type from the dropdown
-3. Leave the funding source dropdown unselected
-4. Click on 'Open New Account' button
+2. Select 'Checking' as the account type
+3. Leave funding source unselected
+4. Enter the required opening deposit amount
+5. Click on 'Open New Account' button
 
 **Expected Result:** An error message is displayed indicating that a funding source must be selected
 
 ---
 
-**ONA-004** - Attempt to open a new account with insufficient funds in the funding source
+**ONA-003** - Open New Account with insufficient opening deposit
 
-- **Priority:** Medium
-- **Preconditions:** Funding source account has less than $100.00 balance
+- **Priority:** High
+- **Preconditions:** User is logged in and has a valid funding source account
 
 **Test Steps:**
 1. Click on 'Open New Account' button
-2. Select a valid account type from the dropdown
-3. Select a funding source with insufficient funds from the dropdown
-4. Click on 'Open New Account' button
+2. Select 'Savings' as the account type
+3. Select an existing account as the funding source
+4. Enter an amount less than $100.00 as the opening deposit
+5. Click on 'Open New Account' button
 
-**Expected Result:** An error message is displayed indicating insufficient funds in the funding source
+**Expected Result:** An error message is displayed indicating that the opening deposit must be $100.00
 
 ---
 
-**ONA-005** - Attempt to open a new account with empty funding source and account type
+**ONA-004** - Open New Account with invalid funding source
 
-- **Priority:** Medium
-- **Preconditions:** None
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Open New Account page
 
 **Test Steps:**
 1. Click on 'Open New Account' button
-2. Leave both the account type and funding source dropdowns unselected
-3. Click on 'Open New Account' button
+2. Select 'Savings' as the account type
+3. Select a non-existing account as the funding source
+4. Enter the required opening deposit amount
+5. Click on 'Open New Account' button
 
-**Expected Result:** An error message is displayed indicating that both account type and funding source must be selected
+**Expected Result:** An error message is displayed indicating that the selected funding source is invalid
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**ONA-006** - Open a new account with boundary value of $100.00 in funding source
+**ONA-005** - Open New Account with special characters in account type
 
 - **Priority:** Low
-- **Preconditions:** Funding source account has exactly $100.00 balance
+- **Preconditions:** User is logged in and has a valid funding source account
 
 **Test Steps:**
 1. Click on 'Open New Account' button
-2. Select a valid account type from the dropdown
-3. Select a funding source with exactly $100.00 balance from the dropdown
-4. Click on 'Open New Account' button
+2. Select an account type with special characters
+3. Select an existing account as the funding source
+4. Enter the required opening deposit amount
+5. Click on 'Open New Account' button
 
-**Expected Result:** A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account
+**Expected Result:** The system processes the request and creates a new account with the specified account type
 
 ---
 
-**ONA-007** - Open a new account with special characters in account type name
+**ONA-006** - Open New Account with maximum length account type
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** User is logged in and has a valid funding source account
 
 **Test Steps:**
 1. Click on 'Open New Account' button
-2. Select an account type with special characters (e.g., 'Savings@123') from the dropdown
-3. Select a valid funding source from the dropdown
-4. Click on 'Open New Account' button
+2. Select an account type with maximum allowed length
+3. Select an existing account as the funding source
+4. Enter the required opening deposit amount
+5. Click on 'Open New Account' button
 
-**Expected Result:** A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account
-
----
-
-**ONA-008** - Open a new account with maximum length account type name
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Click on 'Open New Account' button
-2. Select an account type with the maximum allowed length (e.g., 50 characters) from the dropdown
-3. Select a valid funding source from the dropdown
-4. Click on 'Open New Account' button
-
-**Expected Result:** A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account
+**Expected Result:** The system processes the request and creates a new account with the specified account type
 
 ---
 
@@ -712,132 +734,173 @@
 
 #### Functional Tests
 
-**ACCOVE-001** - Verify the presence of all Account Services options in the sidebar
-
-- **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** account_list
-
-**Test Steps:**
-1. Locate the left sidebar titled 'Account Services'.
-2. Verify the presence of the following options: Open New Account, Accounts Overview, Transfer Funds, Bill Pay, Find Transactions, Update Contact Info, Request Loan, Log Out.
-
-**Expected Result:** All listed options are visible in the 'Account Services' sidebar.
-
----
-
-**ACCOVE-002** - Verify the Accounts Overview heading is displayed
+**ACCOVE-001** - Verify Account Services sidebar is displayed
 
 - **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Locate the 'Accounts Overview' heading on the page.
+1. Locate the Account Services sidebar
+2. Verify that the sidebar is visible
+3. Check that all actions are listed in the sidebar
 
-**Expected Result:** The 'Accounts Overview' heading is displayed on the page.
+**Expected Result:** Account Services sidebar is displayed with all actions listed
 
 ---
 
-**ACCOVE-003** - Verify account details are displayed correctly
+**ACCOVE-002** - Verify Open New Account action is available
 
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** account_balance, account_list
-
 **Test Steps:**
-1. Locate the account details section.
-2. Verify the presence of the following elements: Account number, Balance, Available Amount, Combined total balance.
+1. Locate the Open New Account action in the Account Services sidebar
+2. Verify that the Open New Account action is clickable
 
-**Expected Result:** All account details are displayed correctly.
+**Expected Result:** Open New Account action is available and clickable
 
 ---
 
-**ACCOVE-004** - Verify the Combined total balance is calculated correctly
+**ACCOVE-003** - Verify Accounts Overview action is available
 
 - **Priority:** High
-- **Preconditions:** At least two accounts are displayed with balances.
-
-- **Reads State:** account_balance
-
-**Test Steps:**
-1. Locate the individual account balances.
-2. Locate the Combined total balance.
-3. Verify that the Combined total balance equals the sum of the individual account balances.
-
-**Expected Result:** The Combined total balance is correctly calculated as the sum of individual account balances.
-
----
-
-**ACCOVE-005** - Verify the sidebar option 'Open New Account' is clickable
-
-- **Priority:** Medium
 - **Preconditions:** None
 
-- **Reads State:** account_list
-
 **Test Steps:**
-1. Locate the 'Open New Account' option in the sidebar.
-2. Click on the 'Open New Account' option.
+1. Locate the Accounts Overview action in the Account Services sidebar
+2. Verify that the Accounts Overview action is clickable
 
-**Expected Result:** The 'Open New Account' option is clickable and responds to user interaction.
+**Expected Result:** Accounts Overview action is available and clickable
 
 ---
 
-**ACCOVE-006** - Verify the sidebar option 'Log Out' is clickable
+**ACCOVE-004** - Verify Transfer Funds action is available
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** session_status
-
 **Test Steps:**
-1. Locate the 'Log Out' option in the sidebar.
-2. Click on the 'Log Out' option.
+1. Locate the Transfer Funds action in the Account Services sidebar
+2. Verify that the Transfer Funds action is clickable
 
-**Expected Result:** The 'Log Out' option is clickable and responds to user interaction.
+**Expected Result:** Transfer Funds action is available and clickable
 
 ---
 
-#### Boundary/Edge Case Tests
+**ACCOVE-005** - Verify Bill Pay action is available
 
-**ACCOVE-007** - Verify the page handles no accounts gracefully
-
-- **Priority:** Low
-- **Preconditions:** User has no accounts associated with their profile.
+- **Priority:** High
+- **Preconditions:** None
 
 **Test Steps:**
-1. Check the account details section.
-2. Verify the message displayed when no accounts are available.
+1. Locate the Bill Pay action in the Account Services sidebar
+2. Verify that the Bill Pay action is clickable
 
-**Expected Result:** A user-friendly message is displayed indicating no accounts are available.
+**Expected Result:** Bill Pay action is available and clickable
 
 ---
 
-**ACCOVE-008** - Verify the page handles a large number of accounts gracefully
+**ACCOVE-006** - Verify Find Transactions action is available
 
-- **Priority:** Low
-- **Preconditions:** User has a large number of accounts associated with their profile.
+- **Priority:** High
+- **Preconditions:** None
 
 **Test Steps:**
-1. Check the account details section.
-2. Verify that all accounts are displayed without layout issues or performance degradation.
+1. Locate the Find Transactions action in the Account Services sidebar
+2. Verify that the Find Transactions action is clickable
 
-**Expected Result:** All accounts are displayed correctly without layout issues or performance degradation.
+**Expected Result:** Find Transactions action is available and clickable
 
 ---
 
-**ACCOVE-009** - Verify special characters in account names are displayed correctly
+**ACCOVE-007** - Verify Update Contact Info action is available
 
-- **Priority:** Low
-- **Preconditions:** User has accounts with special characters in their names.
+- **Priority:** High
+- **Preconditions:** None
 
 **Test Steps:**
-1. Locate the account names in the account details section.
-2. Verify that special characters in account names are displayed correctly.
+1. Locate the Update Contact Info action in the Account Services sidebar
+2. Verify that the Update Contact Info action is clickable
 
-**Expected Result:** Special characters in account names are displayed correctly without encoding or rendering issues.
+**Expected Result:** Update Contact Info action is available and clickable
+
+---
+
+**ACCOVE-008** - Verify Request Loan action is available
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the Request Loan action in the Account Services sidebar
+2. Verify that the Request Loan action is clickable
+
+**Expected Result:** Request Loan action is available and clickable
+
+---
+
+**ACCOVE-009** - Verify Log Out action is available
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the Log Out action in the Account Services sidebar
+2. Verify that the Log Out action is clickable
+
+**Expected Result:** Log Out action is available and clickable
+
+---
+
+**ACCOVE-010** - Verify account number is displayed
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the account number element
+2. Verify that the account number is visible
+
+**Expected Result:** Account number is displayed
+
+---
+
+**ACCOVE-011** - Verify Balance is displayed
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the Balance element
+2. Verify that the Balance is visible
+
+**Expected Result:** Balance is displayed
+
+---
+
+**ACCOVE-012** - Verify Available Amount is displayed
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the Available Amount element
+2. Verify that the Available Amount is visible
+
+**Expected Result:** Available Amount is displayed
+
+---
+
+**ACCOVE-013** - Verify combined total balance is displayed
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the combined total balance element
+2. Verify that the combined total balance is visible
+
+**Expected Result:** Combined total balance is displayed
 
 ---
 
@@ -847,172 +910,112 @@
 
 #### Functional Tests
 
-**TRAFUN-001** - Successful fund transfer with valid inputs
+**TRAFUN-001** - Transfer funds with valid details
 
 - **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** account_balance, account_list, transfer_details
-- **Writes State:** account_balance, transaction_history, transfer_details
-- **Verified By:** ONA-001, BILPAY-001, FINTRA-003, FINTRA-007, ACCOVE-003, FINTRA-005, FINTRA-006, ACCOVE-004, FINTRA-002, FINTRA-004, FINTRA-001
-
-**Pre-Verification Steps:**
-1. Navigate to Accounts Overview
-2. Note current account balance(s)
-3. Navigate to Transaction History
-4. Note current transaction count
+- **Preconditions:** User is logged in and on the Transfer Funds page
 
 **Test Steps:**
-1. Enter a valid amount (e.g., 100) in the Amount field
-2. Select a valid From account number from the dropdown
-3. Select a valid To account number from the dropdown
+1. Enter a valid amount in the Amount field
+2. Select a valid account number from the From account number dropdown
+3. Select a valid account number from the To account number dropdown
 4. Click on the Transfer button
 
-**Post-Verification Steps:**
-1. Navigate to Accounts Overview
-2. Verify balance reflects the change
-3. Navigate to Transaction History
-4. Verify new transaction appears
-
-**Expected Result:** Funds are successfully transferred, and a confirmation message is displayed
+**Expected Result:** Funds are successfully transferred and a confirmation message is displayed
 
 ---
 
 #### Negative Tests
 
-**TRAFUN-002** - Transfer fails when Amount field is left blank
+**TRAFUN-002** - Transfer funds with zero amount
 
 - **Priority:** Medium
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Transfer Funds page
 
 **Test Steps:**
-1. Leave the Amount field blank
-2. Select a valid From account number from the dropdown
-3. Select a valid To account number from the dropdown
+1. Enter '0' in the Amount field
+2. Select a valid account number from the From account number dropdown
+3. Select a valid account number from the To account number dropdown
 4. Click on the Transfer button
 
-**Expected Result:** An error message is displayed indicating that the Amount field is required
+**Expected Result:** Error message is displayed indicating that the amount must be greater than zero
 
 ---
 
-**TRAFUN-003** - Transfer fails when From account number is not selected
+**TRAFUN-003** - Transfer funds with negative amount
 
 - **Priority:** Medium
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Transfer Funds page
 
 **Test Steps:**
-1. Enter a valid amount (e.g., 100) in the Amount field
-2. Leave the From account number field unselected
-3. Select a valid To account number from the dropdown
+1. Enter a negative amount in the Amount field
+2. Select a valid account number from the From account number dropdown
+3. Select a valid account number from the To account number dropdown
 4. Click on the Transfer button
 
-**Expected Result:** An error message is displayed indicating that the From account number is required
+**Expected Result:** Error message is displayed indicating that the amount must be greater than zero
 
 ---
 
-**TRAFUN-004** - Transfer fails when To account number is not selected
+**TRAFUN-004** - Transfer funds with invalid From account number
 
 - **Priority:** Medium
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Transfer Funds page
 
 **Test Steps:**
-1. Enter a valid amount (e.g., 100) in the Amount field
-2. Select a valid From account number from the dropdown
-3. Leave the To account number field unselected
+1. Enter a valid amount in the Amount field
+2. Select an invalid account number from the From account number dropdown
+3. Select a valid account number from the To account number dropdown
 4. Click on the Transfer button
 
-**Expected Result:** An error message is displayed indicating that the To account number is required
+**Expected Result:** Error message is displayed indicating that the From account number is invalid
 
 ---
 
-**TRAFUN-005** - Transfer fails when Amount is zero
+**TRAFUN-005** - Transfer funds with invalid To account number
 
 - **Priority:** Medium
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Transfer Funds page
 
 **Test Steps:**
-1. Enter 0 in the Amount field
-2. Select a valid From account number from the dropdown
-3. Select a valid To account number from the dropdown
+1. Enter a valid amount in the Amount field
+2. Select a valid account number from the From account number dropdown
+3. Select an invalid account number from the To account number dropdown
 4. Click on the Transfer button
 
-**Expected Result:** An error message is displayed indicating that the Amount must be greater than zero
-
----
-
-**TRAFUN-006** - Transfer fails when Amount is a negative value
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a negative value (e.g., -100) in the Amount field
-2. Select a valid From account number from the dropdown
-3. Select a valid To account number from the dropdown
-4. Click on the Transfer button
-
-**Expected Result:** An error message is displayed indicating that the Amount must be a positive value
-
----
-
-**TRAFUN-007** - Transfer fails when From and To account numbers are the same
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a valid amount (e.g., 100) in the Amount field
-2. Select the same account number for both From and To account fields
-3. Click on the Transfer button
-
-**Expected Result:** An error message is displayed indicating that the From and To account numbers cannot be the same
-
----
-
-**TRAFUN-008** - Transfer fails when Amount exceeds available balance
-
-- **Priority:** Medium
-- **Preconditions:** Ensure the From account has a balance less than the entered Amount
-
-**Test Steps:**
-1. Enter an amount greater than the available balance (e.g., 1000 when balance is 500) in the Amount field
-2. Select a valid From account number from the dropdown
-3. Select a valid To account number from the dropdown
-4. Click on the Transfer button
-
-**Expected Result:** An error message is displayed indicating insufficient balance
+**Expected Result:** Error message is displayed indicating that the To account number is invalid
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**TRAFUN-009** - Transfer fails when Amount contains special characters
+**TRAFUN-006** - Transfer funds with maximum allowable amount
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Transfer Funds page
 
 **Test Steps:**
-1. Enter an invalid value with special characters (e.g., $100) in the Amount field
-2. Select a valid From account number from the dropdown
-3. Select a valid To account number from the dropdown
+1. Enter the maximum allowable amount in the Amount field
+2. Select a valid account number from the From account number dropdown
+3. Select a valid account number from the To account number dropdown
 4. Click on the Transfer button
 
-**Expected Result:** An error message is displayed indicating that the Amount must be a numeric value
+**Expected Result:** Funds are successfully transferred and a confirmation message is displayed
 
 ---
 
-**TRAFUN-010** - Transfer succeeds with maximum allowable Amount
+**TRAFUN-007** - Transfer funds with special characters in account numbers
 
 - **Priority:** Low
-- **Preconditions:** Ensure the From account has a balance equal to or greater than the maximum allowable Amount
+- **Preconditions:** User is logged in and on the Transfer Funds page
 
 **Test Steps:**
-1. Enter the maximum allowable Amount (e.g., 100000) in the Amount field
-2. Select a valid From account number from the dropdown
-3. Select a valid To account number from the dropdown
+1. Enter a valid amount in the Amount field
+2. Select an account number containing special characters from the From account number dropdown
+3. Select a valid account number from the To account number dropdown
 4. Click on the Transfer button
 
-**Expected Result:** Funds are successfully transferred, and a confirmation message is displayed
+**Expected Result:** Error message is displayed indicating that the From account number contains invalid characters
 
 ---
 
@@ -1022,202 +1025,293 @@
 
 #### Functional Tests
 
-**BILPAY-001** - Successful payment with valid inputs
+**BILPAY-001** - Successful payment submission with all fields completed
 
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** session_status, account_balance, payee_list, bill_payment_details
-- **Writes State:** account_balance, transaction_history, bill_payment_details
-- **Verified By:** ONA-001, FINTRA-003, FINTRA-007, ACCOVE-003, FINTRA-005, FINTRA-006, ACCOVE-004, FINTRA-002, FINTRA-004, FINTRA-001, TRAFUN-001
-
-**Pre-Verification Steps:**
-1. Navigate to Accounts Overview
-2. Note current account balance(s)
-3. Navigate to Transaction History
-4. Note current transaction count
-
 **Test Steps:**
-1. Enter a valid Payee Name
-2. Enter a valid Address
-3. Enter a valid City
-4. Select a valid State from the dropdown
-5. Enter a valid 5-digit Zip Code
-6. Enter a valid 10-digit Phone Number
-7. Enter a valid Account Number
-8. Re-enter the same Account Number in the Verify Account Number field
-9. Enter a valid payment Amount greater than zero
-10. Select a valid From Account Number from the dropdown
-11. Click the 'Send Payment' button
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Post-Verification Steps:**
-1. Navigate to Accounts Overview
-2. Verify balance reflects the change
-3. Navigate to Transaction History
-4. Verify new transaction appears
-
-**Expected Result:** A confirmation message appears indicating the payment was successful
+**Expected Result:** Confirmation message appears upon successful transfer
 
 ---
 
 #### Negative Tests
 
-**BILPAY-002** - Error when Payee Name is left blank
+**BILPAY-002** - Error message for missing payee name
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave the Payee Name field blank
-2. Fill out all other fields with valid inputs
-3. Click the 'Send Payment' button
+1. Leave the payee name field empty
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** An error message appears indicating that the Payee Name is required
+**Expected Result:** Error message indicates that the payee name is required
 
 ---
 
-**BILPAY-003** - Error when Address is left blank
+**BILPAY-003** - Error message for missing address
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid Payee Name
-2. Leave the Address field blank
-3. Fill out all other fields with valid inputs
-4. Click the 'Send Payment' button
+1. Enter a valid payee name
+2. Leave the address field empty
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** An error message appears indicating that the Address is required
+**Expected Result:** Error message indicates that the address is required
 
 ---
 
-**BILPAY-004** - Error when Zip Code is invalid
+**BILPAY-004** - Error message for missing city
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid Payee Name
-2. Enter a valid Address
-3. Enter a valid City
-4. Select a valid State from the dropdown
-5. Enter an invalid Zip Code (e.g., less than 5 digits or contains letters)
-6. Fill out all other fields with valid inputs
-7. Click the 'Send Payment' button
+1. Enter a valid payee name
+2. Enter a valid address
+3. Leave the city field empty
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** An error message appears indicating that the Zip Code is invalid
+**Expected Result:** Error message indicates that the city is required
 
 ---
 
-**BILPAY-005** - Error when Account Number and Verify Account Number do not match
+**BILPAY-005** - Error message for missing state
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid Payee Name
-2. Enter a valid Address
-3. Enter a valid City
-4. Select a valid State from the dropdown
-5. Enter a valid 5-digit Zip Code
-6. Enter a valid 10-digit Phone Number
-7. Enter a valid Account Number
-8. Enter a different Account Number in the Verify Account Number field
-9. Enter a valid payment Amount greater than zero
-10. Select a valid From Account Number from the dropdown
-11. Click the 'Send Payment' button
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Leave the state field empty
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** An error message appears indicating that the Account Number and Verify Account Number do not match
+**Expected Result:** Error message indicates that the state is required
 
 ---
 
-**BILPAY-006** - Error when Amount is zero
+**BILPAY-006** - Error message for missing zip code
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid Payee Name
-2. Enter a valid Address
-3. Enter a valid City
-4. Select a valid State from the dropdown
-5. Enter a valid 5-digit Zip Code
-6. Enter a valid 10-digit Phone Number
-7. Enter a valid Account Number
-8. Re-enter the same Account Number in the Verify Account Number field
-9. Enter '0' in the Amount field
-10. Select a valid From Account Number from the dropdown
-11. Click the 'Send Payment' button
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Leave the zip code field empty
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** An error message appears indicating that the Amount must be greater than zero
+**Expected Result:** Error message indicates that the zip code is required
 
 ---
 
-**BILPAY-007** - Error when Phone Number is invalid
+**BILPAY-007** - Error message for missing phone number
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid Payee Name
-2. Enter a valid Address
-3. Enter a valid City
-4. Select a valid State from the dropdown
-5. Enter a valid 5-digit Zip Code
-6. Enter an invalid Phone Number (e.g., less than 10 digits or contains letters)
-7. Enter a valid Account Number
-8. Re-enter the same Account Number in the Verify Account Number field
-9. Enter a valid payment Amount greater than zero
-10. Select a valid From Account Number from the dropdown
-11. Click the 'Send Payment' button
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Leave the phone number field empty
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** An error message appears indicating that the Phone Number is invalid
+**Expected Result:** Error message indicates that the phone number is required
+
+---
+
+**BILPAY-008** - Error message for missing account number
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Leave the account number field empty
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
+
+**Expected Result:** Error message indicates that the account number is required
+
+---
+
+**BILPAY-009** - Error message for mismatched account numbers
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a different verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
+
+**Expected Result:** Error message indicates that the account numbers do not match
+
+---
+
+**BILPAY-010** - Error message for missing amount
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Leave the amount field empty
+10. Select a valid from account number
+11. Click on the Send Payment button
+
+**Expected Result:** Error message indicates that the amount is required
+
+---
+
+**BILPAY-011** - Error message for missing from account number
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid payee name
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Leave the from account number field empty
+11. Click on the Send Payment button
+
+**Expected Result:** Error message indicates that the from account number is required
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**BILPAY-008** - Edge case: Maximum valid input lengths for all fields
+**BILPAY-012** - Edge case for maximum length of payee name
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter the maximum allowed characters in the Payee Name field
-2. Enter the maximum allowed characters in the Address field
-3. Enter the maximum allowed characters in the City field
-4. Select a valid State from the dropdown
-5. Enter a valid 5-digit Zip Code
-6. Enter a valid 10-digit Phone Number
-7. Enter the maximum allowed digits in the Account Number field
-8. Re-enter the same Account Number in the Verify Account Number field
-9. Enter the maximum allowed Amount
-10. Select a valid From Account Number from the dropdown
-11. Click the 'Send Payment' button
+1. Enter a valid payee name at maximum length
+2. Enter a valid address
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** A confirmation message appears indicating the payment was successful
+**Expected Result:** Confirmation message appears upon successful transfer
 
 ---
 
-**BILPAY-009** - Edge case: Special characters in Payee Name
+**BILPAY-013** - Edge case for special characters in address
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter special characters (e.g., @#$%^&*) in the Payee Name field
-2. Enter a valid Address
-3. Enter a valid City
-4. Select a valid State from the dropdown
-5. Enter a valid 5-digit Zip Code
-6. Enter a valid 10-digit Phone Number
-7. Enter a valid Account Number
-8. Re-enter the same Account Number in the Verify Account Number field
-9. Enter a valid payment Amount greater than zero
-10. Select a valid From Account Number from the dropdown
-11. Click the 'Send Payment' button
+1. Enter a valid payee name
+2. Enter a valid address with special characters
+3. Enter a valid city
+4. Select a valid state
+5. Enter a valid zip code
+6. Enter a valid phone number
+7. Enter a valid account number
+8. Enter a matching valid verify account number
+9. Enter a valid amount
+10. Select a valid from account number
+11. Click on the Send Payment button
 
-**Expected Result:** An error message appears indicating that special characters are not allowed in the Payee Name
+**Expected Result:** Confirmation message appears upon successful transfer
 
 ---
 
@@ -1232,568 +1326,305 @@
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** transaction_history, transaction_search_results, account_list
-- **Writes State:** transaction_search_results
-- **Verified By:** FINTRA-002, FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-007, FINTRA-004
-
-**Pre-Verification Steps:**
-1. Note initial application state
-
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Enter a valid Transaction ID into the Transaction ID input field.
-4. Click the 'Find Transactions' button.
+1. Enter a valid Transaction ID in the input field
+2. Click on the Find Transactions button
 
-**Post-Verification Steps:**
-1. Verify application state changed as expected
-
-**Expected Result:** Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount.
+**Expected Result:** Matching transactions are displayed in the results table
 
 ---
 
-**FINTRA-002** - Search for transaction with alphanumeric Transaction ID
+**FINTRA-002** - Search for transactions with a valid date
 
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** transaction_history, transaction_search_results, account_list
-- **Writes State:** transaction_search_results
-- **Verified By:** FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-007, FINTRA-004, FINTRA-001
-
-**Pre-Verification Steps:**
-1. Note initial application state
-
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Enter a valid alphanumeric Transaction ID into the Transaction ID input field.
-4. Click the 'Find Transactions' button.
+1. Locate the input field for date
+2. Enter a valid date in MM-DD-YYYY format
+3. Click on the Find Transactions button
 
-**Post-Verification Steps:**
-1. Verify application state changed as expected
-
-**Expected Result:** Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount.
+**Expected Result:** Matching transactions are displayed in the results table
 
 ---
 
-**FINTRA-003** - Search transactions with valid date
+**FINTRA-003** - Search for transactions with valid date range
 
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** transaction_history, transaction_search_results, account_list
-- **Writes State:** transaction_search_results
-- **Verified By:** FINTRA-007, FINTRA-005, FINTRA-006, FINTRA-002, FINTRA-004, FINTRA-001
-
-**Pre-Verification Steps:**
-1. Note initial application state
-
 **Test Steps:**
-1. Select an account from the account dropdown
-2. Enter a valid date in MM-DD-YYYY format in the Date input field
+1. Enter a valid start date in MM-DD-YYYY format in the date range input field
+2. Enter a valid end date in MM-DD-YYYY format in the date range input field
 3. Click the Find Transactions button
 
-**Post-Verification Steps:**
-1. Verify application state changed as expected
-
-**Expected Result:** Matching transactions for the entered date are displayed in the results table showing Transaction ID, Date, Description, and Amount
+**Expected Result:** Matching transactions are displayed in the results table
 
 ---
 
-**FINTRA-004** - Search transactions with valid date range
+**FINTRA-004** - Search for transactions with a valid amount
 
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** transaction_history, transaction_search_results, account_list
-- **Writes State:** transaction_search_results
-- **Verified By:** FINTRA-002, FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-007, FINTRA-001
-
-**Pre-Verification Steps:**
-1. Note initial application state
-
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Date Range' option.
-3. Enter a valid start date in MM-DD-YYYY format in the Date Range input field.
-4. Enter a valid end date in MM-DD-YYYY format in the Date Range input field.
-5. Click the 'Find Transactions' button.
+1. Locate the input field for 'Find by Amount'
+2. Enter a valid transaction amount into the input field
+3. Click the 'Find Transactions' button
 
-**Post-Verification Steps:**
-1. Verify application state changed as expected
-
-**Expected Result:** Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.
-
----
-
-**FINTRA-005** - Search transactions with valid amount
-
-- **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** transaction_history, transaction_search_results, account_list
-- **Writes State:** transaction_search_results
-- **Verified By:** FINTRA-002, FINTRA-003, FINTRA-006, FINTRA-007, FINTRA-004, FINTRA-001
-
-**Pre-Verification Steps:**
-1. Note initial application state
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter a valid amount (e.g., 100) in the Amount input field.
-3. Click the Find Transactions button.
-
-**Post-Verification Steps:**
-1. Verify application state changed as expected
-
-**Expected Result:** Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.
-
----
-
-**FINTRA-006** - Search transactions with decimal amount
-
-- **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** transaction_history, transaction_search_results, account_list
-- **Writes State:** transaction_search_results
-- **Verified By:** FINTRA-002, FINTRA-003, FINTRA-005, FINTRA-007, FINTRA-004, FINTRA-001
-
-**Pre-Verification Steps:**
-1. Note initial application state
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter a valid decimal amount (e.g., 100.50) in the Amount input field.
-3. Click the Find Transactions button.
-
-**Post-Verification Steps:**
-1. Verify application state changed as expected
-
-**Expected Result:** Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.
-
----
-
-**FINTRA-007** - Search transactions with past date having no transactions
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-- **Reads State:** transaction_history, transaction_search_results, account_list
-- **Writes State:** transaction_search_results
-- **Verified By:** FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-002, FINTRA-004, FINTRA-001
-
-**Pre-Verification Steps:**
-1. Note initial application state
-
-**Test Steps:**
-1. Select an account from the account dropdown
-2. Enter a past date in MM-DD-YYYY format that has no transactions in the Date input field
-3. Click the Find Transactions button
-
-**Post-Verification Steps:**
-1. Verify application state changed as expected
-
-**Expected Result:** No transactions are displayed in the results table, and a message indicating no matching transactions is shown
+**Expected Result:** Matching transactions are displayed in the results table
 
 ---
 
 #### Negative Tests
 
-**FINTRA-008** - Attempt search with empty Transaction ID field
+**FINTRA-005** - Search for transaction with empty Transaction ID
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Leave the Transaction ID input field empty.
-4. Click the 'Find Transactions' button.
+1. Leave the Transaction ID input field empty
+2. Click on the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the Transaction ID input field indicating that the field is required.
+**Expected Result:** Inline validation message appears next to the input field indicating that the field is required
 
 ---
 
-**FINTRA-009** - Attempt search with invalid Transaction ID format
+**FINTRA-006** - Search for transaction with invalid Transaction ID format
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Enter an invalid Transaction ID (e.g., special characters or incorrect format) into the Transaction ID input field.
-4. Click the 'Find Transactions' button.
+1. Enter an invalid Transaction ID format in the input field
+2. Click on the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the Transaction ID input field indicating that the input format is invalid.
+**Expected Result:** Inline validation message appears next to the input field indicating that the input is invalid
 
 ---
 
-**FINTRA-010** - Attempt search with whitespace-only Transaction ID
+**FINTRA-007** - Attempt to search without entering a date
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Enter only whitespace characters into the Transaction ID input field.
-4. Click the 'Find Transactions' button.
+1. Locate the input field for date
+2. Leave the input field empty
+3. Click on the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the Transaction ID input field indicating that the field is required.
+**Expected Result:** An inline validation message appears next to the field indicating that the date is required
 
 ---
 
-**FINTRA-011** - Attempt search without selecting an account
+**FINTRA-008** - Attempt to search with an invalid date format
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Do not select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Enter a valid Transaction ID into the Transaction ID input field.
-4. Click the 'Find Transactions' button.
+1. Locate the input field for date
+2. Enter an invalid date format
+3. Click on the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the account dropdown indicating that the field is required.
+**Expected Result:** An inline validation message appears next to the field indicating that the date format is invalid
 
 ---
 
-**FINTRA-012** - Search transactions with empty date field
+**FINTRA-009** - Attempt to search with empty date range fields
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown
-2. Leave the Date input field empty
+1. Leave the start date input field empty
+2. Leave the end date input field empty
 3. Click the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the Date input field indicating that the field is required
+**Expected Result:** Inline validation messages appear next to both fields indicating they are required
 
 ---
 
-**FINTRA-013** - Search transactions with invalid date format
+**FINTRA-010** - Attempt to search with invalid date format
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown
-2. Enter an invalid date format (e.g., DD-MM-YYYY or YYYY/MM/DD) in the Date input field
+1. Enter an invalid start date format in the date range input field
+2. Enter an invalid end date format in the date range input field
 3. Click the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the Date input field indicating that the date must be in MM-DD-YYYY format
+**Expected Result:** Inline validation messages appear next to both fields indicating the format is incorrect
 
 ---
 
-**FINTRA-014** - Search transactions without selecting an account
+**FINTRA-011** - Search for transactions with start date greater than end date
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave the account dropdown unselected
-2. Enter a valid date in MM-DD-YYYY format in the Date input field
+1. Enter a valid start date that is later than the end date in MM-DD-YYYY format in the date range input field
+2. Enter a valid end date in MM-DD-YYYY format in the date range input field
 3. Click the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the account dropdown indicating that the field is required
+**Expected Result:** Inline validation message appears indicating that the start date must be before the end date
 
 ---
 
-**FINTRA-015** - Search transactions with empty date range fields
+**FINTRA-012** - Attempt to search with an empty amount field
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the input field for 'Find by Amount'
+2. Leave the input field empty
+3. Click the 'Find Transactions' button
+
+**Expected Result:** An inline validation message appears next to the field indicating that the amount is required
+
+---
+
+**FINTRA-013** - Search for transactions with a date containing special characters
 
 - **Priority:** Medium
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Date Range' option.
-3. Leave both the start date and end date fields empty.
-4. Click the 'Find Transactions' button.
+1. Locate the input field for date
+2. Enter a date with special characters
+3. Click on the Find Transactions button
 
-**Expected Result:** Inline validation messages appear next to both fields indicating that they are required.
+**Expected Result:** An inline validation message appears next to the field indicating that the date format is invalid
 
 ---
 
-**FINTRA-016** - Search transactions with invalid date format
+**FINTRA-014** - Attempt to search with an invalid amount format
 
 - **Priority:** Medium
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Date Range' option.
-3. Enter an invalid date format (e.g., DD-MM-YYYY) in the start date field.
-4. Enter an invalid date format (e.g., YYYY-MM-DD) in the end date field.
-5. Click the 'Find Transactions' button.
+1. Locate the input field for 'Find by Amount'
+2. Enter an invalid amount format into the input field (e.g., letters or special characters)
+3. Click the 'Find Transactions' button
 
-**Expected Result:** Inline validation messages appear next to both fields indicating that the date must be in MM-DD-YYYY format.
-
----
-
-**FINTRA-017** - Search transactions with start date later than end date
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Date Range' option.
-3. Enter a start date that is later than the end date in MM-DD-YYYY format.
-4. Click the 'Find Transactions' button.
-
-**Expected Result:** Inline validation message appears indicating that the start date cannot be later than the end date.
-
----
-
-**FINTRA-018** - Search transactions with missing account selection
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Leave the account dropdown unselected.
-2. Click on the 'Find by Date Range' option.
-3. Enter valid dates in MM-DD-YYYY format in both the start date and end date fields.
-4. Click the 'Find Transactions' button.
-
-**Expected Result:** Inline validation message appears indicating that the account selection is required.
-
----
-
-**FINTRA-019** - Search transactions with empty amount field
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Leave the Amount input field empty.
-3. Click the Find Transactions button.
-
-**Expected Result:** An inline validation message appears next to the Amount input field indicating the field is required.
-
----
-
-**FINTRA-020** - Search transactions with invalid characters in amount field
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter invalid characters (e.g., 'abc') in the Amount input field.
-3. Click the Find Transactions button.
-
-**Expected Result:** An inline validation message appears next to the Amount input field indicating invalid input.
-
----
-
-**FINTRA-021** - Search transactions with negative amount
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter a negative amount (e.g., -50) in the Amount input field.
-3. Click the Find Transactions button.
-
-**Expected Result:** An inline validation message appears next to the Amount input field indicating invalid input.
-
----
-
-**FINTRA-022** - Search transactions without selecting an account
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Leave the account dropdown unselected.
-2. Enter a valid amount (e.g., 100) in the Amount input field.
-3. Click the Find Transactions button.
-
-**Expected Result:** An inline validation message appears next to the account dropdown indicating the field is required.
-
----
-
-**FINTRA-023** - Search transactions with special characters in amount field
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter special characters (e.g., '!@#$') in the Amount input field.
-3. Click the Find Transactions button.
-
-**Expected Result:** An inline validation message appears next to the Amount input field indicating invalid input.
+**Expected Result:** An inline validation message appears next to the field indicating that the input is invalid
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**FINTRA-024** - Search for transaction with maximum length Transaction ID
+**FINTRA-015** - Search for transaction with special characters in Transaction ID
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Enter a Transaction ID with the maximum allowed length into the Transaction ID input field.
-4. Click the 'Find Transactions' button.
+1. Enter special characters in the Transaction ID input field
+2. Click on the Find Transactions button
 
-**Expected Result:** Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount.
+**Expected Result:** Inline validation message appears next to the input field indicating that the input is invalid
 
 ---
 
-**FINTRA-025** - Search for transaction with minimum length Transaction ID
+**FINTRA-016** - Search for transaction with maximum length Transaction ID
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Transaction ID' option.
-3. Enter a Transaction ID with the minimum allowed length into the Transaction ID input field.
-4. Click the 'Find Transactions' button.
+1. Enter a Transaction ID that reaches the maximum allowed length in the input field
+2. Click on the Find Transactions button
 
-**Expected Result:** Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount.
+**Expected Result:** Matching transactions are displayed in the results table if the input is valid
 
 ---
 
-**FINTRA-026** - Search transactions with special characters in date field
+**FINTRA-017** - Search for transactions with a date in the future
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown
-2. Enter special characters (e.g., ##-##-####) in the Date input field
+1. Locate the input field for date
+2. Enter a future date in MM-DD-YYYY format
+3. Click on the Find Transactions button
+
+**Expected Result:** No transactions are displayed, or a message indicating no transactions found appears
+
+---
+
+**FINTRA-018** - Search for transactions with a date at the boundary of valid input
+
+- **Priority:** Low
+- **Preconditions:** None
+
+**Test Steps:**
+1. Locate the input field for date
+2. Enter a date that is the earliest valid date in MM-DD-YYYY format
+3. Click on the Find Transactions button
+
+**Expected Result:** Matching transactions are displayed in the results table or a message indicating no transactions found appears
+
+---
+
+**FINTRA-019** - Search for transactions with special characters in date fields
+
+- **Priority:** Low
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a start date with special characters in the date range input field
+2. Enter an end date with special characters in the date range input field
 3. Click the Find Transactions button
 
-**Expected Result:** An inline validation message appears next to the Date input field indicating that the date must be in MM-DD-YYYY format
+**Expected Result:** Inline validation messages appear next to both fields indicating the format is incorrect
 
 ---
 
-**FINTRA-027** - Search transactions with future date
+**FINTRA-020** - Search for transactions with maximum length date input
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown
-2. Enter a future date in MM-DD-YYYY format in the Date input field
+1. Enter a start date with the maximum allowed length in MM-DD-YYYY format in the date range input field
+2. Enter an end date with the maximum allowed length in MM-DD-YYYY format in the date range input field
 3. Click the Find Transactions button
 
-**Expected Result:** No transactions are displayed in the results table, and a message indicating no matching transactions is shown
+**Expected Result:** Matching transactions are displayed in the results table
 
 ---
 
-**FINTRA-028** - Search transactions with date containing leading or trailing spaces
+**FINTRA-021** - Search for transactions with a negative amount
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown
-2. Enter a valid date in MM-DD-YYYY format with leading or trailing spaces in the Date input field
-3. Click the Find Transactions button
+1. Locate the input field for 'Find by Amount'
+2. Enter a negative transaction amount into the input field
+3. Click the 'Find Transactions' button
 
-**Expected Result:** Matching transactions for the entered date are displayed in the results table showing Transaction ID, Date, Description, and Amount
+**Expected Result:** An inline validation message appears next to the field indicating that the amount must be positive
 
 ---
 
-**FINTRA-029** - Search transactions with boundary date range
+**FINTRA-022** - Search for transactions with a very large amount
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Date Range' option.
-3. Enter the same date in both the start date and end date fields in MM-DD-YYYY format.
-4. Click the 'Find Transactions' button.
+1. Locate the input field for 'Find by Amount'
+2. Enter a very large transaction amount into the input field
+3. Click the 'Find Transactions' button
 
-**Expected Result:** Matching transactions for the specified date are displayed in the results table showing Transaction ID, Date, Description, and Amount.
-
----
-
-**FINTRA-030** - Search transactions with special characters in date fields
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Date Range' option.
-3. Enter special characters (e.g., ##-##-####) in the start date field.
-4. Enter special characters (e.g., ##-##-####) in the end date field.
-5. Click the 'Find Transactions' button.
-
-**Expected Result:** Inline validation messages appear next to both fields indicating that the date must be in MM-DD-YYYY format.
-
----
-
-**FINTRA-031** - Search transactions with valid leap year date range
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Click on the 'Find by Date Range' option.
-3. Enter a valid leap year date (e.g., 02-29-2024) in the start date field.
-4. Enter a valid leap year date (e.g., 02-29-2024) in the end date field.
-5. Click the 'Find Transactions' button.
-
-**Expected Result:** Matching transactions for the specified leap year date are displayed in the results table showing Transaction ID, Date, Description, and Amount.
-
----
-
-**FINTRA-032** - Search transactions with maximum allowed amount
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter the maximum allowed amount (e.g., 999999999.99) in the Amount input field.
-3. Click the Find Transactions button.
-
-**Expected Result:** Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.
-
----
-
-**FINTRA-033** - Search transactions with zero amount
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter zero (0) in the Amount input field.
-3. Click the Find Transactions button.
-
-**Expected Result:** Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.
-
----
-
-**FINTRA-034** - Search transactions with leading and trailing spaces in amount field
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Select an account from the account dropdown.
-2. Enter an amount with leading and trailing spaces (e.g., ' 100 ') in the Amount input field.
-3. Click the Find Transactions button.
-
-**Expected Result:** Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.
+**Expected Result:** Matching transactions are displayed in the results table if valid, or an inline validation message if not
 
 ---
 
@@ -1806,162 +1637,194 @@
 **UPDPRO-001** - Update profile with valid information
 
 - **Priority:** High
-- **Preconditions:** None
-
-- **Reads State:** user_profile
-- **Writes State:** user_profile
-- **Verified By:** LOGOUT-003, FORPAS-001
-
-**Pre-Verification Steps:**
-1. Navigate to Profile/Settings
-2. Note current profile values
+- **Preconditions:** User is logged in and on the Update Profile page
 
 **Test Steps:**
-1. Enter 'John' in the First Name field
-2. Enter 'Doe' in the Last Name field
-3. Enter '123 Main St' in the Address field
-4. Enter 'Springfield' in the City field
-5. Select 'Illinois' from the State dropdown
-6. Enter '62704' in the Zip Code field
-7. Enter '555-123-4567' in the Phone Number field
-8. Click the 'Update Profile' button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Click on the Update Profile button
 
-**Post-Verification Steps:**
-1. Navigate to Profile/Settings
-2. Verify updated values are displayed
-
-**Expected Result:** A confirmation message is displayed indicating the profile was successfully updated
+**Expected Result:** Confirmation message is shown upon successful submission
 
 ---
 
 #### Negative Tests
 
-**UPDPRO-002** - Attempt to update profile with empty fields
+**UPDPRO-002** - Attempt to update profile with missing first name
 
 - **Priority:** High
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Update Profile page
 
 **Test Steps:**
-1. Leave all fields empty
-2. Click the 'Update Profile' button
+1. Leave the first name field empty
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Click on the Update Profile button
 
-**Expected Result:** Error messages are displayed for all required fields indicating they cannot be empty
+**Expected Result:** Error message indicating that the first name is required is displayed
 
 ---
 
-**UPDPRO-003** - Attempt to update profile with invalid phone number format
+**UPDPRO-003** - Attempt to update profile with missing last name
 
-- **Priority:** Medium
-- **Preconditions:** None
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Update Profile page
 
 **Test Steps:**
-1. Enter 'John' in the First Name field
-2. Enter 'Doe' in the Last Name field
-3. Enter '123 Main St' in the Address field
-4. Enter 'Springfield' in the City field
-5. Select 'Illinois' from the State dropdown
-6. Enter '62704' in the Zip Code field
-7. Enter '12345' in the Phone Number field
-8. Click the 'Update Profile' button
+1. Enter a valid first name
+2. Leave the last name field empty
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Click on the Update Profile button
 
-**Expected Result:** An error message is displayed indicating the phone number format is invalid
+**Expected Result:** Error message indicating that the last name is required is displayed
 
 ---
 
-**UPDPRO-004** - Attempt to update profile with invalid zip code format
+**UPDPRO-004** - Attempt to update profile with missing address
 
-- **Priority:** Medium
-- **Preconditions:** None
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Update Profile page
 
 **Test Steps:**
-1. Enter 'John' in the First Name field
-2. Enter 'Doe' in the Last Name field
-3. Enter '123 Main St' in the Address field
-4. Enter 'Springfield' in the City field
-5. Select 'Florida' from the State dropdown
-6. Enter 'ABCDE' in the Zip Code field
-7. Enter '555-123-4567' in the Phone Number field
-8. Click the 'Update Profile' button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Leave the address field empty
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Click on the Update Profile button
 
-**Expected Result:** An error message is displayed indicating the zip code format is invalid
+**Expected Result:** Error message indicating that the address is required is displayed
 
 ---
 
-**UPDPRO-005** - Attempt to update profile with missing state selection
+**UPDPRO-005** - Attempt to update profile with missing city
 
-- **Priority:** Medium
-- **Preconditions:** None
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Update Profile page
 
 **Test Steps:**
-1. Enter 'John' in the First Name field
-2. Enter 'Doe' in the Last Name field
-3. Enter '123 Main St' in the Address field
-4. Enter 'Springfield' in the City field
-5. Leave the State dropdown unselected
-6. Enter '62704' in the Zip Code field
-7. Enter '555-123-4567' in the Phone Number field
-8. Click the 'Update Profile' button
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Leave the city field empty
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Click on the Update Profile button
 
-**Expected Result:** An error message is displayed indicating the state field is required
+**Expected Result:** Error message indicating that the city is required is displayed
+
+---
+
+**UPDPRO-006** - Attempt to update profile with missing state
+
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Update Profile page
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Leave the state field empty
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Click on the Update Profile button
+
+**Expected Result:** Error message indicating that the state is required is displayed
+
+---
+
+**UPDPRO-007** - Attempt to update profile with missing zip code
+
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Update Profile page
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Leave the zip code field empty
+7. Enter a valid phone number
+8. Click on the Update Profile button
+
+**Expected Result:** Error message indicating that the zip code is required is displayed
+
+---
+
+**UPDPRO-008** - Attempt to update profile with missing phone number
+
+- **Priority:** High
+- **Preconditions:** User is logged in and on the Update Profile page
+
+**Test Steps:**
+1. Enter a valid first name
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Leave the phone number field empty
+8. Click on the Update Profile button
+
+**Expected Result:** Error message indicating that the phone number is required is displayed
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**UPDPRO-006** - Update profile with maximum allowed characters in all fields
+**UPDPRO-009** - Update profile with special characters in first name
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Update Profile page
 
 **Test Steps:**
-1. Enter a 50-character string in the First Name field
-2. Enter a 50-character string in the Last Name field
-3. Enter a 100-character string in the Address field
-4. Enter a 50-character string in the City field
-5. Select 'California' from the State dropdown
-6. Enter '99999' in the Zip Code field
-7. Enter '555-555-5555' in the Phone Number field
-8. Click the 'Update Profile' button
+1. Enter a first name with special characters
+2. Enter a valid last name
+3. Enter a valid address
+4. Enter a valid city
+5. Select a valid state
+6. Enter a valid zip code
+7. Enter a valid phone number
+8. Click on the Update Profile button
 
-**Expected Result:** A confirmation message is displayed indicating the profile was successfully updated
+**Expected Result:** Confirmation message is shown upon successful submission
 
 ---
 
-**UPDPRO-007** - Attempt to update profile with special characters in name fields
+**UPDPRO-010** - Update profile with maximum length values
 
 - **Priority:** Low
-- **Preconditions:** None
+- **Preconditions:** User is logged in and on the Update Profile page
 
 **Test Steps:**
-1. Enter 'J@hn!' in the First Name field
-2. Enter 'D#e$' in the Last Name field
-3. Enter '123 Main St' in the Address field
-4. Enter 'Springfield' in the City field
-5. Select 'Texas' from the State dropdown
-6. Enter '75001' in the Zip Code field
-7. Enter '555-987-6543' in the Phone Number field
-8. Click the 'Update Profile' button
+1. Enter a first name at maximum length
+2. Enter a last name at maximum length
+3. Enter an address at maximum length
+4. Enter a city at maximum length
+5. Select a valid state
+6. Enter a zip code at maximum length
+7. Enter a valid phone number
+8. Click on the Update Profile button
 
-**Expected Result:** A confirmation message is displayed indicating the profile was successfully updated
-
----
-
-**UPDPRO-008** - Update profile with numeric values in address field
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter 'John' in the First Name field
-2. Enter 'Doe' in the Last Name field
-3. Enter '1234567890' in the Address field
-4. Enter 'Springfield' in the City field
-5. Select 'Nevada' from the State dropdown
-6. Enter '89044' in the Zip Code field
-7. Enter '555-123-4567' in the Phone Number field
-8. Click the 'Update Profile' button
-
-**Expected Result:** A confirmation message is displayed indicating the profile was successfully updated
+**Expected Result:** Confirmation message is shown upon successful submission
 
 ---
 
@@ -1971,153 +1834,97 @@
 
 #### Functional Tests
 
-**REQLOA-001** - Apply for a loan with valid inputs
+**REQLOA-001** - Apply for a loan with all fields filled correctly
 
 - **Priority:** High
 - **Preconditions:** None
 
-- **Reads State:** account_list, loan_status
-- **Writes State:** loan_status
-
-**Pre-Verification Steps:**
-1. Navigate to Loan section
-2. Note current loan status
-
 **Test Steps:**
-1. Enter a valid Loan Amount (e.g., 5000)
-2. Enter a valid Down Payment (e.g., 1000)
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
+1. Enter a valid loan amount
+2. Enter a valid down payment
+3. Enter a valid from account number
+4. Click on Apply Now
 
-**Post-Verification Steps:**
-1. Navigate to Loan section
-2. Verify loan status updated
-
-**Expected Result:** Loan application is successfully submitted, and a confirmation message is displayed
+**Expected Result:** Loan application is successfully submitted and approved
 
 ---
 
 #### Negative Tests
 
-**REQLOA-002** - Internal error occurs during loan application
+**REQLOA-002** - Attempt to apply for a loan with blank loan amount
 
 - **Priority:** High
-- **Preconditions:** Simulate an internal error in the system
-
-**Test Steps:**
-1. Enter a valid Loan Amount (e.g., 5000)
-2. Enter a valid Down Payment (e.g., 1000)
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
-
-**Expected Result:** An error message is displayed indicating that the loan application could not be processed due to an internal error
-
----
-
-**REQLOA-003** - Leave Loan Amount field blank
-
-- **Priority:** Medium
 - **Preconditions:** None
 
 **Test Steps:**
-1. Leave the Loan Amount field empty
-2. Enter a valid Down Payment (e.g., 1000)
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
+1. Leave loan amount field blank
+2. Enter a valid down payment
+3. Enter a valid from account number
+4. Click on Apply Now
 
-**Expected Result:** An error message is displayed indicating that the Loan Amount field is mandatory
-
----
-
-**REQLOA-004** - Leave Down Payment field blank
-
-- **Priority:** Medium
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a valid Loan Amount (e.g., 5000)
-2. Leave the Down Payment field empty
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
-
-**Expected Result:** An error message is displayed indicating that the Down Payment field is mandatory
+**Expected Result:** Error message is displayed indicating loan amount is mandatory
 
 ---
 
-**REQLOA-005** - Leave From account number field blank
+**REQLOA-003** - Attempt to apply for a loan with blank down payment
 
-- **Priority:** Medium
+- **Priority:** High
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid Loan Amount (e.g., 5000)
-2. Enter a valid Down Payment (e.g., 1000)
-3. Leave the From account number field empty
-4. Click on the 'Apply Now' button
+1. Enter a valid loan amount
+2. Leave down payment field blank
+3. Enter a valid from account number
+4. Click on Apply Now
 
-**Expected Result:** An error message is displayed indicating that the From account number field is mandatory
+**Expected Result:** Error message is displayed indicating down payment is mandatory
+
+---
+
+**REQLOA-004** - Attempt to apply for a loan with blank from account number
+
+- **Priority:** High
+- **Preconditions:** None
+
+**Test Steps:**
+1. Enter a valid loan amount
+2. Enter a valid down payment
+3. Leave from account number field blank
+4. Click on Apply Now
+
+**Expected Result:** Error message is displayed indicating from account number is mandatory
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**REQLOA-006** - Enter zero as Loan Amount
+**REQLOA-005** - Apply for a loan with special characters in loan amount
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter 0 as the Loan Amount
-2. Enter a valid Down Payment (e.g., 1000)
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
+1. Enter a loan amount with special characters
+2. Enter a valid down payment
+3. Enter a valid from account number
+4. Click on Apply Now
 
-**Expected Result:** An error message is displayed indicating that the Loan Amount must be greater than zero
+**Expected Result:** Error message is displayed indicating loan amount is invalid
 
 ---
 
-**REQLOA-007** - Enter negative value as Down Payment
+**REQLOA-006** - Apply for a loan with maximum length of loan amount
 
 - **Priority:** Low
 - **Preconditions:** None
 
 **Test Steps:**
-1. Enter a valid Loan Amount (e.g., 5000)
-2. Enter a negative value as Down Payment (e.g., -1000)
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
+1. Enter a loan amount at maximum allowed length
+2. Enter a valid down payment
+3. Enter a valid from account number
+4. Click on Apply Now
 
-**Expected Result:** An error message is displayed indicating that the Down Payment must be a positive value
-
----
-
-**REQLOA-008** - Enter special characters in Loan Amount field
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter special characters (e.g., @#$%) in the Loan Amount field
-2. Enter a valid Down Payment (e.g., 1000)
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
-
-**Expected Result:** An error message is displayed indicating that the Loan Amount must be a numeric value
-
----
-
-**REQLOA-009** - Enter special characters in Down Payment field
-
-- **Priority:** Low
-- **Preconditions:** None
-
-**Test Steps:**
-1. Enter a valid Loan Amount (e.g., 5000)
-2. Enter special characters (e.g., @#$%) in the Down Payment field
-3. Select a valid From account number from the dropdown
-4. Click on the 'Apply Now' button
-
-**Expected Result:** An error message is displayed indicating that the Down Payment must be a numeric value
+**Expected Result:** Loan application is successfully submitted and approved
 
 ---
 
@@ -2127,151 +1934,86 @@
 
 #### Functional Tests
 
-**LOGOUT-001** - Verify successful logout redirects to login page
+**LOGOUT-001** - Successful Logout
 
 - **Priority:** High
-- **Preconditions:** User is logged in
-
-- **Reads State:** session_status
-- **Writes State:** session_status
-- **Verified By:** LOGOUT-003, ACCOVE-006, LOGOUT-002, BILPAY-001
-
-**Pre-Verification Steps:**
-1. Verify user is logged out initially
+- **Preconditions:** User is logged into the application
 
 **Test Steps:**
-1. Click on the 'Logout' button
+1. Locate and click the logout button
 
-**Post-Verification Steps:**
-1. Verify user session state changed as expected
-
-**Expected Result:** User is redirected to the login page
+**Expected Result:** User is returned to the login page
 
 ---
 
-**LOGOUT-002** - Verify session data is cleared after logout
+**LOGOUT-002** - Session Data Cleared After Logout
 
 - **Priority:** High
-- **Preconditions:** User is logged in
-
-- **Reads State:** session_status
-- **Writes State:** session_status
-- **Verified By:** LOGOUT-003, ACCOVE-006, LOGOUT-001, BILPAY-001
-
-**Pre-Verification Steps:**
-1. Verify user is logged out initially
+- **Preconditions:** User is logged into the application
 
 **Test Steps:**
-1. Click on the 'Logout' button
-2. Attempt to access a page that requires authentication
+1. Click the logout button
+2. Attempt to access a protected page
 
-**Post-Verification Steps:**
-1. Verify user session state changed as expected
-
-**Expected Result:** Access to the page is denied, and the user is redirected to the login page
-
----
-
-**LOGOUT-003** - Verify no account information is accessible after logout
-
-- **Priority:** High
-- **Preconditions:** User is logged in
-
-- **Reads State:** session_status, user_profile
-- **Writes State:** session_status
-- **Verified By:** ACCOVE-006, LOGOUT-001, LOGOUT-002, BILPAY-001
-
-**Pre-Verification Steps:**
-1. Verify user is logged out initially
-
-**Test Steps:**
-1. Click on the 'Logout' button
-2. Inspect browser storage (cookies, local storage, session storage) for any user-related data
-
-**Post-Verification Steps:**
-1. Verify user session state changed as expected
-
-**Expected Result:** No account information or sensitive data is present in the browser storage
+**Expected Result:** User is redirected to the login page and cannot access the protected page
 
 ---
 
 #### Negative Tests
 
-**LOGOUT-004** - Verify logout functionality when session has already expired
+**LOGOUT-003** - Access Account Information After Logout
 
-- **Priority:** Medium
-- **Preconditions:** User session has expired
+- **Priority:** High
+- **Preconditions:** User is logged into the application
 
 **Test Steps:**
-1. Click on the 'Logout' button
+1. Click the logout button
+2. Attempt to access account information page
 
-**Expected Result:** User is redirected to the login page without errors
+**Expected Result:** Access is denied and user is redirected to the login page
 
 ---
 
-**LOGOUT-005** - Verify logout functionality when user is not logged in
+**LOGOUT-004** - Session Persistence Check After Logout
 
 - **Priority:** Medium
-- **Preconditions:** User is not logged in
+- **Preconditions:** User is logged into the application
 
 **Test Steps:**
-1. Click on the 'Logout' button
+1. Click the logout button
+2. Check if session storage or cookies still contain user data
 
-**Expected Result:** No action is performed, and the user remains on the current page or is redirected to the login page
+**Expected Result:** No user data remains in session storage or cookies
+
+---
+
+**LOGOUT-005** - Logout Without Prior Login
+
+- **Priority:** Medium
+- **Preconditions:** User is not logged into the application
+
+**Test Steps:**
+1. Locate and click the logout button
+
+**Expected Result:** No action is performed and user remains on the current page
 
 ---
 
 #### Boundary/Edge Case Tests
 
-**LOGOUT-006** - Verify logout button is functional when clicked multiple times
-
-- **Priority:** Medium
-- **Preconditions:** User is logged in
-
-**Test Steps:**
-1. Click on the 'Logout' button multiple times in quick succession
-
-**Expected Result:** User is logged out successfully and redirected to the login page without errors
-
----
-
-**LOGOUT-007** - Verify logout functionality when browser cookies are disabled
+**LOGOUT-006** - Logout with Special Characters in Session
 
 - **Priority:** Low
-- **Preconditions:** User is logged in and browser cookies are disabled
+- **Preconditions:** User is logged into the application with special characters in session data
 
 **Test Steps:**
-1. Click on the 'Logout' button
+1. Click the logout button
 
-**Expected Result:** User is redirected to the login page, and no sensitive data remains accessible
-
----
+**Expected Result:** User is returned to the login page and no session data remains
 
 ---
 
-## Verification Chain
-
-This section shows which test cases verify the results of other tests.
-
-| Test ID | Test Name | Writes State | Verified By |
-|---------|-----------|--------------|-------------|
-| LOGIN-001 | Login with valid username and password | session_status | ACCOVE-006, BILPAY-001, LOGOUT-002, LOGOUT-001, LOGOUT-003 |
-| LOGIN-002 | Login with valid email and password | session_status | ACCOVE-006, BILPAY-001, LOGOUT-002, LOGOUT-001, LOGOUT-003 |
-| REGIST-001 | Successful registration with valid inputs | user_profile, session_status | ACCOVE-006, BILPAY-001, LOGOUT-002, LOGOUT-001, FORPAS-001, UPDPRO-001, LOGOUT-003 |
-| ONA-001 | Open a new account with valid account type and funding source | account_list, account_balance, transaction_history | BILPAY-001, FINTRA-003, FINTRA-007, REQLOA-001, ACCOVE-003, ACCOVE-001, FINTRA-005, ACCOVE-005, FINTRA-006, ACCOVE-004, FINTRA-002, FINTRA-004, FINTRA-001, TRAFUN-001 |
-| TRAFUN-001 | Successful fund transfer with valid inputs | account_balance, transaction_history, transfer_details | ONA-001, BILPAY-001, FINTRA-003, FINTRA-007, ACCOVE-003, FINTRA-005, FINTRA-006, ACCOVE-004, FINTRA-002, FINTRA-004, FINTRA-001 |
-| BILPAY-001 | Successful payment with valid inputs | account_balance, transaction_history, bill_payment_details | ONA-001, FINTRA-003, FINTRA-007, ACCOVE-003, FINTRA-005, FINTRA-006, ACCOVE-004, FINTRA-002, FINTRA-004, FINTRA-001, TRAFUN-001 |
-| FINTRA-001 | Search for transaction with valid Transaction ID | transaction_search_results | FINTRA-002, FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-007, FINTRA-004 |
-| FINTRA-002 | Search for transaction with alphanumeric Transaction ID | transaction_search_results | FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-007, FINTRA-004, FINTRA-001 |
-| FINTRA-003 | Search transactions with valid date | transaction_search_results | FINTRA-007, FINTRA-005, FINTRA-006, FINTRA-002, FINTRA-004, FINTRA-001 |
-| FINTRA-004 | Search transactions with valid date range | transaction_search_results | FINTRA-002, FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-007, FINTRA-001 |
-| FINTRA-005 | Search transactions with valid amount | transaction_search_results | FINTRA-002, FINTRA-003, FINTRA-006, FINTRA-007, FINTRA-004, FINTRA-001 |
-| FINTRA-006 | Search transactions with decimal amount | transaction_search_results | FINTRA-002, FINTRA-003, FINTRA-005, FINTRA-007, FINTRA-004, FINTRA-001 |
-| FINTRA-007 | Search transactions with past date having no transactions | transaction_search_results | FINTRA-003, FINTRA-005, FINTRA-006, FINTRA-002, FINTRA-004, FINTRA-001 |
-| UPDPRO-001 | Update profile with valid information | user_profile | LOGOUT-003, FORPAS-001 |
-| LOGOUT-001 | Verify successful logout redirects to login page | session_status | LOGOUT-003, ACCOVE-006, LOGOUT-002, BILPAY-001 |
-| LOGOUT-002 | Verify session data is cleared after logout | session_status | LOGOUT-003, ACCOVE-006, LOGOUT-001, BILPAY-001 |
-| LOGOUT-003 | Verify no account information is accessible after logout | session_status | ACCOVE-006, LOGOUT-001, LOGOUT-002, BILPAY-001 |
+---
 
 ## Navigation Graph
 
@@ -2281,14 +2023,14 @@ This section shows which test cases verify the results of other tests.
 
 | Module | URL | Auth Required | Test Cases |
 |--------|-----|---------------|------------|
-| Login | /login | No | 12 |
-| Forgot Password | /forgot-password | No | 8 |
-| Register | /register | No | 8 |
-| Open New Account | /open-new-account | Yes | 8 |
-| Account Overview | /accounts-overview | Yes | 9 |
-| Transfer Funds | /transfer-funds | Yes | 10 |
-| Bill Payments | /bill-payments | Yes | 9 |
-| Find Transaction | /find-transaction | Yes | 34 |
-| Update Profile | /update-profile | Yes | 8 |
-| Request Loan | /request-loan | Yes | 9 |
-| Logout | /logout | Yes | 7 |
+| Login | /login | No | 8 |
+| Forgot Password | /forgot-password | No | 6 |
+| Register | /register | No | 15 |
+| Open New Account | /open-new-account | Yes | 6 |
+| Account Overview | /accounts-overview | Yes | 13 |
+| Transfer Funds | /transfer-funds | No | 7 |
+| Bill Payments | /bill-pay | No | 13 |
+| Find Transaction | /find-transaction | No | 22 |
+| Update Profile | /update-profile | Yes | 10 |
+| Request Loan | /request-loan | No | 6 |
+| Logout | /logout | Yes | 6 |

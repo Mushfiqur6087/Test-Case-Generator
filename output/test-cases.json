@@ -1,7 +1,7 @@
 {
   "project_name": "Parabank Functional Overview",
   "base_url": "https://parabank.parasoft.com/parabank/index.htm",
-  "generated_at": "2026-01-22T18:33:45.118566",
+  "generated_at": "2026-01-23T09:48:49.739829",
   "navigation_graph": {
     "login_module_id": 1,
     "graph_image_path": "output/navigation_graph.png",
@@ -24,11 +24,7 @@
           "LOGIN-005",
           "LOGIN-006",
           "LOGIN-007",
-          "LOGIN-008",
-          "LOGIN-009",
-          "LOGIN-010",
-          "LOGIN-011",
-          "LOGIN-012"
+          "LOGIN-008"
         ]
       },
       {
@@ -45,9 +41,7 @@
           "FORPAS-003",
           "FORPAS-004",
           "FORPAS-005",
-          "FORPAS-006",
-          "FORPAS-007",
-          "FORPAS-008"
+          "FORPAS-006"
         ]
       },
       {
@@ -66,7 +60,14 @@
           "REGIST-005",
           "REGIST-006",
           "REGIST-007",
-          "REGIST-008"
+          "REGIST-008",
+          "REGIST-009",
+          "REGIST-010",
+          "REGIST-011",
+          "REGIST-012",
+          "REGIST-013",
+          "REGIST-014",
+          "REGIST-015"
         ]
       },
       {
@@ -75,7 +76,8 @@
         "requires_auth": true,
         "url_path": "/open-new-account",
         "connected_to": [
-          5
+          5,
+          11
         ],
         "test_case_ids": [
           "ONA-001",
@@ -83,9 +85,7 @@
           "ONA-003",
           "ONA-004",
           "ONA-005",
-          "ONA-006",
-          "ONA-007",
-          "ONA-008"
+          "ONA-006"
         ]
       },
       {
@@ -111,13 +111,17 @@
           "ACCOVE-006",
           "ACCOVE-007",
           "ACCOVE-008",
-          "ACCOVE-009"
+          "ACCOVE-009",
+          "ACCOVE-010",
+          "ACCOVE-011",
+          "ACCOVE-012",
+          "ACCOVE-013"
         ]
       },
       {
         "module_id": 6,
         "title": "Transfer Funds",
-        "requires_auth": true,
+        "requires_auth": false,
         "url_path": "/transfer-funds",
         "connected_to": [
           5
@@ -129,17 +133,14 @@
           "TRAFUN-004",
           "TRAFUN-005",
           "TRAFUN-006",
-          "TRAFUN-007",
-          "TRAFUN-008",
-          "TRAFUN-009",
-          "TRAFUN-010"
+          "TRAFUN-007"
         ]
       },
       {
         "module_id": 7,
         "title": "Bill Payments",
-        "requires_auth": true,
-        "url_path": "/bill-payments",
+        "requires_auth": false,
+        "url_path": "/bill-pay",
         "connected_to": [
           5
         ],
@@ -152,13 +153,17 @@
           "BILPAY-006",
           "BILPAY-007",
           "BILPAY-008",
-          "BILPAY-009"
+          "BILPAY-009",
+          "BILPAY-010",
+          "BILPAY-011",
+          "BILPAY-012",
+          "BILPAY-013"
         ]
       },
       {
         "module_id": 8,
         "title": "Find Transaction",
-        "requires_auth": true,
+        "requires_auth": false,
         "url_path": "/find-transaction",
         "connected_to": [
           5
@@ -185,19 +190,7 @@
           "FINTRA-019",
           "FINTRA-020",
           "FINTRA-021",
-          "FINTRA-022",
-          "FINTRA-023",
-          "FINTRA-024",
-          "FINTRA-025",
-          "FINTRA-026",
-          "FINTRA-027",
-          "FINTRA-028",
-          "FINTRA-029",
-          "FINTRA-030",
-          "FINTRA-031",
-          "FINTRA-032",
-          "FINTRA-033",
-          "FINTRA-034"
+          "FINTRA-022"
         ]
       },
       {
@@ -206,7 +199,8 @@
         "requires_auth": true,
         "url_path": "/update-profile",
         "connected_to": [
-          5
+          5,
+          11
         ],
         "test_case_ids": [
           "UPDPRO-001",
@@ -216,13 +210,15 @@
           "UPDPRO-005",
           "UPDPRO-006",
           "UPDPRO-007",
-          "UPDPRO-008"
+          "UPDPRO-008",
+          "UPDPRO-009",
+          "UPDPRO-010"
         ]
       },
       {
         "module_id": 10,
         "title": "Request Loan",
-        "requires_auth": true,
+        "requires_auth": false,
         "url_path": "/request-loan",
         "connected_to": [
           5
@@ -233,10 +229,7 @@
           "REQLOA-003",
           "REQLOA-004",
           "REQLOA-005",
-          "REQLOA-006",
-          "REQLOA-007",
-          "REQLOA-008",
-          "REQLOA-009"
+          "REQLOA-006"
         ]
       },
       {
@@ -253,8 +246,7 @@
           "LOGOUT-003",
           "LOGOUT-004",
           "LOGOUT-005",
-          "LOGOUT-006",
-          "LOGOUT-007"
+          "LOGOUT-006"
         ]
       }
     ]
@@ -262,129 +254,87 @@
   "test_cases": [
     {
       "id": "LOGIN-001",
-      "title": "Login with valid username and password",
+      "title": "Successful login with valid username and password",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "User has a registered account with valid credentials",
       "steps": [
-        "Enter a valid username in the Username field",
-        "Enter the correct password in the Password field",
-        "Click the Log In button"
+        "Enter a valid username in the username field",
+        "Enter a valid password in the password field",
+        "Click on the Log In button"
       ],
-      "expected_result": "User is redirected to the account dashboard",
-      "reads_state": [
-        "registration_data"
-      ],
-      "writes_state": [
-        "session_status"
-      ],
-      "verification_test_ids": [
-        "ACCOVE-006",
-        "BILPAY-001",
-        "LOGOUT-002",
-        "LOGOUT-001",
-        "LOGOUT-003"
-      ],
-      "pre_verification_steps": [
-        "Navigate to the login page",
-        "Verify the session_status is not active (user is logged out)"
-      ],
-      "post_verification_steps": [
-        "Verify the session_status is active (user is logged in)",
-        "Verify user is redirected to the account dashboard"
-      ]
+      "expected_result": "User is redirected to the account dashboard"
     },
     {
       "id": "LOGIN-002",
-      "title": "Login with valid email and password",
+      "title": "Successful login with valid email and password",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "User has a registered account with valid credentials",
       "steps": [
-        "Enter a valid email in the Email field",
-        "Enter the correct password in the Password field",
-        "Click the Log In button"
+        "Enter a valid email address in the username field",
+        "Enter a valid password in the password field",
+        "Click on the Log In button"
       ],
-      "expected_result": "User is redirected to the account dashboard",
-      "reads_state": [
-        "registration_data"
-      ],
-      "writes_state": [
-        "session_status"
-      ],
-      "verification_test_ids": [
-        "ACCOVE-006",
-        "BILPAY-001",
-        "LOGOUT-002",
-        "LOGOUT-001",
-        "LOGOUT-003"
-      ],
-      "pre_verification_steps": [
-        "Navigate to the login page",
-        "Verify the session_status is not active (user is logged out)"
-      ],
-      "post_verification_steps": [
-        "Verify the session_status is active (user is logged in)",
-        "Verify user is redirected to the account dashboard"
-      ]
+      "expected_result": "User is redirected to the account dashboard"
     },
     {
       "id": "LOGIN-003",
-      "title": "Login with invalid username and password",
+      "title": "Error message displayed for empty username",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
       "test_type": "negative",
-      "priority": "High",
+      "priority": "Medium",
       "preconditions": "None",
       "steps": [
-        "Enter an invalid username in the Username field",
-        "Enter an incorrect password in the Password field",
-        "Click the Log In button"
+        "Leave the username field empty",
+        "Enter a valid password in the password field",
+        "Click on the Log In button"
       ],
-      "expected_result": "Error message is displayed indicating invalid credentials, and input fields remain populated"
+      "expected_result": "Error message is displayed indicating that both fields must be populated"
     },
     {
       "id": "LOGIN-004",
-      "title": "Login with invalid email and password",
+      "title": "Error message displayed for empty password",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
       "test_type": "negative",
-      "priority": "High",
+      "priority": "Medium",
       "preconditions": "None",
       "steps": [
-        "Enter an invalid email in the Email field",
-        "Enter an incorrect password in the Password field",
-        "Click the Log In button"
+        "Enter a valid username in the username field",
+        "Leave the password field empty",
+        "Click on the Log In button"
       ],
-      "expected_result": "Error message is displayed indicating invalid credentials, and input fields remain populated"
+      "expected_result": "Error message is displayed indicating that both fields must be populated"
     },
     {
       "id": "LOGIN-005",
-      "title": "Login with empty username and password",
+      "title": "Error message displayed for invalid credentials",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
       "test_type": "negative",
       "priority": "Medium",
-      "preconditions": "None",
+      "preconditions": "User has an account but uses incorrect credentials",
       "steps": [
-        "Leave the Username field empty",
-        "Leave the Password field empty",
-        "Click the Log In button"
+        "Enter an invalid username in the username field",
+        "Enter an invalid password in the password field",
+        "Click on the Log In button"
       ],
-      "expected_result": "Error message is displayed indicating required fields, and input fields remain empty"
+      "expected_result": "Error message is displayed indicating invalid credentials, input fields remain populated"
     },
     {
       "id": "LOGIN-006",
-      "title": "Login with empty email and password",
+      "title": "Error message displayed for partially filled fields",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
@@ -392,624 +342,650 @@
       "priority": "Medium",
       "preconditions": "None",
       "steps": [
-        "Leave the Email field empty",
-        "Leave the Password field empty",
-        "Click the Log In button"
+        "Enter a valid username in the username field",
+        "Leave the password field empty",
+        "Click on the Log In button"
       ],
-      "expected_result": "Error message is displayed indicating required fields, and input fields remain empty"
+      "expected_result": "Error message is displayed indicating that both fields must be populated"
     },
     {
       "id": "LOGIN-007",
-      "title": "Login with valid username and incorrect password",
+      "title": "Login attempt with special characters in username and password",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User has a registered account with valid credentials",
       "steps": [
-        "Enter a valid username in the Username field",
-        "Enter an incorrect password in the Password field",
-        "Click the Log In button"
+        "Enter a valid username with special characters in the username field",
+        "Enter a valid password with special characters in the password field",
+        "Click on the Log In button"
       ],
-      "expected_result": "Error message is displayed indicating invalid credentials, and input fields remain populated"
+      "expected_result": "User is redirected to the account dashboard"
     },
     {
       "id": "LOGIN-008",
-      "title": "Login with valid email and incorrect password",
-      "module_id": 1,
-      "module_title": "Login",
-      "workflow": "Login with credentials",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Enter a valid email in the Email field",
-        "Enter an incorrect password in the Password field",
-        "Click the Log In button"
-      ],
-      "expected_result": "Error message is displayed indicating invalid credentials, and input fields remain populated"
-    },
-    {
-      "id": "LOGIN-009",
-      "title": "Login with special characters in username",
+      "title": "Login attempt with maximum length username and password",
       "module_id": 1,
       "module_title": "Login",
       "workflow": "Login with credentials",
       "test_type": "edge_case",
       "priority": "Low",
-      "preconditions": "None",
+      "preconditions": "User has a registered account with valid credentials",
       "steps": [
-        "Enter a username containing special characters (e.g., @#$%) in the Username field",
-        "Enter a valid password in the Password field",
-        "Click the Log In button"
+        "Enter a username at maximum length in the username field",
+        "Enter a password at maximum length in the password field",
+        "Click on the Log In button"
       ],
-      "expected_result": "Error message is displayed indicating invalid credentials, and input fields remain populated"
-    },
-    {
-      "id": "LOGIN-010",
-      "title": "Login with special characters in email",
-      "module_id": 1,
-      "module_title": "Login",
-      "workflow": "Login with credentials",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter an email containing special characters (e.g., test@#$.com) in the Email field",
-        "Enter a valid password in the Password field",
-        "Click the Log In button"
-      ],
-      "expected_result": "Error message is displayed indicating invalid credentials, and input fields remain populated"
-    },
-    {
-      "id": "LOGIN-011",
-      "title": "Login with maximum character length in username",
-      "module_id": 1,
-      "module_title": "Login",
-      "workflow": "Login with credentials",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter a username with the maximum allowed characters (e.g., 255 characters) in the Username field",
-        "Enter a valid password in the Password field",
-        "Click the Log In button"
-      ],
-      "expected_result": "Error message is displayed if credentials are invalid, and input fields remain populated"
-    },
-    {
-      "id": "LOGIN-012",
-      "title": "Login with maximum character length in email",
-      "module_id": 1,
-      "module_title": "Login",
-      "workflow": "Login with credentials",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter an email with the maximum allowed characters (e.g., 255 characters) in the Email field",
-        "Enter a valid password in the Password field",
-        "Click the Log In button"
-      ],
-      "expected_result": "Error message is displayed if credentials are invalid, and input fields remain populated"
+      "expected_result": "User is redirected to the account dashboard"
     },
     {
       "id": "FORPAS-001",
-      "title": "Submit valid Customer Lookup form with matching record",
+      "title": "Submit with all fields filled correctly",
       "module_id": 2,
       "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
+      "workflow": "Find my login info",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "All fields are filled with valid information",
       "steps": [
-        "Enter a valid First Name in the First Name field",
-        "Enter a valid Last Name in the Last Name field",
-        "Enter a valid Address in the Address field",
-        "Enter a valid City in the City field",
-        "Select a valid State from the State dropdown",
-        "Enter a valid Zip Code in the Zip Code field",
-        "Enter a valid SSN in the SSN field",
-        "Click the 'Find My Login Info' button"
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid SSN",
+        "Click on 'Find My Login Info' button"
       ],
-      "expected_result": "Recovery details are displayed for the matching record",
-      "reads_state": [
-        "user_profile"
-      ]
+      "expected_result": "The page displays the appropriate recovery details"
     },
     {
       "id": "FORPAS-002",
-      "title": "Submit Customer Lookup form with no matching record",
+      "title": "Submit with one field left blank",
       "module_id": 2,
       "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
+      "workflow": "Find my login info",
       "test_type": "negative",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "All fields are filled except one",
       "steps": [
-        "Enter a valid First Name in the First Name field",
-        "Enter a valid Last Name in the Last Name field",
-        "Enter a valid Address in the Address field",
-        "Enter a valid City in the City field",
-        "Select a valid State from the State dropdown",
-        "Enter a valid Zip Code in the Zip Code field",
-        "Enter a valid SSN in the SSN field that does not match any record",
-        "Click the 'Find My Login Info' button"
+        "Enter a valid first name",
+        "Leave last name blank",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid SSN",
+        "Click on 'Find My Login Info' button"
       ],
-      "expected_result": "An error message is displayed indicating no matching record was found"
+      "expected_result": "The page prompts the user to complete the blank field"
     },
     {
       "id": "FORPAS-003",
-      "title": "Submit Customer Lookup form with all fields empty",
+      "title": "Submit with all fields left blank",
       "module_id": 2,
       "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
+      "workflow": "Find my login info",
       "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Leave all fields empty",
-        "Click the 'Find My Login Info' button"
+        "Leave all fields blank",
+        "Click on 'Find My Login Info' button"
       ],
-      "expected_result": "An error message is displayed indicating that all fields are required"
+      "expected_result": "The page prompts the user to complete all fields"
     },
     {
       "id": "FORPAS-004",
-      "title": "Submit Customer Lookup form with missing First Name",
+      "title": "Submit with non-matching information",
       "module_id": 2,
       "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
+      "workflow": "Find my login info",
       "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "priority": "High",
+      "preconditions": "All fields are filled with non-matching information",
       "steps": [
-        "Leave the First Name field empty",
-        "Enter a valid Last Name in the Last Name field",
-        "Enter a valid Address in the Address field",
-        "Enter a valid City in the City field",
-        "Select a valid State from the State dropdown",
-        "Enter a valid Zip Code in the Zip Code field",
-        "Enter a valid SSN in the SSN field",
-        "Click the 'Find My Login Info' button"
+        "Enter a valid first name that does not match any record",
+        "Enter a valid last name that does not match any record",
+        "Enter a valid address that does not match any record",
+        "Enter a valid city that does not match any record",
+        "Select a valid state that does not match any record",
+        "Enter a valid zip code that does not match any record",
+        "Enter a valid SSN that does not match any record",
+        "Click on 'Find My Login Info' button"
       ],
-      "expected_result": "An error message is displayed indicating that the First Name field is required"
+      "expected_result": "The page displays an error indicating no matching record found"
     },
     {
       "id": "FORPAS-005",
-      "title": "Submit Customer Lookup form with invalid Zip Code format",
+      "title": "Submit with maximum length inputs",
       "module_id": 2,
       "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "workflow": "Find my login info",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "All fields are filled with maximum length valid information",
       "steps": [
-        "Enter a valid First Name in the First Name field",
-        "Enter a valid Last Name in the Last Name field",
-        "Enter a valid Address in the Address field",
-        "Enter a valid City in the City field",
-        "Select a valid State from the State dropdown",
-        "Enter an invalid Zip Code (e.g., 'ABCDE') in the Zip Code field",
-        "Enter a valid SSN in the SSN field",
-        "Click the 'Find My Login Info' button"
+        "Enter a valid first name at maximum length",
+        "Enter a valid last name at maximum length",
+        "Enter a valid address at maximum length",
+        "Enter a valid city at maximum length",
+        "Select a valid state",
+        "Enter a valid zip code at maximum length",
+        "Enter a valid SSN at maximum length",
+        "Click on 'Find My Login Info' button"
       ],
-      "expected_result": "An error message is displayed indicating that the Zip Code format is invalid"
+      "expected_result": "The page displays the appropriate recovery details"
     },
     {
       "id": "FORPAS-006",
-      "title": "Submit Customer Lookup form with special characters in First Name",
+      "title": "Submit with special characters in fields",
       "module_id": 2,
       "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
+      "workflow": "Find my login info",
       "test_type": "edge_case",
       "priority": "Low",
-      "preconditions": "None",
+      "preconditions": "All fields are filled with valid information including special characters",
       "steps": [
-        "Enter special characters (e.g., '@#$%') in the First Name field",
-        "Enter a valid Last Name in the Last Name field",
-        "Enter a valid Address in the Address field",
-        "Enter a valid City in the City field",
-        "Select a valid State from the State dropdown",
-        "Enter a valid Zip Code in the Zip Code field",
-        "Enter a valid SSN in the SSN field",
-        "Click the 'Find My Login Info' button"
+        "Enter a valid first name with special characters",
+        "Enter a valid last name with special characters",
+        "Enter a valid address with special characters",
+        "Enter a valid city with special characters",
+        "Select a valid state",
+        "Enter a valid zip code with special characters",
+        "Enter a valid SSN with special characters",
+        "Click on 'Find My Login Info' button"
       ],
-      "expected_result": "An error message is displayed indicating that the First Name field contains invalid characters"
-    },
-    {
-      "id": "FORPAS-007",
-      "title": "Submit Customer Lookup form with maximum character length in all fields",
-      "module_id": 2,
-      "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter the maximum allowed characters in the First Name field",
-        "Enter the maximum allowed characters in the Last Name field",
-        "Enter the maximum allowed characters in the Address field",
-        "Enter the maximum allowed characters in the City field",
-        "Select a valid State from the State dropdown",
-        "Enter the maximum allowed characters in the Zip Code field",
-        "Enter the maximum allowed characters in the SSN field",
-        "Click the 'Find My Login Info' button"
-      ],
-      "expected_result": "The system processes the form successfully if the inputs are valid"
-    },
-    {
-      "id": "FORPAS-008",
-      "title": "Submit Customer Lookup form with leading and trailing spaces in all fields",
-      "module_id": 2,
-      "module_title": "Forgot Password",
-      "workflow": "Submit Customer Lookup form to find login information",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter a valid First Name with leading and trailing spaces in the First Name field",
-        "Enter a valid Last Name with leading and trailing spaces in the Last Name field",
-        "Enter a valid Address with leading and trailing spaces in the Address field",
-        "Enter a valid City with leading and trailing spaces in the City field",
-        "Select a valid State from the State dropdown",
-        "Enter a valid Zip Code with leading and trailing spaces in the Zip Code field",
-        "Enter a valid SSN with leading and trailing spaces in the SSN field",
-        "Click the 'Find My Login Info' button"
-      ],
-      "expected_result": "The system trims the spaces and processes the form successfully if the inputs are valid"
+      "expected_result": "The page displays the appropriate recovery details"
     },
     {
       "id": "REGIST-001",
-      "title": "Successful registration with valid inputs",
+      "title": "Successful account registration",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
       "test_type": "positive",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid First Name into the First Name field",
-        "Enter a valid Last Name into the Last Name field",
-        "Enter a valid Address into the Address field",
-        "Enter a valid City into the City field",
-        "Select a valid State from the State dropdown",
-        "Enter a valid Zip Code into the Zip Code field",
-        "Enter a valid Phone Number into the Phone # field",
-        "Enter a valid SSN into the SSN field",
-        "Enter a valid Username into the Username field",
-        "Enter a valid Password into the Password field",
-        "Re-enter the same valid Password into the Confirm Password field",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "The account is successfully created, and the user is automatically logged in.",
-      "reads_state": [
-        "registration_data"
-      ],
-      "writes_state": [
-        "user_profile",
-        "session_status"
-      ],
-      "verification_test_ids": [
-        "ACCOVE-006",
-        "BILPAY-001",
-        "LOGOUT-002",
-        "LOGOUT-001",
-        "FORPAS-001",
-        "UPDPRO-001",
-        "LOGOUT-003"
-      ],
-      "pre_verification_steps": [
-        "Navigate to Profile/Settings",
-        "Note current profile values",
-        "Verify user is logged out initially"
-      ],
-      "post_verification_steps": [
-        "Navigate to Profile/Settings",
-        "Verify updated values are displayed",
-        "Verify user session state changed as expected"
-      ]
+      "expected_result": "User account is created and user is automatically logged in"
     },
     {
       "id": "REGIST-002",
-      "title": "Registration fails when a mandatory field is left empty",
+      "title": "Registration with missing first name",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
       "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Leave the First Name field empty",
-        "Enter valid inputs for all other fields",
+        "Leave the first name field empty",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "An error message is displayed indicating that the First Name field is required, and the account is not created."
+      "expected_result": "Error message indicating first name is mandatory"
     },
     {
       "id": "REGIST-003",
-      "title": "Registration fails when Password and Confirm Password do not match",
+      "title": "Registration with missing last name",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
       "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter valid inputs into all fields except the Password and Confirm Password fields",
-        "Enter a valid Password into the Password field",
-        "Enter a different value into the Confirm Password field",
+        "Enter a valid first name",
+        "Leave the last name field empty",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "An error message is displayed indicating that the Password and Confirm Password fields must match, and the account is not created."
+      "expected_result": "Error message indicating last name is mandatory"
     },
     {
       "id": "REGIST-004",
-      "title": "Registration fails when SSN field is left empty",
+      "title": "Registration with missing address",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
       "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Leave the SSN field empty",
-        "Enter valid inputs for all other fields",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Leave the address field empty",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "An error message is displayed indicating that the SSN field is required, and the account is not created."
+      "expected_result": "Error message indicating address is mandatory"
     },
     {
       "id": "REGIST-005",
-      "title": "Registration fails when all fields are left empty",
+      "title": "Registration with missing city",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
       "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Leave all fields empty",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Leave the city field empty",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "An error message is displayed indicating that all fields are required, and the account is not created."
+      "expected_result": "Error message indicating city is mandatory"
     },
     {
       "id": "REGIST-006",
-      "title": "Registration fails when Password field is left empty",
+      "title": "Registration with missing state",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
       "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter valid inputs into all fields except the Password field",
-        "Leave the Password field empty",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Leave the state field empty",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "An error message is displayed indicating that the Password field is required, and the account is not created."
+      "expected_result": "Error message indicating state is mandatory"
     },
     {
       "id": "REGIST-007",
-      "title": "Registration fails when invalid Zip Code is entered",
+      "title": "Registration with missing zip code",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter valid inputs into all fields except the Zip Code field",
-        "Enter an invalid value (e.g., alphabetic characters) into the Zip Code field",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Leave the zip code field empty",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "An error message is displayed indicating that the Zip Code field must contain a valid value, and the account is not created."
+      "expected_result": "Error message indicating zip code is mandatory"
     },
     {
       "id": "REGIST-008",
-      "title": "Successful registration with edge case values for fields",
+      "title": "Registration with missing phone number",
       "module_id": 3,
       "module_title": "Register",
-      "workflow": "Register a new account",
+      "workflow": "Register new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Leave the phone number field empty",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
+        "Click the Register button"
+      ],
+      "expected_result": "Error message indicating phone number is mandatory"
+    },
+    {
+      "id": "REGIST-009",
+      "title": "Registration with missing SSN",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Leave the SSN field empty",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Confirm the valid password",
+        "Click the Register button"
+      ],
+      "expected_result": "Error message indicating SSN is mandatory"
+    },
+    {
+      "id": "REGIST-010",
+      "title": "Registration with missing username",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Leave the username field empty",
+        "Enter a valid password",
+        "Confirm the valid password",
+        "Click the Register button"
+      ],
+      "expected_result": "Error message indicating username is mandatory"
+    },
+    {
+      "id": "REGIST-011",
+      "title": "Registration with missing password",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Leave the password field empty",
+        "Confirm the valid password",
+        "Click the Register button"
+      ],
+      "expected_result": "Error message indicating password is mandatory"
+    },
+    {
+      "id": "REGIST-012",
+      "title": "Registration with missing confirm password",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Leave the confirm password field empty",
+        "Click the Register button"
+      ],
+      "expected_result": "Error message indicating confirm password is mandatory"
+    },
+    {
+      "id": "REGIST-013",
+      "title": "Registration with mismatched passwords",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register new account",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a valid username",
+        "Enter a valid password",
+        "Enter a different password in confirm password",
+        "Click the Register button"
+      ],
+      "expected_result": "Error message indicating passwords do not match"
+    },
+    {
+      "id": "REGIST-014",
+      "title": "Registration with special characters in username",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register new account",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Enter a valid First Name with special characters (e.g., O'Connor) into the First Name field",
-        "Enter a valid Last Name with special characters (e.g., Smith-Jones) into the Last Name field",
-        "Enter a valid Address with special characters (e.g., Apt #5) into the Address field",
-        "Enter a valid City with special characters (e.g., St. Louis) into the City field",
-        "Select a valid State from the State dropdown",
-        "Enter a valid Zip Code with leading zeros (e.g., 01234) into the Zip Code field",
-        "Enter a valid Phone Number with dashes (e.g., 123-456-7890) into the Phone # field",
-        "Enter a valid SSN with dashes (e.g., 123-45-6789) into the SSN field",
-        "Enter a valid Username with mixed case and numbers (e.g., User123) into the Username field",
-        "Enter a valid Password with special characters (e.g., P@ssw0rd!) into the Password field",
-        "Re-enter the same valid Password into the Confirm Password field",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid SSN",
+        "Enter a username with special characters",
+        "Enter a valid password",
+        "Confirm the valid password",
         "Click the Register button"
       ],
-      "expected_result": "The account is successfully created, and the user is automatically logged in."
+      "expected_result": "User account is created and user is automatically logged in"
+    },
+    {
+      "id": "REGIST-015",
+      "title": "Registration with maximum length inputs",
+      "module_id": 3,
+      "module_title": "Register",
+      "workflow": "Register new account",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid first name with maximum length",
+        "Enter a valid last name with maximum length",
+        "Enter a valid address with maximum length",
+        "Enter a valid city with maximum length",
+        "Select a valid state",
+        "Enter a valid zip code with maximum length",
+        "Enter a valid phone number with maximum length",
+        "Enter a valid SSN with maximum length",
+        "Enter a valid username with maximum length",
+        "Enter a valid password with maximum length",
+        "Confirm the valid password with maximum length",
+        "Click the Register button"
+      ],
+      "expected_result": "User account is created and user is automatically logged in"
     },
     {
       "id": "ONA-001",
-      "title": "Open a new account with valid account type and funding source",
+      "title": "Open New Account with valid account type and funding source",
       "module_id": 4,
       "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
+      "workflow": "Open New Account with selected account type and funding source",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "User is logged in and has a valid funding source account",
       "steps": [
         "Click on 'Open New Account' button",
-        "Select a valid account type from the dropdown",
-        "Select a valid funding source from the dropdown",
+        "Select 'Savings' as the account type",
+        "Select an existing account as the funding source",
+        "Enter the required opening deposit amount",
         "Click on 'Open New Account' button"
       ],
-      "expected_result": "A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account",
-      "reads_state": [
-        "account_list",
-        "account_balance"
-      ],
-      "writes_state": [
-        "account_list",
-        "account_balance",
-        "transaction_history"
-      ],
-      "verification_test_ids": [
-        "BILPAY-001",
-        "FINTRA-003",
-        "FINTRA-007",
-        "REQLOA-001",
-        "ACCOVE-003",
-        "ACCOVE-001",
-        "FINTRA-005",
-        "ACCOVE-005",
-        "FINTRA-006",
-        "ACCOVE-004",
-        "FINTRA-002",
-        "FINTRA-004",
-        "FINTRA-001",
-        "TRAFUN-001"
-      ],
-      "pre_verification_steps": [
-        "Navigate to Accounts Overview",
-        "Note current number of accounts",
-        "Navigate to Accounts Overview",
-        "Note current account balance(s)",
-        "Navigate to Transaction History",
-        "Note current transaction count"
-      ],
-      "post_verification_steps": [
-        "Navigate to Accounts Overview",
-        "Verify account list updated",
-        "Navigate to Accounts Overview",
-        "Verify balance reflects the change",
-        "Navigate to Transaction History",
-        "Verify new transaction appears"
-      ]
+      "expected_result": "A new account is created, $100.00 is deducted from the funding source, and a unique account number is generated"
     },
     {
       "id": "ONA-002",
-      "title": "Attempt to open a new account without selecting an account type",
+      "title": "Open New Account without selecting a funding source",
       "module_id": 4,
       "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
+      "workflow": "Open New Account with selected account type and funding source",
       "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Open New Account page",
       "steps": [
         "Click on 'Open New Account' button",
-        "Leave the account type dropdown unselected",
-        "Select a valid funding source from the dropdown",
-        "Click on 'Open New Account' button"
-      ],
-      "expected_result": "An error message is displayed indicating that account type must be selected"
-    },
-    {
-      "id": "ONA-003",
-      "title": "Attempt to open a new account without selecting a funding source",
-      "module_id": 4,
-      "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Click on 'Open New Account' button",
-        "Select a valid account type from the dropdown",
-        "Leave the funding source dropdown unselected",
+        "Select 'Checking' as the account type",
+        "Leave funding source unselected",
+        "Enter the required opening deposit amount",
         "Click on 'Open New Account' button"
       ],
       "expected_result": "An error message is displayed indicating that a funding source must be selected"
     },
     {
-      "id": "ONA-004",
-      "title": "Attempt to open a new account with insufficient funds in the funding source",
+      "id": "ONA-003",
+      "title": "Open New Account with insufficient opening deposit",
       "module_id": 4,
       "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
+      "workflow": "Open New Account with selected account type and funding source",
       "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "Funding source account has less than $100.00 balance",
+      "priority": "High",
+      "preconditions": "User is logged in and has a valid funding source account",
       "steps": [
         "Click on 'Open New Account' button",
-        "Select a valid account type from the dropdown",
-        "Select a funding source with insufficient funds from the dropdown",
+        "Select 'Savings' as the account type",
+        "Select an existing account as the funding source",
+        "Enter an amount less than $100.00 as the opening deposit",
         "Click on 'Open New Account' button"
       ],
-      "expected_result": "An error message is displayed indicating insufficient funds in the funding source"
+      "expected_result": "An error message is displayed indicating that the opening deposit must be $100.00"
+    },
+    {
+      "id": "ONA-004",
+      "title": "Open New Account with invalid funding source",
+      "module_id": 4,
+      "module_title": "Open New Account",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Open New Account page",
+      "steps": [
+        "Click on 'Open New Account' button",
+        "Select 'Savings' as the account type",
+        "Select a non-existing account as the funding source",
+        "Enter the required opening deposit amount",
+        "Click on 'Open New Account' button"
+      ],
+      "expected_result": "An error message is displayed indicating that the selected funding source is invalid"
     },
     {
       "id": "ONA-005",
-      "title": "Attempt to open a new account with empty funding source and account type",
+      "title": "Open New Account with special characters in account type",
       "module_id": 4,
       "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "workflow": "Open New Account with selected account type and funding source",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is logged in and has a valid funding source account",
       "steps": [
         "Click on 'Open New Account' button",
-        "Leave both the account type and funding source dropdowns unselected",
+        "Select an account type with special characters",
+        "Select an existing account as the funding source",
+        "Enter the required opening deposit amount",
         "Click on 'Open New Account' button"
       ],
-      "expected_result": "An error message is displayed indicating that both account type and funding source must be selected"
+      "expected_result": "The system processes the request and creates a new account with the specified account type"
     },
     {
       "id": "ONA-006",
-      "title": "Open a new account with boundary value of $100.00 in funding source",
+      "title": "Open New Account with maximum length account type",
       "module_id": 4,
       "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
+      "workflow": "Open New Account with selected account type and funding source",
       "test_type": "edge_case",
       "priority": "Low",
-      "preconditions": "Funding source account has exactly $100.00 balance",
+      "preconditions": "User is logged in and has a valid funding source account",
       "steps": [
         "Click on 'Open New Account' button",
-        "Select a valid account type from the dropdown",
-        "Select a funding source with exactly $100.00 balance from the dropdown",
+        "Select an account type with maximum allowed length",
+        "Select an existing account as the funding source",
+        "Enter the required opening deposit amount",
         "Click on 'Open New Account' button"
       ],
-      "expected_result": "A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account"
-    },
-    {
-      "id": "ONA-007",
-      "title": "Open a new account with special characters in account type name",
-      "module_id": 4,
-      "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Click on 'Open New Account' button",
-        "Select an account type with special characters (e.g., 'Savings@123') from the dropdown",
-        "Select a valid funding source from the dropdown",
-        "Click on 'Open New Account' button"
-      ],
-      "expected_result": "A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account"
-    },
-    {
-      "id": "ONA-008",
-      "title": "Open a new account with maximum length account type name",
-      "module_id": 4,
-      "module_title": "Open New Account",
-      "workflow": "Open a new account with selected account type and funding source",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Click on 'Open New Account' button",
-        "Select an account type with the maximum allowed length (e.g., 50 characters) from the dropdown",
-        "Select a valid funding source from the dropdown",
-        "Click on 'Open New Account' button"
-      ],
-      "expected_result": "A new account is created with a unique account number, $100.00 is debited from the funding source, and $100.00 is credited to the new account"
+      "expected_result": "The system processes the request and creates a new account with the specified account type"
     },
     {
       "id": "ACCOVE-001",
-      "title": "Verify the presence of all Account Services options in the sidebar",
+      "title": "Verify Account Services sidebar is displayed",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
@@ -1017,17 +993,15 @@
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Locate the left sidebar titled 'Account Services'.",
-        "Verify the presence of the following options: Open New Account, Accounts Overview, Transfer Funds, Bill Pay, Find Transactions, Update Contact Info, Request Loan, Log Out."
+        "Locate the Account Services sidebar",
+        "Verify that the sidebar is visible",
+        "Check that all actions are listed in the sidebar"
       ],
-      "expected_result": "All listed options are visible in the 'Account Services' sidebar.",
-      "reads_state": [
-        "account_list"
-      ]
+      "expected_result": "Account Services sidebar is displayed with all actions listed"
     },
     {
       "id": "ACCOVE-002",
-      "title": "Verify the Accounts Overview heading is displayed",
+      "title": "Verify Open New Account action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
@@ -1035,13 +1009,14 @@
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Locate the 'Accounts Overview' heading on the page."
+        "Locate the Open New Account action in the Account Services sidebar",
+        "Verify that the Open New Account action is clickable"
       ],
-      "expected_result": "The 'Accounts Overview' heading is displayed on the page."
+      "expected_result": "Open New Account action is available and clickable"
     },
     {
       "id": "ACCOVE-003",
-      "title": "Verify account details are displayed correctly",
+      "title": "Verify Accounts Overview action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
@@ -1049,1269 +1024,938 @@
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Locate the account details section.",
-        "Verify the presence of the following elements: Account number, Balance, Available Amount, Combined total balance."
+        "Locate the Accounts Overview action in the Account Services sidebar",
+        "Verify that the Accounts Overview action is clickable"
       ],
-      "expected_result": "All account details are displayed correctly.",
-      "reads_state": [
-        "account_balance",
-        "account_list"
-      ]
+      "expected_result": "Accounts Overview action is available and clickable"
     },
     {
       "id": "ACCOVE-004",
-      "title": "Verify the Combined total balance is calculated correctly",
+      "title": "Verify Transfer Funds action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "At least two accounts are displayed with balances.",
+      "preconditions": "None",
       "steps": [
-        "Locate the individual account balances.",
-        "Locate the Combined total balance.",
-        "Verify that the Combined total balance equals the sum of the individual account balances."
+        "Locate the Transfer Funds action in the Account Services sidebar",
+        "Verify that the Transfer Funds action is clickable"
       ],
-      "expected_result": "The Combined total balance is correctly calculated as the sum of individual account balances.",
-      "reads_state": [
-        "account_balance"
-      ]
+      "expected_result": "Transfer Funds action is available and clickable"
     },
     {
       "id": "ACCOVE-005",
-      "title": "Verify the sidebar option 'Open New Account' is clickable",
+      "title": "Verify Bill Pay action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
       "test_type": "positive",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Locate the 'Open New Account' option in the sidebar.",
-        "Click on the 'Open New Account' option."
+        "Locate the Bill Pay action in the Account Services sidebar",
+        "Verify that the Bill Pay action is clickable"
       ],
-      "expected_result": "The 'Open New Account' option is clickable and responds to user interaction.",
-      "reads_state": [
-        "account_list"
-      ]
+      "expected_result": "Bill Pay action is available and clickable"
     },
     {
       "id": "ACCOVE-006",
-      "title": "Verify the sidebar option 'Log Out' is clickable",
+      "title": "Verify Find Transactions action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
       "test_type": "positive",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Locate the 'Log Out' option in the sidebar.",
-        "Click on the 'Log Out' option."
+        "Locate the Find Transactions action in the Account Services sidebar",
+        "Verify that the Find Transactions action is clickable"
       ],
-      "expected_result": "The 'Log Out' option is clickable and responds to user interaction.",
-      "reads_state": [
-        "session_status"
-      ]
+      "expected_result": "Find Transactions action is available and clickable"
     },
     {
       "id": "ACCOVE-007",
-      "title": "Verify the page handles no accounts gracefully",
+      "title": "Verify Update Contact Info action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "User has no accounts associated with their profile.",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
       "steps": [
-        "Check the account details section.",
-        "Verify the message displayed when no accounts are available."
+        "Locate the Update Contact Info action in the Account Services sidebar",
+        "Verify that the Update Contact Info action is clickable"
       ],
-      "expected_result": "A user-friendly message is displayed indicating no accounts are available."
+      "expected_result": "Update Contact Info action is available and clickable"
     },
     {
       "id": "ACCOVE-008",
-      "title": "Verify the page handles a large number of accounts gracefully",
+      "title": "Verify Request Loan action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "User has a large number of accounts associated with their profile.",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
       "steps": [
-        "Check the account details section.",
-        "Verify that all accounts are displayed without layout issues or performance degradation."
+        "Locate the Request Loan action in the Account Services sidebar",
+        "Verify that the Request Loan action is clickable"
       ],
-      "expected_result": "All accounts are displayed correctly without layout issues or performance degradation."
+      "expected_result": "Request Loan action is available and clickable"
     },
     {
       "id": "ACCOVE-009",
-      "title": "Verify special characters in account names are displayed correctly",
+      "title": "Verify Log Out action is available",
       "module_id": 5,
       "module_title": "Account Overview",
       "workflow": "Main workflow",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "User has accounts with special characters in their names.",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
       "steps": [
-        "Locate the account names in the account details section.",
-        "Verify that special characters in account names are displayed correctly."
+        "Locate the Log Out action in the Account Services sidebar",
+        "Verify that the Log Out action is clickable"
       ],
-      "expected_result": "Special characters in account names are displayed correctly without encoding or rendering issues."
+      "expected_result": "Log Out action is available and clickable"
+    },
+    {
+      "id": "ACCOVE-010",
+      "title": "Verify account number is displayed",
+      "module_id": 5,
+      "module_title": "Account Overview",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Locate the account number element",
+        "Verify that the account number is visible"
+      ],
+      "expected_result": "Account number is displayed"
+    },
+    {
+      "id": "ACCOVE-011",
+      "title": "Verify Balance is displayed",
+      "module_id": 5,
+      "module_title": "Account Overview",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Locate the Balance element",
+        "Verify that the Balance is visible"
+      ],
+      "expected_result": "Balance is displayed"
+    },
+    {
+      "id": "ACCOVE-012",
+      "title": "Verify Available Amount is displayed",
+      "module_id": 5,
+      "module_title": "Account Overview",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Locate the Available Amount element",
+        "Verify that the Available Amount is visible"
+      ],
+      "expected_result": "Available Amount is displayed"
+    },
+    {
+      "id": "ACCOVE-013",
+      "title": "Verify combined total balance is displayed",
+      "module_id": 5,
+      "module_title": "Account Overview",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Locate the combined total balance element",
+        "Verify that the combined total balance is visible"
+      ],
+      "expected_result": "Combined total balance is displayed"
     },
     {
       "id": "TRAFUN-001",
-      "title": "Successful fund transfer with valid inputs",
+      "title": "Transfer funds with valid details",
       "module_id": 6,
       "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
+      "workflow": "Transfer funds",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Transfer Funds page",
       "steps": [
-        "Enter a valid amount (e.g., 100) in the Amount field",
-        "Select a valid From account number from the dropdown",
-        "Select a valid To account number from the dropdown",
+        "Enter a valid amount in the Amount field",
+        "Select a valid account number from the From account number dropdown",
+        "Select a valid account number from the To account number dropdown",
         "Click on the Transfer button"
       ],
-      "expected_result": "Funds are successfully transferred, and a confirmation message is displayed",
-      "reads_state": [
-        "account_balance",
-        "account_list",
-        "transfer_details"
-      ],
-      "writes_state": [
-        "account_balance",
-        "transaction_history",
-        "transfer_details"
-      ],
-      "verification_test_ids": [
-        "ONA-001",
-        "BILPAY-001",
-        "FINTRA-003",
-        "FINTRA-007",
-        "ACCOVE-003",
-        "FINTRA-005",
-        "FINTRA-006",
-        "ACCOVE-004",
-        "FINTRA-002",
-        "FINTRA-004",
-        "FINTRA-001"
-      ],
-      "pre_verification_steps": [
-        "Navigate to Accounts Overview",
-        "Note current account balance(s)",
-        "Navigate to Transaction History",
-        "Note current transaction count"
-      ],
-      "post_verification_steps": [
-        "Navigate to Accounts Overview",
-        "Verify balance reflects the change",
-        "Navigate to Transaction History",
-        "Verify new transaction appears"
-      ]
+      "expected_result": "Funds are successfully transferred and a confirmation message is displayed"
     },
     {
       "id": "TRAFUN-002",
-      "title": "Transfer fails when Amount field is left blank",
+      "title": "Transfer funds with zero amount",
       "module_id": 6,
       "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
+      "workflow": "Transfer funds",
       "test_type": "negative",
       "priority": "Medium",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Transfer Funds page",
       "steps": [
-        "Leave the Amount field blank",
-        "Select a valid From account number from the dropdown",
-        "Select a valid To account number from the dropdown",
+        "Enter '0' in the Amount field",
+        "Select a valid account number from the From account number dropdown",
+        "Select a valid account number from the To account number dropdown",
         "Click on the Transfer button"
       ],
-      "expected_result": "An error message is displayed indicating that the Amount field is required"
+      "expected_result": "Error message is displayed indicating that the amount must be greater than zero"
     },
     {
       "id": "TRAFUN-003",
-      "title": "Transfer fails when From account number is not selected",
+      "title": "Transfer funds with negative amount",
       "module_id": 6,
       "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
+      "workflow": "Transfer funds",
       "test_type": "negative",
       "priority": "Medium",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Transfer Funds page",
       "steps": [
-        "Enter a valid amount (e.g., 100) in the Amount field",
-        "Leave the From account number field unselected",
-        "Select a valid To account number from the dropdown",
+        "Enter a negative amount in the Amount field",
+        "Select a valid account number from the From account number dropdown",
+        "Select a valid account number from the To account number dropdown",
         "Click on the Transfer button"
       ],
-      "expected_result": "An error message is displayed indicating that the From account number is required"
+      "expected_result": "Error message is displayed indicating that the amount must be greater than zero"
     },
     {
       "id": "TRAFUN-004",
-      "title": "Transfer fails when To account number is not selected",
+      "title": "Transfer funds with invalid From account number",
       "module_id": 6,
       "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
+      "workflow": "Transfer funds",
       "test_type": "negative",
       "priority": "Medium",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Transfer Funds page",
       "steps": [
-        "Enter a valid amount (e.g., 100) in the Amount field",
-        "Select a valid From account number from the dropdown",
-        "Leave the To account number field unselected",
+        "Enter a valid amount in the Amount field",
+        "Select an invalid account number from the From account number dropdown",
+        "Select a valid account number from the To account number dropdown",
         "Click on the Transfer button"
       ],
-      "expected_result": "An error message is displayed indicating that the To account number is required"
+      "expected_result": "Error message is displayed indicating that the From account number is invalid"
     },
     {
       "id": "TRAFUN-005",
-      "title": "Transfer fails when Amount is zero",
+      "title": "Transfer funds with invalid To account number",
       "module_id": 6,
       "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
+      "workflow": "Transfer funds",
       "test_type": "negative",
       "priority": "Medium",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Transfer Funds page",
       "steps": [
-        "Enter 0 in the Amount field",
-        "Select a valid From account number from the dropdown",
-        "Select a valid To account number from the dropdown",
+        "Enter a valid amount in the Amount field",
+        "Select a valid account number from the From account number dropdown",
+        "Select an invalid account number from the To account number dropdown",
         "Click on the Transfer button"
       ],
-      "expected_result": "An error message is displayed indicating that the Amount must be greater than zero"
+      "expected_result": "Error message is displayed indicating that the To account number is invalid"
     },
     {
       "id": "TRAFUN-006",
-      "title": "Transfer fails when Amount is a negative value",
+      "title": "Transfer funds with maximum allowable amount",
       "module_id": 6,
       "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "workflow": "Transfer funds",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is logged in and on the Transfer Funds page",
       "steps": [
-        "Enter a negative value (e.g., -100) in the Amount field",
-        "Select a valid From account number from the dropdown",
-        "Select a valid To account number from the dropdown",
+        "Enter the maximum allowable amount in the Amount field",
+        "Select a valid account number from the From account number dropdown",
+        "Select a valid account number from the To account number dropdown",
         "Click on the Transfer button"
       ],
-      "expected_result": "An error message is displayed indicating that the Amount must be a positive value"
+      "expected_result": "Funds are successfully transferred and a confirmation message is displayed"
     },
     {
       "id": "TRAFUN-007",
-      "title": "Transfer fails when From and To account numbers are the same",
+      "title": "Transfer funds with special characters in account numbers",
       "module_id": 6,
       "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Enter a valid amount (e.g., 100) in the Amount field",
-        "Select the same account number for both From and To account fields",
-        "Click on the Transfer button"
-      ],
-      "expected_result": "An error message is displayed indicating that the From and To account numbers cannot be the same"
-    },
-    {
-      "id": "TRAFUN-008",
-      "title": "Transfer fails when Amount exceeds available balance",
-      "module_id": 6,
-      "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "Ensure the From account has a balance less than the entered Amount",
-      "steps": [
-        "Enter an amount greater than the available balance (e.g., 1000 when balance is 500) in the Amount field",
-        "Select a valid From account number from the dropdown",
-        "Select a valid To account number from the dropdown",
-        "Click on the Transfer button"
-      ],
-      "expected_result": "An error message is displayed indicating insufficient balance"
-    },
-    {
-      "id": "TRAFUN-009",
-      "title": "Transfer fails when Amount contains special characters",
-      "module_id": 6,
-      "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
+      "workflow": "Transfer funds",
       "test_type": "edge_case",
       "priority": "Low",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Transfer Funds page",
       "steps": [
-        "Enter an invalid value with special characters (e.g., $100) in the Amount field",
-        "Select a valid From account number from the dropdown",
-        "Select a valid To account number from the dropdown",
+        "Enter a valid amount in the Amount field",
+        "Select an account number containing special characters from the From account number dropdown",
+        "Select a valid account number from the To account number dropdown",
         "Click on the Transfer button"
       ],
-      "expected_result": "An error message is displayed indicating that the Amount must be a numeric value"
-    },
-    {
-      "id": "TRAFUN-010",
-      "title": "Transfer succeeds with maximum allowable Amount",
-      "module_id": 6,
-      "module_title": "Transfer Funds",
-      "workflow": "Transfer funds between accounts",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "Ensure the From account has a balance equal to or greater than the maximum allowable Amount",
-      "steps": [
-        "Enter the maximum allowable Amount (e.g., 100000) in the Amount field",
-        "Select a valid From account number from the dropdown",
-        "Select a valid To account number from the dropdown",
-        "Click on the Transfer button"
-      ],
-      "expected_result": "Funds are successfully transferred, and a confirmation message is displayed"
+      "expected_result": "Error message is displayed indicating that the From account number contains invalid characters"
     },
     {
       "id": "BILPAY-001",
-      "title": "Successful payment with valid inputs",
+      "title": "Successful payment submission with all fields completed",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
       "test_type": "positive",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Payee Name",
-        "Enter a valid Address",
-        "Enter a valid City",
-        "Select a valid State from the dropdown",
-        "Enter a valid 5-digit Zip Code",
-        "Enter a valid 10-digit Phone Number",
-        "Enter a valid Account Number",
-        "Re-enter the same Account Number in the Verify Account Number field",
-        "Enter a valid payment Amount greater than zero",
-        "Select a valid From Account Number from the dropdown",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "A confirmation message appears indicating the payment was successful",
-      "reads_state": [
-        "session_status",
-        "account_balance",
-        "payee_list",
-        "bill_payment_details"
-      ],
-      "writes_state": [
-        "account_balance",
-        "transaction_history",
-        "bill_payment_details"
-      ],
-      "verification_test_ids": [
-        "ONA-001",
-        "FINTRA-003",
-        "FINTRA-007",
-        "ACCOVE-003",
-        "FINTRA-005",
-        "FINTRA-006",
-        "ACCOVE-004",
-        "FINTRA-002",
-        "FINTRA-004",
-        "FINTRA-001",
-        "TRAFUN-001"
-      ],
-      "pre_verification_steps": [
-        "Navigate to Accounts Overview",
-        "Note current account balance(s)",
-        "Navigate to Transaction History",
-        "Note current transaction count"
-      ],
-      "post_verification_steps": [
-        "Navigate to Accounts Overview",
-        "Verify balance reflects the change",
-        "Navigate to Transaction History",
-        "Verify new transaction appears"
-      ]
+      "expected_result": "Confirmation message appears upon successful transfer"
     },
     {
       "id": "BILPAY-002",
-      "title": "Error when Payee Name is left blank",
+      "title": "Error message for missing payee name",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Leave the Payee Name field blank",
-        "Fill out all other fields with valid inputs",
-        "Click the 'Send Payment' button"
+        "Leave the payee name field empty",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "An error message appears indicating that the Payee Name is required"
+      "expected_result": "Error message indicates that the payee name is required"
     },
     {
       "id": "BILPAY-003",
-      "title": "Error when Address is left blank",
+      "title": "Error message for missing address",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Payee Name",
-        "Leave the Address field blank",
-        "Fill out all other fields with valid inputs",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name",
+        "Leave the address field empty",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "An error message appears indicating that the Address is required"
+      "expected_result": "Error message indicates that the address is required"
     },
     {
       "id": "BILPAY-004",
-      "title": "Error when Zip Code is invalid",
+      "title": "Error message for missing city",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Payee Name",
-        "Enter a valid Address",
-        "Enter a valid City",
-        "Select a valid State from the dropdown",
-        "Enter an invalid Zip Code (e.g., less than 5 digits or contains letters)",
-        "Fill out all other fields with valid inputs",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Leave the city field empty",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "An error message appears indicating that the Zip Code is invalid"
+      "expected_result": "Error message indicates that the city is required"
     },
     {
       "id": "BILPAY-005",
-      "title": "Error when Account Number and Verify Account Number do not match",
+      "title": "Error message for missing state",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Payee Name",
-        "Enter a valid Address",
-        "Enter a valid City",
-        "Select a valid State from the dropdown",
-        "Enter a valid 5-digit Zip Code",
-        "Enter a valid 10-digit Phone Number",
-        "Enter a valid Account Number",
-        "Enter a different Account Number in the Verify Account Number field",
-        "Enter a valid payment Amount greater than zero",
-        "Select a valid From Account Number from the dropdown",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Leave the state field empty",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "An error message appears indicating that the Account Number and Verify Account Number do not match"
+      "expected_result": "Error message indicates that the state is required"
     },
     {
       "id": "BILPAY-006",
-      "title": "Error when Amount is zero",
+      "title": "Error message for missing zip code",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Payee Name",
-        "Enter a valid Address",
-        "Enter a valid City",
-        "Select a valid State from the dropdown",
-        "Enter a valid 5-digit Zip Code",
-        "Enter a valid 10-digit Phone Number",
-        "Enter a valid Account Number",
-        "Re-enter the same Account Number in the Verify Account Number field",
-        "Enter '0' in the Amount field",
-        "Select a valid From Account Number from the dropdown",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Leave the zip code field empty",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "An error message appears indicating that the Amount must be greater than zero"
+      "expected_result": "Error message indicates that the zip code is required"
     },
     {
       "id": "BILPAY-007",
-      "title": "Error when Phone Number is invalid",
+      "title": "Error message for missing phone number",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Payee Name",
-        "Enter a valid Address",
-        "Enter a valid City",
-        "Select a valid State from the dropdown",
-        "Enter a valid 5-digit Zip Code",
-        "Enter an invalid Phone Number (e.g., less than 10 digits or contains letters)",
-        "Enter a valid Account Number",
-        "Re-enter the same Account Number in the Verify Account Number field",
-        "Enter a valid payment Amount greater than zero",
-        "Select a valid From Account Number from the dropdown",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Leave the phone number field empty",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "An error message appears indicating that the Phone Number is invalid"
+      "expected_result": "Error message indicates that the phone number is required"
     },
     {
       "id": "BILPAY-008",
-      "title": "Edge case: Maximum valid input lengths for all fields",
+      "title": "Error message for missing account number",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
-      "test_type": "edge_case",
-      "priority": "Low",
+      "workflow": "Send payment with completed fields",
+      "test_type": "negative",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter the maximum allowed characters in the Payee Name field",
-        "Enter the maximum allowed characters in the Address field",
-        "Enter the maximum allowed characters in the City field",
-        "Select a valid State from the dropdown",
-        "Enter a valid 5-digit Zip Code",
-        "Enter a valid 10-digit Phone Number",
-        "Enter the maximum allowed digits in the Account Number field",
-        "Re-enter the same Account Number in the Verify Account Number field",
-        "Enter the maximum allowed Amount",
-        "Select a valid From Account Number from the dropdown",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Leave the account number field empty",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "A confirmation message appears indicating the payment was successful"
+      "expected_result": "Error message indicates that the account number is required"
     },
     {
       "id": "BILPAY-009",
-      "title": "Edge case: Special characters in Payee Name",
+      "title": "Error message for mismatched account numbers",
       "module_id": 7,
       "module_title": "Bill Payments",
-      "workflow": "Send payment after completing all fields",
+      "workflow": "Send payment with completed fields",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a different verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
+      ],
+      "expected_result": "Error message indicates that the account numbers do not match"
+    },
+    {
+      "id": "BILPAY-010",
+      "title": "Error message for missing amount",
+      "module_id": 7,
+      "module_title": "Bill Payments",
+      "workflow": "Send payment with completed fields",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Leave the amount field empty",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
+      ],
+      "expected_result": "Error message indicates that the amount is required"
+    },
+    {
+      "id": "BILPAY-011",
+      "title": "Error message for missing from account number",
+      "module_id": 7,
+      "module_title": "Bill Payments",
+      "workflow": "Send payment with completed fields",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid payee name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Leave the from account number field empty",
+        "Click on the Send Payment button"
+      ],
+      "expected_result": "Error message indicates that the from account number is required"
+    },
+    {
+      "id": "BILPAY-012",
+      "title": "Edge case for maximum length of payee name",
+      "module_id": 7,
+      "module_title": "Bill Payments",
+      "workflow": "Send payment with completed fields",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Enter special characters (e.g., @#$%^&*) in the Payee Name field",
-        "Enter a valid Address",
-        "Enter a valid City",
-        "Select a valid State from the dropdown",
-        "Enter a valid 5-digit Zip Code",
-        "Enter a valid 10-digit Phone Number",
-        "Enter a valid Account Number",
-        "Re-enter the same Account Number in the Verify Account Number field",
-        "Enter a valid payment Amount greater than zero",
-        "Select a valid From Account Number from the dropdown",
-        "Click the 'Send Payment' button"
+        "Enter a valid payee name at maximum length",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
       ],
-      "expected_result": "An error message appears indicating that special characters are not allowed in the Payee Name"
+      "expected_result": "Confirmation message appears upon successful transfer"
+    },
+    {
+      "id": "BILPAY-013",
+      "title": "Edge case for special characters in address",
+      "module_id": 7,
+      "module_title": "Bill Payments",
+      "workflow": "Send payment with completed fields",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid payee name",
+        "Enter a valid address with special characters",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Enter a valid account number",
+        "Enter a matching valid verify account number",
+        "Enter a valid amount",
+        "Select a valid from account number",
+        "Click on the Send Payment button"
+      ],
+      "expected_result": "Confirmation message appears upon successful transfer"
     },
     {
       "id": "FINTRA-001",
       "title": "Search for transaction with valid Transaction ID",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Transaction ID",
       "test_type": "positive",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Enter a valid Transaction ID into the Transaction ID input field.",
-        "Click the 'Find Transactions' button."
+        "Enter a valid Transaction ID in the input field",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount.",
-      "reads_state": [
-        "transaction_history",
-        "transaction_search_results",
-        "account_list"
-      ],
-      "writes_state": [
-        "transaction_search_results"
-      ],
-      "verification_test_ids": [
-        "FINTRA-002",
-        "FINTRA-003",
-        "FINTRA-005",
-        "FINTRA-006",
-        "FINTRA-007",
-        "FINTRA-004"
-      ],
-      "pre_verification_steps": [
-        "Note initial application state"
-      ],
-      "post_verification_steps": [
-        "Verify application state changed as expected"
-      ]
+      "expected_result": "Matching transactions are displayed in the results table"
     },
     {
       "id": "FINTRA-002",
-      "title": "Search for transaction with alphanumeric Transaction ID",
+      "title": "Search for transactions with a valid date",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Date",
       "test_type": "positive",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Enter a valid alphanumeric Transaction ID into the Transaction ID input field.",
-        "Click the 'Find Transactions' button."
+        "Locate the input field for date",
+        "Enter a valid date in MM-DD-YYYY format",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount.",
-      "reads_state": [
-        "transaction_history",
-        "transaction_search_results",
-        "account_list"
-      ],
-      "writes_state": [
-        "transaction_search_results"
-      ],
-      "verification_test_ids": [
-        "FINTRA-003",
-        "FINTRA-005",
-        "FINTRA-006",
-        "FINTRA-007",
-        "FINTRA-004",
-        "FINTRA-001"
-      ],
-      "pre_verification_steps": [
-        "Note initial application state"
-      ],
-      "post_verification_steps": [
-        "Verify application state changed as expected"
-      ]
+      "expected_result": "Matching transactions are displayed in the results table"
     },
     {
       "id": "FINTRA-003",
-      "title": "Search transactions with valid date",
+      "title": "Search for transactions with valid date range",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
+      "workflow": "Search for transactions by Date Range",
       "test_type": "positive",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown",
-        "Enter a valid date in MM-DD-YYYY format in the Date input field",
+        "Enter a valid start date in MM-DD-YYYY format in the date range input field",
+        "Enter a valid end date in MM-DD-YYYY format in the date range input field",
         "Click the Find Transactions button"
       ],
-      "expected_result": "Matching transactions for the entered date are displayed in the results table showing Transaction ID, Date, Description, and Amount",
-      "reads_state": [
-        "transaction_history",
-        "transaction_search_results",
-        "account_list"
-      ],
-      "writes_state": [
-        "transaction_search_results"
-      ],
-      "verification_test_ids": [
-        "FINTRA-007",
-        "FINTRA-005",
-        "FINTRA-006",
-        "FINTRA-002",
-        "FINTRA-004",
-        "FINTRA-001"
-      ],
-      "pre_verification_steps": [
-        "Note initial application state"
-      ],
-      "post_verification_steps": [
-        "Verify application state changed as expected"
-      ]
+      "expected_result": "Matching transactions are displayed in the results table"
     },
     {
       "id": "FINTRA-004",
-      "title": "Search transactions with valid date range",
+      "title": "Search for transactions with a valid amount",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
+      "workflow": "Search for transactions by Amount",
       "test_type": "positive",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Date Range' option.",
-        "Enter a valid start date in MM-DD-YYYY format in the Date Range input field.",
-        "Enter a valid end date in MM-DD-YYYY format in the Date Range input field.",
-        "Click the 'Find Transactions' button."
+        "Locate the input field for 'Find by Amount'",
+        "Enter a valid transaction amount into the input field",
+        "Click the 'Find Transactions' button"
       ],
-      "expected_result": "Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.",
-      "reads_state": [
-        "transaction_history",
-        "transaction_search_results",
-        "account_list"
-      ],
-      "writes_state": [
-        "transaction_search_results"
-      ],
-      "verification_test_ids": [
-        "FINTRA-002",
-        "FINTRA-003",
-        "FINTRA-005",
-        "FINTRA-006",
-        "FINTRA-007",
-        "FINTRA-001"
-      ],
-      "pre_verification_steps": [
-        "Note initial application state"
-      ],
-      "post_verification_steps": [
-        "Verify application state changed as expected"
-      ]
+      "expected_result": "Matching transactions are displayed in the results table"
     },
     {
       "id": "FINTRA-005",
-      "title": "Search transactions with valid amount",
+      "title": "Search for transaction with empty Transaction ID",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "positive",
+      "workflow": "Search for transactions by Transaction ID",
+      "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Enter a valid amount (e.g., 100) in the Amount input field.",
-        "Click the Find Transactions button."
+        "Leave the Transaction ID input field empty",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.",
-      "reads_state": [
-        "transaction_history",
-        "transaction_search_results",
-        "account_list"
-      ],
-      "writes_state": [
-        "transaction_search_results"
-      ],
-      "verification_test_ids": [
-        "FINTRA-002",
-        "FINTRA-003",
-        "FINTRA-006",
-        "FINTRA-007",
-        "FINTRA-004",
-        "FINTRA-001"
-      ],
-      "pre_verification_steps": [
-        "Note initial application state"
-      ],
-      "post_verification_steps": [
-        "Verify application state changed as expected"
-      ]
+      "expected_result": "Inline validation message appears next to the input field indicating that the field is required"
     },
     {
       "id": "FINTRA-006",
-      "title": "Search transactions with decimal amount",
+      "title": "Search for transaction with invalid Transaction ID format",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "positive",
+      "workflow": "Search for transactions by Transaction ID",
+      "test_type": "negative",
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Enter a valid decimal amount (e.g., 100.50) in the Amount input field.",
-        "Click the Find Transactions button."
+        "Enter an invalid Transaction ID format in the input field",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount.",
-      "reads_state": [
-        "transaction_history",
-        "transaction_search_results",
-        "account_list"
-      ],
-      "writes_state": [
-        "transaction_search_results"
-      ],
-      "verification_test_ids": [
-        "FINTRA-002",
-        "FINTRA-003",
-        "FINTRA-005",
-        "FINTRA-007",
-        "FINTRA-004",
-        "FINTRA-001"
-      ],
-      "pre_verification_steps": [
-        "Note initial application state"
-      ],
-      "post_verification_steps": [
-        "Verify application state changed as expected"
-      ]
+      "expected_result": "Inline validation message appears next to the input field indicating that the input is invalid"
     },
     {
       "id": "FINTRA-007",
-      "title": "Search transactions with past date having no transactions",
+      "title": "Attempt to search without entering a date",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
-      "test_type": "positive",
-      "priority": "Medium",
+      "workflow": "Search for transactions by Date",
+      "test_type": "negative",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown",
-        "Enter a past date in MM-DD-YYYY format that has no transactions in the Date input field",
-        "Click the Find Transactions button"
+        "Locate the input field for date",
+        "Leave the input field empty",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "No transactions are displayed in the results table, and a message indicating no matching transactions is shown",
-      "reads_state": [
-        "transaction_history",
-        "transaction_search_results",
-        "account_list"
-      ],
-      "writes_state": [
-        "transaction_search_results"
-      ],
-      "verification_test_ids": [
-        "FINTRA-003",
-        "FINTRA-005",
-        "FINTRA-006",
-        "FINTRA-002",
-        "FINTRA-004",
-        "FINTRA-001"
-      ],
-      "pre_verification_steps": [
-        "Note initial application state"
-      ],
-      "post_verification_steps": [
-        "Verify application state changed as expected"
-      ]
+      "expected_result": "An inline validation message appears next to the field indicating that the date is required"
     },
     {
       "id": "FINTRA-008",
-      "title": "Attempt search with empty Transaction ID field",
+      "title": "Attempt to search with an invalid date format",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Date",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Leave the Transaction ID input field empty.",
-        "Click the 'Find Transactions' button."
+        "Locate the input field for date",
+        "Enter an invalid date format",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "An inline validation message appears next to the Transaction ID input field indicating that the field is required."
+      "expected_result": "An inline validation message appears next to the field indicating that the date format is invalid"
     },
     {
       "id": "FINTRA-009",
-      "title": "Attempt search with invalid Transaction ID format",
+      "title": "Attempt to search with empty date range fields",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Date Range",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Enter an invalid Transaction ID (e.g., special characters or incorrect format) into the Transaction ID input field.",
-        "Click the 'Find Transactions' button."
+        "Leave the start date input field empty",
+        "Leave the end date input field empty",
+        "Click the Find Transactions button"
       ],
-      "expected_result": "An inline validation message appears next to the Transaction ID input field indicating that the input format is invalid."
+      "expected_result": "Inline validation messages appear next to both fields indicating they are required"
     },
     {
       "id": "FINTRA-010",
-      "title": "Attempt search with whitespace-only Transaction ID",
+      "title": "Attempt to search with invalid date format",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Date Range",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Enter only whitespace characters into the Transaction ID input field.",
-        "Click the 'Find Transactions' button."
+        "Enter an invalid start date format in the date range input field",
+        "Enter an invalid end date format in the date range input field",
+        "Click the Find Transactions button"
       ],
-      "expected_result": "An inline validation message appears next to the Transaction ID input field indicating that the field is required."
+      "expected_result": "Inline validation messages appear next to both fields indicating the format is incorrect"
     },
     {
       "id": "FINTRA-011",
-      "title": "Attempt search without selecting an account",
+      "title": "Search for transactions with start date greater than end date",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Date Range",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Do not select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Enter a valid Transaction ID into the Transaction ID input field.",
-        "Click the 'Find Transactions' button."
+        "Enter a valid start date that is later than the end date in MM-DD-YYYY format in the date range input field",
+        "Enter a valid end date in MM-DD-YYYY format in the date range input field",
+        "Click the Find Transactions button"
       ],
-      "expected_result": "An inline validation message appears next to the account dropdown indicating that the field is required."
+      "expected_result": "Inline validation message appears indicating that the start date must be before the end date"
     },
     {
       "id": "FINTRA-012",
-      "title": "Search transactions with empty date field",
+      "title": "Attempt to search with an empty amount field",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
+      "workflow": "Search for transactions by Amount",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown",
-        "Leave the Date input field empty",
-        "Click the Find Transactions button"
+        "Locate the input field for 'Find by Amount'",
+        "Leave the input field empty",
+        "Click the 'Find Transactions' button"
       ],
-      "expected_result": "An inline validation message appears next to the Date input field indicating that the field is required"
+      "expected_result": "An inline validation message appears next to the field indicating that the amount is required"
     },
     {
       "id": "FINTRA-013",
-      "title": "Search transactions with invalid date format",
+      "title": "Search for transactions with a date containing special characters",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
+      "workflow": "Search for transactions by Date",
       "test_type": "negative",
       "priority": "Medium",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown",
-        "Enter an invalid date format (e.g., DD-MM-YYYY or YYYY/MM/DD) in the Date input field",
-        "Click the Find Transactions button"
+        "Locate the input field for date",
+        "Enter a date with special characters",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "An inline validation message appears next to the Date input field indicating that the date must be in MM-DD-YYYY format"
+      "expected_result": "An inline validation message appears next to the field indicating that the date format is invalid"
     },
     {
       "id": "FINTRA-014",
-      "title": "Search transactions without selecting an account",
+      "title": "Attempt to search with an invalid amount format",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
+      "workflow": "Search for transactions by Amount",
       "test_type": "negative",
       "priority": "Medium",
       "preconditions": "None",
       "steps": [
-        "Leave the account dropdown unselected",
-        "Enter a valid date in MM-DD-YYYY format in the Date input field",
-        "Click the Find Transactions button"
+        "Locate the input field for 'Find by Amount'",
+        "Enter an invalid amount format into the input field (e.g., letters or special characters)",
+        "Click the 'Find Transactions' button"
       ],
-      "expected_result": "An inline validation message appears next to the account dropdown indicating that the field is required"
+      "expected_result": "An inline validation message appears next to the field indicating that the input is invalid"
     },
     {
       "id": "FINTRA-015",
-      "title": "Search transactions with empty date range fields",
+      "title": "Search for transaction with special characters in Transaction ID",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
-      "test_type": "negative",
-      "priority": "Medium",
+      "workflow": "Search for transactions by Transaction ID",
+      "test_type": "edge_case",
+      "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Date Range' option.",
-        "Leave both the start date and end date fields empty.",
-        "Click the 'Find Transactions' button."
+        "Enter special characters in the Transaction ID input field",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "Inline validation messages appear next to both fields indicating that they are required."
+      "expected_result": "Inline validation message appears next to the input field indicating that the input is invalid"
     },
     {
       "id": "FINTRA-016",
-      "title": "Search transactions with invalid date format",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Date Range' option.",
-        "Enter an invalid date format (e.g., DD-MM-YYYY) in the start date field.",
-        "Enter an invalid date format (e.g., YYYY-MM-DD) in the end date field.",
-        "Click the 'Find Transactions' button."
-      ],
-      "expected_result": "Inline validation messages appear next to both fields indicating that the date must be in MM-DD-YYYY format."
-    },
-    {
-      "id": "FINTRA-017",
-      "title": "Search transactions with start date later than end date",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Date Range' option.",
-        "Enter a start date that is later than the end date in MM-DD-YYYY format.",
-        "Click the 'Find Transactions' button."
-      ],
-      "expected_result": "Inline validation message appears indicating that the start date cannot be later than the end date."
-    },
-    {
-      "id": "FINTRA-018",
-      "title": "Search transactions with missing account selection",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Leave the account dropdown unselected.",
-        "Click on the 'Find by Date Range' option.",
-        "Enter valid dates in MM-DD-YYYY format in both the start date and end date fields.",
-        "Click the 'Find Transactions' button."
-      ],
-      "expected_result": "Inline validation message appears indicating that the account selection is required."
-    },
-    {
-      "id": "FINTRA-019",
-      "title": "Search transactions with empty amount field",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Leave the Amount input field empty.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "An inline validation message appears next to the Amount input field indicating the field is required."
-    },
-    {
-      "id": "FINTRA-020",
-      "title": "Search transactions with invalid characters in amount field",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Enter invalid characters (e.g., 'abc') in the Amount input field.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "An inline validation message appears next to the Amount input field indicating invalid input."
-    },
-    {
-      "id": "FINTRA-021",
-      "title": "Search transactions with negative amount",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Enter a negative amount (e.g., -50) in the Amount input field.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "An inline validation message appears next to the Amount input field indicating invalid input."
-    },
-    {
-      "id": "FINTRA-022",
-      "title": "Search transactions without selecting an account",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
-      "steps": [
-        "Leave the account dropdown unselected.",
-        "Enter a valid amount (e.g., 100) in the Amount input field.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "An inline validation message appears next to the account dropdown indicating the field is required."
-    },
-    {
-      "id": "FINTRA-023",
-      "title": "Search transactions with special characters in amount field",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "negative",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Enter special characters (e.g., '!@#$') in the Amount input field.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "An inline validation message appears next to the Amount input field indicating invalid input."
-    },
-    {
-      "id": "FINTRA-024",
       "title": "Search for transaction with maximum length Transaction ID",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Transaction ID",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Enter a Transaction ID with the maximum allowed length into the Transaction ID input field.",
-        "Click the 'Find Transactions' button."
+        "Enter a Transaction ID that reaches the maximum allowed length in the input field",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount."
+      "expected_result": "Matching transactions are displayed in the results table if the input is valid"
     },
     {
-      "id": "FINTRA-025",
-      "title": "Search for transaction with minimum length Transaction ID",
+      "id": "FINTRA-017",
+      "title": "Search for transactions with a date in the future",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Transaction ID",
+      "workflow": "Search for transactions by Date",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Transaction ID' option.",
-        "Enter a Transaction ID with the minimum allowed length into the Transaction ID input field.",
-        "Click the 'Find Transactions' button."
+        "Locate the input field for date",
+        "Enter a future date in MM-DD-YYYY format",
+        "Click on the Find Transactions button"
       ],
-      "expected_result": "Matching transaction is displayed in the results table showing Transaction ID, Date, Description, and Amount."
+      "expected_result": "No transactions are displayed, or a message indicating no transactions found appears"
     },
     {
-      "id": "FINTRA-026",
-      "title": "Search transactions with special characters in date field",
+      "id": "FINTRA-018",
+      "title": "Search for transactions with a date at the boundary of valid input",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
+      "workflow": "Search for transactions by Date",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown",
-        "Enter special characters (e.g., ##-##-####) in the Date input field",
+        "Locate the input field for date",
+        "Enter a date that is the earliest valid date in MM-DD-YYYY format",
+        "Click on the Find Transactions button"
+      ],
+      "expected_result": "Matching transactions are displayed in the results table or a message indicating no transactions found appears"
+    },
+    {
+      "id": "FINTRA-019",
+      "title": "Search for transactions with special characters in date fields",
+      "module_id": 8,
+      "module_title": "Find Transaction",
+      "workflow": "Search for transactions by Date Range",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Enter a start date with special characters in the date range input field",
+        "Enter an end date with special characters in the date range input field",
         "Click the Find Transactions button"
       ],
-      "expected_result": "An inline validation message appears next to the Date input field indicating that the date must be in MM-DD-YYYY format"
+      "expected_result": "Inline validation messages appear next to both fields indicating the format is incorrect"
     },
     {
-      "id": "FINTRA-027",
-      "title": "Search transactions with future date",
+      "id": "FINTRA-020",
+      "title": "Search for transactions with maximum length date input",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
+      "workflow": "Search for transactions by Date Range",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown",
-        "Enter a future date in MM-DD-YYYY format in the Date input field",
+        "Enter a start date with the maximum allowed length in MM-DD-YYYY format in the date range input field",
+        "Enter an end date with the maximum allowed length in MM-DD-YYYY format in the date range input field",
         "Click the Find Transactions button"
       ],
-      "expected_result": "No transactions are displayed in the results table, and a message indicating no matching transactions is shown"
+      "expected_result": "Matching transactions are displayed in the results table"
     },
     {
-      "id": "FINTRA-028",
-      "title": "Search transactions with date containing leading or trailing spaces",
+      "id": "FINTRA-021",
+      "title": "Search for transactions with a negative amount",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date",
+      "workflow": "Search for transactions by Amount",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown",
-        "Enter a valid date in MM-DD-YYYY format with leading or trailing spaces in the Date input field",
-        "Click the Find Transactions button"
+        "Locate the input field for 'Find by Amount'",
+        "Enter a negative transaction amount into the input field",
+        "Click the 'Find Transactions' button"
       ],
-      "expected_result": "Matching transactions for the entered date are displayed in the results table showing Transaction ID, Date, Description, and Amount"
+      "expected_result": "An inline validation message appears next to the field indicating that the amount must be positive"
     },
     {
-      "id": "FINTRA-029",
-      "title": "Search transactions with boundary date range",
+      "id": "FINTRA-022",
+      "title": "Search for transactions with a very large amount",
       "module_id": 8,
       "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
+      "workflow": "Search for transactions by Amount",
       "test_type": "edge_case",
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Date Range' option.",
-        "Enter the same date in both the start date and end date fields in MM-DD-YYYY format.",
-        "Click the 'Find Transactions' button."
+        "Locate the input field for 'Find by Amount'",
+        "Enter a very large transaction amount into the input field",
+        "Click the 'Find Transactions' button"
       ],
-      "expected_result": "Matching transactions for the specified date are displayed in the results table showing Transaction ID, Date, Description, and Amount."
-    },
-    {
-      "id": "FINTRA-030",
-      "title": "Search transactions with special characters in date fields",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Date Range' option.",
-        "Enter special characters (e.g., ##-##-####) in the start date field.",
-        "Enter special characters (e.g., ##-##-####) in the end date field.",
-        "Click the 'Find Transactions' button."
-      ],
-      "expected_result": "Inline validation messages appear next to both fields indicating that the date must be in MM-DD-YYYY format."
-    },
-    {
-      "id": "FINTRA-031",
-      "title": "Search transactions with valid leap year date range",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Date Range",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Click on the 'Find by Date Range' option.",
-        "Enter a valid leap year date (e.g., 02-29-2024) in the start date field.",
-        "Enter a valid leap year date (e.g., 02-29-2024) in the end date field.",
-        "Click the 'Find Transactions' button."
-      ],
-      "expected_result": "Matching transactions for the specified leap year date are displayed in the results table showing Transaction ID, Date, Description, and Amount."
-    },
-    {
-      "id": "FINTRA-032",
-      "title": "Search transactions with maximum allowed amount",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Enter the maximum allowed amount (e.g., 999999999.99) in the Amount input field.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount."
-    },
-    {
-      "id": "FINTRA-033",
-      "title": "Search transactions with zero amount",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Enter zero (0) in the Amount input field.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount."
-    },
-    {
-      "id": "FINTRA-034",
-      "title": "Search transactions with leading and trailing spaces in amount field",
-      "module_id": 8,
-      "module_title": "Find Transaction",
-      "workflow": "Find transactions by Amount",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Select an account from the account dropdown.",
-        "Enter an amount with leading and trailing spaces (e.g., ' 100 ') in the Amount input field.",
-        "Click the Find Transactions button."
-      ],
-      "expected_result": "Matching transactions are displayed in the results table showing Transaction ID, Date, Description, and Amount."
+      "expected_result": "Matching transactions are displayed in the results table if valid, or an inline validation message if not"
     },
     {
       "id": "UPDPRO-001",
@@ -2321,181 +1965,211 @@
       "workflow": "Update profile with provided information",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Enter 'John' in the First Name field",
-        "Enter 'Doe' in the Last Name field",
-        "Enter '123 Main St' in the Address field",
-        "Enter 'Springfield' in the City field",
-        "Select 'Illinois' from the State dropdown",
-        "Enter '62704' in the Zip Code field",
-        "Enter '555-123-4567' in the Phone Number field",
-        "Click the 'Update Profile' button"
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "A confirmation message is displayed indicating the profile was successfully updated",
-      "reads_state": [
-        "user_profile"
-      ],
-      "writes_state": [
-        "user_profile"
-      ],
-      "verification_test_ids": [
-        "LOGOUT-003",
-        "FORPAS-001"
-      ],
-      "pre_verification_steps": [
-        "Navigate to Profile/Settings",
-        "Note current profile values"
-      ],
-      "post_verification_steps": [
-        "Navigate to Profile/Settings",
-        "Verify updated values are displayed"
-      ]
+      "expected_result": "Confirmation message is shown upon successful submission"
     },
     {
       "id": "UPDPRO-002",
-      "title": "Attempt to update profile with empty fields",
+      "title": "Attempt to update profile with missing first name",
       "module_id": 9,
       "module_title": "Update Profile",
       "workflow": "Update profile with provided information",
       "test_type": "negative",
       "priority": "High",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Leave all fields empty",
-        "Click the 'Update Profile' button"
+        "Leave the first name field empty",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "Error messages are displayed for all required fields indicating they cannot be empty"
+      "expected_result": "Error message indicating that the first name is required is displayed"
     },
     {
       "id": "UPDPRO-003",
-      "title": "Attempt to update profile with invalid phone number format",
+      "title": "Attempt to update profile with missing last name",
       "module_id": 9,
       "module_title": "Update Profile",
       "workflow": "Update profile with provided information",
       "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Enter 'John' in the First Name field",
-        "Enter 'Doe' in the Last Name field",
-        "Enter '123 Main St' in the Address field",
-        "Enter 'Springfield' in the City field",
-        "Select 'Illinois' from the State dropdown",
-        "Enter '62704' in the Zip Code field",
-        "Enter '12345' in the Phone Number field",
-        "Click the 'Update Profile' button"
+        "Enter a valid first name",
+        "Leave the last name field empty",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "An error message is displayed indicating the phone number format is invalid"
+      "expected_result": "Error message indicating that the last name is required is displayed"
     },
     {
       "id": "UPDPRO-004",
-      "title": "Attempt to update profile with invalid zip code format",
+      "title": "Attempt to update profile with missing address",
       "module_id": 9,
       "module_title": "Update Profile",
       "workflow": "Update profile with provided information",
       "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Enter 'John' in the First Name field",
-        "Enter 'Doe' in the Last Name field",
-        "Enter '123 Main St' in the Address field",
-        "Enter 'Springfield' in the City field",
-        "Select 'Florida' from the State dropdown",
-        "Enter 'ABCDE' in the Zip Code field",
-        "Enter '555-123-4567' in the Phone Number field",
-        "Click the 'Update Profile' button"
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Leave the address field empty",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "An error message is displayed indicating the zip code format is invalid"
+      "expected_result": "Error message indicating that the address is required is displayed"
     },
     {
       "id": "UPDPRO-005",
-      "title": "Attempt to update profile with missing state selection",
+      "title": "Attempt to update profile with missing city",
       "module_id": 9,
       "module_title": "Update Profile",
       "workflow": "Update profile with provided information",
       "test_type": "negative",
-      "priority": "Medium",
-      "preconditions": "None",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Enter 'John' in the First Name field",
-        "Enter 'Doe' in the Last Name field",
-        "Enter '123 Main St' in the Address field",
-        "Enter 'Springfield' in the City field",
-        "Leave the State dropdown unselected",
-        "Enter '62704' in the Zip Code field",
-        "Enter '555-123-4567' in the Phone Number field",
-        "Click the 'Update Profile' button"
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Leave the city field empty",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "An error message is displayed indicating the state field is required"
+      "expected_result": "Error message indicating that the city is required is displayed"
     },
     {
       "id": "UPDPRO-006",
-      "title": "Update profile with maximum allowed characters in all fields",
+      "title": "Attempt to update profile with missing state",
       "module_id": 9,
       "module_title": "Update Profile",
       "workflow": "Update profile with provided information",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Enter a 50-character string in the First Name field",
-        "Enter a 50-character string in the Last Name field",
-        "Enter a 100-character string in the Address field",
-        "Enter a 50-character string in the City field",
-        "Select 'California' from the State dropdown",
-        "Enter '99999' in the Zip Code field",
-        "Enter '555-555-5555' in the Phone Number field",
-        "Click the 'Update Profile' button"
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Leave the state field empty",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "A confirmation message is displayed indicating the profile was successfully updated"
+      "expected_result": "Error message indicating that the state is required is displayed"
     },
     {
       "id": "UPDPRO-007",
-      "title": "Attempt to update profile with special characters in name fields",
+      "title": "Attempt to update profile with missing zip code",
       "module_id": 9,
       "module_title": "Update Profile",
       "workflow": "Update profile with provided information",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Enter 'J@hn!' in the First Name field",
-        "Enter 'D#e$' in the Last Name field",
-        "Enter '123 Main St' in the Address field",
-        "Enter 'Springfield' in the City field",
-        "Select 'Texas' from the State dropdown",
-        "Enter '75001' in the Zip Code field",
-        "Enter '555-987-6543' in the Phone Number field",
-        "Click the 'Update Profile' button"
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Leave the zip code field empty",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "A confirmation message is displayed indicating the profile was successfully updated"
+      "expected_result": "Error message indicating that the zip code is required is displayed"
     },
     {
       "id": "UPDPRO-008",
-      "title": "Update profile with numeric values in address field",
+      "title": "Attempt to update profile with missing phone number",
+      "module_id": 9,
+      "module_title": "Update Profile",
+      "workflow": "Update profile with provided information",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "User is logged in and on the Update Profile page",
+      "steps": [
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Leave the phone number field empty",
+        "Click on the Update Profile button"
+      ],
+      "expected_result": "Error message indicating that the phone number is required is displayed"
+    },
+    {
+      "id": "UPDPRO-009",
+      "title": "Update profile with special characters in first name",
       "module_id": 9,
       "module_title": "Update Profile",
       "workflow": "Update profile with provided information",
       "test_type": "edge_case",
       "priority": "Low",
-      "preconditions": "None",
+      "preconditions": "User is logged in and on the Update Profile page",
       "steps": [
-        "Enter 'John' in the First Name field",
-        "Enter 'Doe' in the Last Name field",
-        "Enter '1234567890' in the Address field",
-        "Enter 'Springfield' in the City field",
-        "Select 'Nevada' from the State dropdown",
-        "Enter '89044' in the Zip Code field",
-        "Enter '555-123-4567' in the Phone Number field",
-        "Click the 'Update Profile' button"
+        "Enter a first name with special characters",
+        "Enter a valid last name",
+        "Enter a valid address",
+        "Enter a valid city",
+        "Select a valid state",
+        "Enter a valid zip code",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
       ],
-      "expected_result": "A confirmation message is displayed indicating the profile was successfully updated"
+      "expected_result": "Confirmation message is shown upon successful submission"
+    },
+    {
+      "id": "UPDPRO-010",
+      "title": "Update profile with maximum length values",
+      "module_id": 9,
+      "module_title": "Update Profile",
+      "workflow": "Update profile with provided information",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is logged in and on the Update Profile page",
+      "steps": [
+        "Enter a first name at maximum length",
+        "Enter a last name at maximum length",
+        "Enter an address at maximum length",
+        "Enter a city at maximum length",
+        "Select a valid state",
+        "Enter a zip code at maximum length",
+        "Enter a valid phone number",
+        "Click on the Update Profile button"
+      ],
+      "expected_result": "Confirmation message is shown upon successful submission"
     },
     {
       "id": "REQLOA-001",
-      "title": "Apply for a loan with valid inputs",
+      "title": "Apply for a loan with all fields filled correctly",
       "module_id": 10,
       "module_title": "Request Loan",
       "workflow": "Apply for a loan",
@@ -2503,99 +2177,84 @@
       "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Loan Amount (e.g., 5000)",
-        "Enter a valid Down Payment (e.g., 1000)",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
+        "Enter a valid loan amount",
+        "Enter a valid down payment",
+        "Enter a valid from account number",
+        "Click on Apply Now"
       ],
-      "expected_result": "Loan application is successfully submitted, and a confirmation message is displayed",
-      "reads_state": [
-        "account_list",
-        "loan_status"
-      ],
-      "writes_state": [
-        "loan_status"
-      ],
-      "pre_verification_steps": [
-        "Navigate to Loan section",
-        "Note current loan status"
-      ],
-      "post_verification_steps": [
-        "Navigate to Loan section",
-        "Verify loan status updated"
-      ]
+      "expected_result": "Loan application is successfully submitted and approved"
     },
     {
       "id": "REQLOA-002",
-      "title": "Internal error occurs during loan application",
+      "title": "Attempt to apply for a loan with blank loan amount",
       "module_id": 10,
       "module_title": "Request Loan",
       "workflow": "Apply for a loan",
       "test_type": "negative",
       "priority": "High",
-      "preconditions": "Simulate an internal error in the system",
+      "preconditions": "None",
       "steps": [
-        "Enter a valid Loan Amount (e.g., 5000)",
-        "Enter a valid Down Payment (e.g., 1000)",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
+        "Leave loan amount field blank",
+        "Enter a valid down payment",
+        "Enter a valid from account number",
+        "Click on Apply Now"
       ],
-      "expected_result": "An error message is displayed indicating that the loan application could not be processed due to an internal error"
+      "expected_result": "Error message is displayed indicating loan amount is mandatory"
     },
     {
       "id": "REQLOA-003",
-      "title": "Leave Loan Amount field blank",
+      "title": "Attempt to apply for a loan with blank down payment",
       "module_id": 10,
       "module_title": "Request Loan",
       "workflow": "Apply for a loan",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Leave the Loan Amount field empty",
-        "Enter a valid Down Payment (e.g., 1000)",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
+        "Enter a valid loan amount",
+        "Leave down payment field blank",
+        "Enter a valid from account number",
+        "Click on Apply Now"
       ],
-      "expected_result": "An error message is displayed indicating that the Loan Amount field is mandatory"
+      "expected_result": "Error message is displayed indicating down payment is mandatory"
     },
     {
       "id": "REQLOA-004",
-      "title": "Leave Down Payment field blank",
+      "title": "Attempt to apply for a loan with blank from account number",
       "module_id": 10,
       "module_title": "Request Loan",
       "workflow": "Apply for a loan",
       "test_type": "negative",
-      "priority": "Medium",
+      "priority": "High",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Loan Amount (e.g., 5000)",
-        "Leave the Down Payment field empty",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
+        "Enter a valid loan amount",
+        "Enter a valid down payment",
+        "Leave from account number field blank",
+        "Click on Apply Now"
       ],
-      "expected_result": "An error message is displayed indicating that the Down Payment field is mandatory"
+      "expected_result": "Error message is displayed indicating from account number is mandatory"
     },
     {
       "id": "REQLOA-005",
-      "title": "Leave From account number field blank",
+      "title": "Apply for a loan with special characters in loan amount",
       "module_id": 10,
       "module_title": "Request Loan",
       "workflow": "Apply for a loan",
-      "test_type": "negative",
-      "priority": "Medium",
+      "test_type": "edge_case",
+      "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Enter a valid Loan Amount (e.g., 5000)",
-        "Enter a valid Down Payment (e.g., 1000)",
-        "Leave the From account number field empty",
-        "Click on the 'Apply Now' button"
+        "Enter a loan amount with special characters",
+        "Enter a valid down payment",
+        "Enter a valid from account number",
+        "Click on Apply Now"
       ],
-      "expected_result": "An error message is displayed indicating that the From account number field is mandatory"
+      "expected_result": "Error message is displayed indicating loan amount is invalid"
     },
     {
       "id": "REQLOA-006",
-      "title": "Enter zero as Loan Amount",
+      "title": "Apply for a loan with maximum length of loan amount",
       "module_id": 10,
       "module_title": "Request Loan",
       "workflow": "Apply for a loan",
@@ -2603,277 +2262,125 @@
       "priority": "Low",
       "preconditions": "None",
       "steps": [
-        "Enter 0 as the Loan Amount",
-        "Enter a valid Down Payment (e.g., 1000)",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
+        "Enter a loan amount at maximum allowed length",
+        "Enter a valid down payment",
+        "Enter a valid from account number",
+        "Click on Apply Now"
       ],
-      "expected_result": "An error message is displayed indicating that the Loan Amount must be greater than zero"
-    },
-    {
-      "id": "REQLOA-007",
-      "title": "Enter negative value as Down Payment",
-      "module_id": 10,
-      "module_title": "Request Loan",
-      "workflow": "Apply for a loan",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter a valid Loan Amount (e.g., 5000)",
-        "Enter a negative value as Down Payment (e.g., -1000)",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
-      ],
-      "expected_result": "An error message is displayed indicating that the Down Payment must be a positive value"
-    },
-    {
-      "id": "REQLOA-008",
-      "title": "Enter special characters in Loan Amount field",
-      "module_id": 10,
-      "module_title": "Request Loan",
-      "workflow": "Apply for a loan",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter special characters (e.g., @#$%) in the Loan Amount field",
-        "Enter a valid Down Payment (e.g., 1000)",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
-      ],
-      "expected_result": "An error message is displayed indicating that the Loan Amount must be a numeric value"
-    },
-    {
-      "id": "REQLOA-009",
-      "title": "Enter special characters in Down Payment field",
-      "module_id": 10,
-      "module_title": "Request Loan",
-      "workflow": "Apply for a loan",
-      "test_type": "edge_case",
-      "priority": "Low",
-      "preconditions": "None",
-      "steps": [
-        "Enter a valid Loan Amount (e.g., 5000)",
-        "Enter special characters (e.g., @#$%) in the Down Payment field",
-        "Select a valid From account number from the dropdown",
-        "Click on the 'Apply Now' button"
-      ],
-      "expected_result": "An error message is displayed indicating that the Down Payment must be a numeric value"
+      "expected_result": "Loan application is successfully submitted and approved"
     },
     {
       "id": "LOGOUT-001",
-      "title": "Verify successful logout redirects to login page",
+      "title": "Successful Logout",
       "module_id": 11,
       "module_title": "Logout",
-      "workflow": "Logout and end user session",
+      "workflow": "Logout",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "User is logged in",
+      "preconditions": "User is logged into the application",
       "steps": [
-        "Click on the 'Logout' button"
+        "Locate and click the logout button"
       ],
-      "expected_result": "User is redirected to the login page",
-      "reads_state": [
-        "session_status"
-      ],
-      "writes_state": [
-        "session_status"
-      ],
-      "verification_test_ids": [
-        "LOGOUT-003",
-        "ACCOVE-006",
-        "LOGOUT-002",
-        "BILPAY-001"
-      ],
-      "pre_verification_steps": [
-        "Verify user is logged out initially"
-      ],
-      "post_verification_steps": [
-        "Verify user session state changed as expected"
-      ]
+      "expected_result": "User is returned to the login page"
     },
     {
       "id": "LOGOUT-002",
-      "title": "Verify session data is cleared after logout",
+      "title": "Session Data Cleared After Logout",
       "module_id": 11,
       "module_title": "Logout",
-      "workflow": "Logout and end user session",
+      "workflow": "Logout",
       "test_type": "positive",
       "priority": "High",
-      "preconditions": "User is logged in",
+      "preconditions": "User is logged into the application",
       "steps": [
-        "Click on the 'Logout' button",
-        "Attempt to access a page that requires authentication"
+        "Click the logout button",
+        "Attempt to access a protected page"
       ],
-      "expected_result": "Access to the page is denied, and the user is redirected to the login page",
-      "reads_state": [
-        "session_status"
-      ],
-      "writes_state": [
-        "session_status"
-      ],
-      "verification_test_ids": [
-        "LOGOUT-003",
-        "ACCOVE-006",
-        "LOGOUT-001",
-        "BILPAY-001"
-      ],
-      "pre_verification_steps": [
-        "Verify user is logged out initially"
-      ],
-      "post_verification_steps": [
-        "Verify user session state changed as expected"
-      ]
+      "expected_result": "User is redirected to the login page and cannot access the protected page"
     },
     {
       "id": "LOGOUT-003",
-      "title": "Verify no account information is accessible after logout",
+      "title": "Access Account Information After Logout",
       "module_id": 11,
       "module_title": "Logout",
-      "workflow": "Logout and end user session",
-      "test_type": "positive",
+      "workflow": "Logout",
+      "test_type": "negative",
       "priority": "High",
-      "preconditions": "User is logged in",
+      "preconditions": "User is logged into the application",
       "steps": [
-        "Click on the 'Logout' button",
-        "Inspect browser storage (cookies, local storage, session storage) for any user-related data"
+        "Click the logout button",
+        "Attempt to access account information page"
       ],
-      "expected_result": "No account information or sensitive data is present in the browser storage",
-      "reads_state": [
-        "session_status",
-        "user_profile"
-      ],
-      "writes_state": [
-        "session_status"
-      ],
-      "verification_test_ids": [
-        "ACCOVE-006",
-        "LOGOUT-001",
-        "LOGOUT-002",
-        "BILPAY-001"
-      ],
-      "pre_verification_steps": [
-        "Verify user is logged out initially"
-      ],
-      "post_verification_steps": [
-        "Verify user session state changed as expected"
-      ]
+      "expected_result": "Access is denied and user is redirected to the login page"
     },
     {
       "id": "LOGOUT-004",
-      "title": "Verify logout functionality when session has already expired",
+      "title": "Session Persistence Check After Logout",
       "module_id": 11,
       "module_title": "Logout",
-      "workflow": "Logout and end user session",
+      "workflow": "Logout",
       "test_type": "negative",
       "priority": "Medium",
-      "preconditions": "User session has expired",
+      "preconditions": "User is logged into the application",
       "steps": [
-        "Click on the 'Logout' button"
+        "Click the logout button",
+        "Check if session storage or cookies still contain user data"
       ],
-      "expected_result": "User is redirected to the login page without errors"
+      "expected_result": "No user data remains in session storage or cookies"
     },
     {
       "id": "LOGOUT-005",
-      "title": "Verify logout functionality when user is not logged in",
+      "title": "Logout Without Prior Login",
       "module_id": 11,
       "module_title": "Logout",
-      "workflow": "Logout and end user session",
+      "workflow": "Logout",
       "test_type": "negative",
       "priority": "Medium",
-      "preconditions": "User is not logged in",
+      "preconditions": "User is not logged into the application",
       "steps": [
-        "Click on the 'Logout' button"
+        "Locate and click the logout button"
       ],
-      "expected_result": "No action is performed, and the user remains on the current page or is redirected to the login page"
+      "expected_result": "No action is performed and user remains on the current page"
     },
     {
       "id": "LOGOUT-006",
-      "title": "Verify logout button is functional when clicked multiple times",
+      "title": "Logout with Special Characters in Session",
       "module_id": 11,
       "module_title": "Logout",
-      "workflow": "Logout and end user session",
-      "test_type": "edge_case",
-      "priority": "Medium",
-      "preconditions": "User is logged in",
-      "steps": [
-        "Click on the 'Logout' button multiple times in quick succession"
-      ],
-      "expected_result": "User is logged out successfully and redirected to the login page without errors"
-    },
-    {
-      "id": "LOGOUT-007",
-      "title": "Verify logout functionality when browser cookies are disabled",
-      "module_id": 11,
-      "module_title": "Logout",
-      "workflow": "Logout and end user session",
+      "workflow": "Logout",
       "test_type": "edge_case",
       "priority": "Low",
-      "preconditions": "User is logged in and browser cookies are disabled",
+      "preconditions": "User is logged into the application with special characters in session data",
       "steps": [
-        "Click on the 'Logout' button"
+        "Click the logout button"
       ],
-      "expected_result": "User is redirected to the login page, and no sensitive data remains accessible"
+      "expected_result": "User is returned to the login page and no session data remains"
     }
   ],
   "summary": {
-    "total_tests": 122,
+    "total_tests": 112,
     "by_type": {
-      "positive": 25,
+      "positive": 28,
       "negative": 59,
-      "edge_case": 38
+      "edge_case": 25
     },
     "by_priority": {
-      "High": 33,
-      "Medium": 51,
-      "Low": 38
+      "High": 75,
+      "Medium": 12,
+      "Low": 25
     },
     "by_module": {
-      "Login": 12,
-      "Forgot Password": 8,
-      "Register": 8,
-      "Open New Account": 8,
-      "Account Overview": 9,
-      "Transfer Funds": 10,
-      "Bill Payments": 9,
-      "Find Transaction": 34,
-      "Update Profile": 8,
-      "Request Loan": 9,
-      "Logout": 7
-    },
-    "verification_coverage": {
-      "total_positive_tests": 25,
-      "tests_that_write_state": 18,
-      "tests_that_read_state": 24,
-      "tests_with_verification_links": 17,
-      "tests_with_pre_verification_steps": 18,
-      "tests_with_post_verification_steps": 18,
-      "unique_states_written": [
-        "bill_payment_details",
-        "account_list",
-        "account_balance",
-        "transfer_details",
-        "transaction_history",
-        "session_status",
-        "loan_status",
-        "transaction_search_results",
-        "user_profile"
-      ],
-      "unique_states_read": [
-        "bill_payment_details",
-        "account_list",
-        "account_balance",
-        "transfer_details",
-        "transaction_history",
-        "loan_status",
-        "transaction_search_results",
-        "payee_list",
-        "registration_data",
-        "user_profile",
-        "session_status"
-      ],
-      "unverified_states": []
+      "Login": 8,
+      "Forgot Password": 6,
+      "Register": 15,
+      "Open New Account": 6,
+      "Account Overview": 13,
+      "Transfer Funds": 7,
+      "Bill Payments": 13,
+      "Find Transaction": 22,
+      "Update Profile": 10,
+      "Request Loan": 6,
+      "Logout": 6
     }
   }
 }

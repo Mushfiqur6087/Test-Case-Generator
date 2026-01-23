@@ -82,15 +82,20 @@ REQUIREMENTS:
 3. EDGE CASE tests: Include if relevant (boundaries, special characters, max lengths)
 4. Steps should describe actions on THIS page only - do NOT include navigation steps like "Navigate to login page"
 5. Tests must be executable by browser automation
+6. DO NOT use specific values - use generic descriptive text instead
 
 IMPORTANT:
 - Cover different valid input variations mentioned (e.g., if "username or email" is mentioned, test both)
 - Test the key error scenarios described
 - Do not generate tests for touch gestures, right-click menus, network failures, or rapid clicking
+- Use generic descriptive text for values, NOT specific data:
+  ✓ CORRECT: "Enter a valid username", "Enter valid first name", "Enter valid email address"
+  ✗ WRONG: "Enter 'John'", "Enter 'john@example.com'", "Enter '123 Main St'"
+- Keep test steps natural and descriptive without hardcoded values
 """
 
         try:
-            result = self.call_llm_json(prompt)
+            result = self.call_llm_json(prompt, max_tokens=4000)
             return self._parse_test_results(result, chunk)
         except Exception as e:
             print(f"Warning: Test generation failed for {chunk.workflow_name}: {e}")
@@ -172,7 +177,7 @@ Tests must be executable by browser automation (no touch gestures, right-click m
 """
 
         try:
-            result = self.call_llm_json(prompt)
+            result = self.call_llm_json(prompt, max_tokens=4000)
             tests = self._parse_test_results(result, chunk)
             # Ensure all tests have correct type
             for test in tests:

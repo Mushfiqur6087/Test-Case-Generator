@@ -1,43 +1,70 @@
 # LLM-Powered Test Case Generator
 
-An intelligent test case generation system that automatically creates comprehensive test suites from functional descriptions of web applications using a multi-agent LLM architecture.
+An intelligent test case generation system that automatically creates comprehensive test suites from functional descriptions of web applications using a multi-agent LLM architecture with RAG-based post-verification matching.
 
 ## Features
 
-- **Multi-Agent Architecture**: Specialized agents handle parsing, navigation analysis, chunking, test generation, verification, and assembly
+- **Multi-Agent Architecture**: Specialized agents handle parsing, navigation analysis, chunking, test generation, and assembly
 - **Comprehensive Test Coverage**: Automatically generates positive, negative, and edge case tests
-- **State Verification**: Automatically adds pre/post verification steps to positive tests for validating expected results
+- **Post-Verification with RAG**: Automatically identifies which test cases need post-verification and matches them to existing tests using semantic search
 - **Visual Navigation Graph**: Creates interactive visualizations of application navigation flow
-- **Markdown Export**: Human-readable test case documentation
-- **LLM Agnostic**: Works with any LLM via OpenRouter API
+- **Markdown Export**: Human-readable test case documentation with verification info
+- **LLM Agnostic**: Works with OpenAI, GitHub Models, or OpenRouter APIs
 - **Debug Mode**: Full logging of LLM interactions for troubleshooting
 
 ## Architecture
 
 ```
-┌─────────────┐
-│ Parser      │ Extract UI elements, workflows, business rules
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ Navigation  │ Build navigation graph + generate visual diagram
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ Chunker     │ Split modules into testable workflow chunks
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ Test Gen    │ Generate test cases for each workflow
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ Verification│ Add state verification to positive tests
-└──────┬──────┘
-       ▼
-┌─────────────┐
-│ Assembler   │ Deduplicate, sort, assign IDs, export JSON
-└─────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         GENERATION PIPELINE                             │
+├─────────────────────────────────────────────────────────────────────────┤
+│                                                                         │
+│  ┌─────────────┐                                                        │
+│  │ Parser      │ Extract UI elements, workflows, business rules         │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ Navigation  │ Build navigation graph + generate visual diagram       │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ Chunker     │ Split modules into testable workflow chunks            │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ Test Gen    │ Generate test cases for each workflow                  │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ Assembler   │ Deduplicate, sort, assign IDs                          │
+│  └──────┬──────┘                                                        │
+│         │                                                               │
+├─────────┴───────────────────────────────────────────────────────────────┤
+│                    POST-VERIFICATION PIPELINE                           │
+├─────────────────────────────────────────────────────────────────────────┤
+│         │                                                               │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ Summary     │ Generate 2-line summaries + state capabilities         │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ Flag        │ Identify tests needing post-verification               │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ Ideal       │ Generate ideal verification scenarios                  │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ RAG Matcher │ Match verifications to actual tests via embeddings     │
+│  └──────┬──────┘                                                        │
+│         ▼                                                               │
+│  ┌─────────────┐                                                        │
+│  │ JSON/MD     │ Export with verification coverage info                 │
+│  └─────────────┘                                                        │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Installation
@@ -47,9 +74,15 @@ An intelligent test case generation system that automatically creates comprehens
 git clone https://github.com/Mushfiqur6087/Test-Case-Generator.git
 cd Test-Case-Generator
 
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
 # Install dependencies
 pip install -r test_case_generator/requirements.txt
 ```
+
+**Note:** The RAG system uses `sentence-transformers` for embeddings. On first run, it will download the `all-MiniLM-L6-v2` model (~80MB). If sentence-transformers is not installed, the system falls back to keyword-based matching.
 
 ## Usage
 
@@ -166,85 +199,176 @@ Works with any model via [OpenRouter](https://openrouter.ai):
 ```
 test_case_generator/
 ├── agents/
-│   ├── base.py                  # Base agent with LLM integration
-│   ├── parser_agent.py          # Parse functional descriptions
-│   ├── navigation_agent.py      # Build navigation graph
-│   ├── chunker_agent.py         # Split into workflow chunks
-│   ├── test_generation_agent.py # Generate test cases
-│   ├── verification_agent.py    # Add state verification to tests
-│   └── assembler_agent.py       # Assemble and export
+│   ├── base.py                      # Base agent with LLM integration
+│   ├── parser_agent.py              # Parse functional descriptions
+│   ├── navigation_agent.py          # Build navigation graph
+│   ├── chunker_agent.py             # Split into workflow chunks
+│   ├── test_generation_agent.py     # Generate test cases
+│   ├── assembler_agent.py           # Assemble and export
+│   ├── summary_agent.py             # Generate module summaries
+│   ├── verification_flag_agent.py   # Flag tests needing verification
+│   ├── ideal_verification_agent.py  # Generate ideal verifications
+│   ├── verification_matcher_agent.py# Match via RAG
+│   └── rag_indexer.py               # Vector embedding & search
 ├── models/
-│   └── schemas.py               # Data models
-├── main.py                      # Main orchestrator
-└── export_to_markdown.py        # Markdown export tool
+│   └── schemas.py                   # Data models
+├── main.py                          # Main orchestrator
+└── export_to_markdown.py            # Markdown export tool
 ```
 
-## State Verification
+## Post-Verification System
 
-The Verification Agent automatically enhances positive test cases with state verification:
+The post-verification system automatically identifies test cases that modify application state and need external verification, then matches them to existing test cases that can verify the results.
 
 ### How It Works
 
-1. **State Tagging**: Each positive test is analyzed to determine:
-   - `reads_state`: What application state the test displays/checks
-   - `writes_state`: What application state the test modifies
-
-2. **Test Linking**: Tests that write state are linked to tests that read that state:
-   - A "Transfer Funds" test (writes `account_balance`) links to "View Balance" test (reads `account_balance`)
-
-3. **Verification Steps**: For state-changing tests, pre/post verification steps are generated:
-   - `pre_verification_steps`: Steps to capture initial state before the action
-   - `post_verification_steps`: Steps to verify the expected state change occurred
-
-### State Categories
-
 ```
-account_balance      - Bank account balances
-user_profile         - User personal information
-transaction_history  - Records of transactions
-loan_status          - Loan applications/status
-payee_list           - Saved payees/recipients
-account_list         - List of user accounts
-bill_payment_status  - Bill payment records
-session_status       - Login/logout state
+┌───────────────────────────────────────────────────────────────────────┐
+│ EXAMPLE: Data Submission/Transfer Test Case                           │
+├───────────────────────────────────────────────────────────────────────┤
+│                                                                       │
+│ 1. FLAG PHASE                                                         │
+│    Test: "SUBMIT-001: Submit new record/form"                         │
+│    → needs_post_verification: true                                    │
+│    → modifies_state: ["record_list", "submission_history"]            │
+│                                                                       │
+│ 2. IDEAL VERIFICATION PHASE                                           │
+│    Generate what SHOULD be verified:                                  │
+│    → "Verify new record appears in the list/overview"                 │
+│    → "Verify record details are correct"                              │
+│    → "Verify submission appears in history"                           │
+│                                                                       │
+│ 3. RAG MATCHING PHASE                                                 │
+│    Search existing test cases using semantic similarity:              │
+│    → Query: "verify record list display overview"                     │
+│    → Found: OVERVIEW-002 (similarity: 0.89)                           │
+│    → LLM validates: "Yes, this test can verify the new record"        │
+│                                                                       │
+│ 4. FINAL OUTPUT                                                       │
+│    post_verifications:                                                │
+│      - ideal: "Verify record appears in list"                         │
+│        status: "found"                                                │
+│        matched_test_id: "OVERVIEW-002"                                │
+│        execution_note: "Run after submission to verify"               │
+│      - ideal: "Verify in submission history"                          │
+│        status: "not_found"                                            │
+│        reason: "No test for history verification"                     │
+│        suggested_manual_step: "Navigate to History and check..."      │
+│                                                                       │
+│    verification_coverage: "partial" (50%)                             │
+│    coverage_gaps: ["No test for history verification"]                │
+│                                                                       │
+└───────────────────────────────────────────────────────────────────────┘
 ```
 
-### Example Output
+### Verification Status Types
+
+| Status | Meaning |
+|--------|---------|
+| `found` | An existing test case can fully verify this requirement |
+| `partial` | An existing test case partially covers the verification |
+| `not_found` | No existing test can verify this - manual step suggested |
+
+### What Gets Flagged for Post-Verification
+
+| Action Type | Needs Verification | Reason |
+|-------------|-------------------|--------|
+| Data Transfers | ✓ Yes | Data changes in multiple places |
+| Submissions/Payments | ✓ Yes | Record created + status change |
+| Profile/Settings Updates | ✓ Yes | Data persistence verification |
+| Applications/Requests | ✓ Yes | Record appears in list/history |
+| Record Creation | ✓ Yes | New record appears in list |
+| Login/Logout | ✗ No | Session state only |
+| Registration | ✗ No | Self-contained success |
+| Read-only Pages | ✗ No | No state modification |
+| Negative Tests | ✗ No | Validation failure, no state change |
+
+### RAG Implementation
+
+The system uses **sentence-transformers** for generating embeddings:
+
+```python
+# Model: all-MiniLM-L6-v2 (lightweight, fast)
+# Embedding dimension: 384
+# Search: Cosine similarity
+
+# Each test case is embedded as:
+text = f"{title} {module} {workflow} {expected_result} {steps}"
+embedding = model.encode(text)
+
+# Query for verification matching:
+query = f"{ideal_description} {verification_action} {target_module}"
+candidates = rag.search(query, top_k=5, module_filter=target_module)
+```
+
+If sentence-transformers is not installed, the system falls back to Jaccard similarity-based keyword matching.
+
+## Example Output
+
+### Test Case with Post-Verification (JSON)
 
 ```json
 {
   "id": "TRAFUN-001",
   "title": "Transfer funds between accounts",
+  "module_title": "Transfer Funds",
   "test_type": "positive",
-  "writes_state": ["account_balance", "transaction_history"],
-  "reads_state": [],
-  "verification_test_ids": ["ACCOVR-001"],
-  "pre_verification_steps": [
-    "Navigate to Accounts Overview",
-    "Note source account balance",
-    "Note destination account balance"
-  ],
+  "priority": "High",
   "steps": [
-    "Select source account",
-    "Select destination account",
-    "Enter amount: $100",
-    "Click Transfer"
+    "Select source account from dropdown",
+    "Select destination account from dropdown",
+    "Enter transfer amount",
+    "Click Transfer button"
   ],
-  "post_verification_steps": [
-    "Navigate to Accounts Overview",
-    "Verify source balance decreased by $100",
-    "Verify destination balance increased by $100"
+  "expected_result": "Transfer successful message displayed",
+  "needs_post_verification": true,
+  "modifies_state": ["account_balance", "transaction_history"],
+  "post_verifications": [
+    {
+      "ideal": "Verify source account balance decreased by transfer amount",
+      "status": "found",
+      "matched_test_id": "ACCOVR-002",
+      "matched_test_title": "Verify account balance display",
+      "confidence": 0.89,
+      "execution_note": "Execute on source account after transfer completes"
+    },
+    {
+      "ideal": "Verify destination account balance increased",
+      "status": "found",
+      "matched_test_id": "ACCOVR-002",
+      "matched_test_title": "Verify account balance display",
+      "confidence": 0.87,
+      "execution_note": "Execute on destination account after transfer"
+    },
+    {
+      "ideal": "Verify transfer transaction in activity history",
+      "status": "not_found",
+      "reason": "No test case exists for viewing transaction details",
+      "suggested_manual_step": "Navigate to Account Activity, verify transfer transaction listed"
+    }
+  ],
+  "verification_coverage": "partial",
+  "coverage_gaps": [
+    "No test case exists for viewing transaction details"
   ]
 }
 ```
 
-### Why Only Positive Tests?
+### Summary Output
 
-- **Positive tests**: Action succeeds, state changes → **Needs verification**
-- **Negative tests**: Validation fails, no state change → No verification needed
-- **Edge cases**: Boundary testing → Typically no meaningful state change
+```
+Post-Verification Coverage:
+  - Tests needing verification: 15
+  - Full coverage: 8
+  - Partial coverage: 5
+  - No coverage: 2
+  - Coverage gaps (3):
+    ! No test case for viewing transaction history
+    ! No test case for loan status verification
+    ! External payment verification not possible
+```
 
-## Key Improvements
+## Key Features
 
 ### Fixed LLM Hallucinations
 
@@ -262,6 +386,13 @@ The prompts have been optimized to:
 - Includes input variations (username vs email login)
 - Tests key validation rules and error conditions
 - Maintains reasonable test counts per module
+
+### Verification Coverage Analysis
+
+- Automatically identifies verification gaps
+- Suggests manual steps when automation isn't possible
+- Calculates coverage percentage per test case
+- Aggregates coverage statistics in summary
 
 ## Example
 
