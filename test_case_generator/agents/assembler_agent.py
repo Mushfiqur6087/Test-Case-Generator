@@ -1,5 +1,5 @@
 import json
-from typing import List, Dict, Optional, TYPE_CHECKING
+from typing import List, Dict, Optional
 from datetime import datetime
 
 from .base import BaseAgent
@@ -8,9 +8,6 @@ from ..models.schemas import (
     TestSuiteOutput,
     NavigationGraph
 )
-
-if TYPE_CHECKING:
-    from .verification_agent import VerificationAgent
 
 
 class AssemblerAgent(BaseAgent):
@@ -34,8 +31,7 @@ Your task is to:
         test_cases: List[TestCase],
         nav_graph: NavigationGraph,
         project_name: str,
-        base_url: str,
-        verification_agent: Optional["VerificationAgent"] = None
+        base_url: str
     ) -> TestSuiteOutput:
         """Assemble all test cases into final output with navigation graph"""
 
@@ -48,15 +44,11 @@ Your task is to:
         # Assign proper IDs (MODULE-001 format)
         sorted_tests = self._assign_ids(sorted_tests)
 
-        # Update verification test IDs from titles to actual IDs
-        if verification_agent:
-            sorted_tests = verification_agent.update_verification_ids(sorted_tests)
-
         # Link test cases to navigation nodes
         nav_graph = self._link_tests_to_nav(nav_graph, sorted_tests)
 
-        # Generate summary (including verification stats)
-        summary = self._generate_summary(sorted_tests, verification_agent)
+        # Generate summary
+        summary = self._generate_summary(sorted_tests)
 
         # Create final output
         return TestSuiteOutput(
@@ -169,10 +161,9 @@ Your task is to:
 
     def _generate_summary(
         self,
-        test_cases: List[TestCase],
-        verification_agent: Optional["VerificationAgent"] = None
+        test_cases: List[TestCase]
     ) -> Dict:
-        """Generate summary statistics including verification coverage"""
+        """Generate summary statistics"""
 
         summary = {
             "total_tests": len(test_cases),
@@ -202,10 +193,6 @@ Your task is to:
             if tc.module_title not in summary["by_module"]:
                 summary["by_module"][tc.module_title] = 0
             summary["by_module"][tc.module_title] += 1
-
-        # Add verification coverage summary
-        if verification_agent:
-            summary["verification_coverage"] = verification_agent.get_verification_summary(test_cases)
 
         return summary
 

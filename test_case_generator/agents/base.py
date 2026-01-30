@@ -1,5 +1,5 @@
 import json
-import httpx
+import httpx # type: ignore
 import time
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Optional
@@ -38,7 +38,7 @@ class BaseAgent(ABC):
         elif self.provider == "github":
             self.base_url = "https://models.inference.ai.azure.com"
             if api_delay == 0:
-                self.api_delay = 6.5  # GitHub has 10 req/min limit, so ~6 sec between calls
+                self.api_delay = 11.5  # GitHub has strict rate limits, increased delay
         else:  # openrouter
             self.base_url = "https://openrouter.ai/api/v1"
             if api_delay == 0:
@@ -168,38 +168,55 @@ class BaseAgent(ABC):
         self,
         user_prompt: str,
         temperature: float = 0.3,
-        max_tokens: int = 1500
+        max_tokens: int = 1500,
+        max_retries: int = 2
     ) -> Dict[str, Any]:
-        """Call LLM and parse response as JSON"""
+        """Call LLM and parse response as JSON with retry on parse errors"""
         # Add instruction to return JSON
         json_prompt = f"{user_prompt}\n\nIMPORTANT: Return your response as valid JSON only. No markdown, no code blocks, just pure JSON."
 
-        response = self.call_llm(
-            user_prompt=json_prompt,
-            temperature=temperature,
-            max_tokens=max_tokens
-        )
+        last_error = None
+        for attempt in range(max_retries + 1):
+            try:
+                response = self.call_llm(
+                    user_prompt=json_prompt,
+                    temperature=temperature,
+                    max_tokens=max_tokens
+                )
 
-        # Clean up response - remove markdown code blocks if present
-        response = response.strip()
-        if response.startswith("```json"):
-            response = response[7:]
-        elif response.startswith("```"):
-            response = response[3:]
-        if response.endswith("```"):
-            response = response[:-3]
-        response = response.strip()
+                # Clean up response - remove markdown code blocks if present
+                response = response.strip()
+                if response.startswith("```json"):
+                    response = response[7:]
+                elif response.startswith("```"):
+                    response = response[3:]
+                if response.endswith("```"):
+                    response = response[:-3]
+                response = response.strip()
 
-        try:
-            parsed = json.loads(response)
-            if self.debug:
-                self._log_debug("PARSED JSON", json.dumps(parsed, indent=2))
-            return parsed
-        except json.JSONDecodeError as e:
-            error_msg = f"Failed to parse LLM response as JSON: {e}\nResponse: {response}"
-            if self.debug:
-                self._log_debug("JSON PARSE ERROR", error_msg)
-            raise Exception(error_msg)
+                parsed = json.loads(response)
+                if self.debug:
+                    self._log_debug("PARSED JSON", json.dumps(parsed, indent=2))
+                return parsed
+                
+            except json.JSONDecodeError as e:
+                last_error = e
+                error_msg = f"Failed to parse LLM response as JSON (attempt {attempt + 1}/{max_retries + 1}): {e}"
+                if self.debug:
+                    self._log_debug("JSON PARSE ERROR", f"{error_msg}\nResponse: {response[:500]}...")
+                
+                if attempt < max_retries:
+                    print(f"  Warning: {error_msg}. Retrying...")
+                    json_prompt = f"{user_prompt}\n\nIMPORTANT: Return ONLY valid JSON. Ensure all strings are properly quoted and escaped. No markdown formatting."
+                else:
+                    # Last attempt failed
+                    error_msg = f"Failed to parse LLM response as JSON after {max_retries + 1} attempts: {last_error}\nResponse: {response}"
+                    if self.debug:
+                        self._log_debug("JSON PARSE ERROR - FINAL", error_msg)
+                    raise Exception(error_msg)
+        
+        # Should never reach here
+        raise Exception(f"Failed to parse JSON after {max_retries + 1} attempts")
 
     @abstractmethod
     def run(self, *args, **kwargs) -> Any:

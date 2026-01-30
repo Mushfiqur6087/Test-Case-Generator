@@ -19,6 +19,27 @@ def load_test_cases(input_path: str) -> dict:
         return json.load(f)
 
 
+def escape_md(text: str) -> str:
+    """Escape markdown special characters and handle newlines for table cells."""
+    if not text:
+        return ""
+    # Replace newlines with <br> for table cells
+    text = str(text).replace('\n', '<br>')
+    # Escape pipe characters
+    text = text.replace('|', '\\|')
+    return text
+
+
+def truncate(text: str, max_len: int = 60) -> str:
+    """Truncate text to max length."""
+    if not text:
+        return ""
+    text = str(text)
+    if len(text) > max_len:
+        return text[:max_len-3] + "..."
+    return text
+
+
 def generate_markdown(data: dict) -> str:
     """Generate markdown content from test case data."""
     lines = []
@@ -35,7 +56,7 @@ def generate_markdown(data: dict) -> str:
     if summary:
         lines.append("## Summary")
         lines.append("")
-        lines.append(f"| Metric | Count |")
+        lines.append("| Metric | Count |")
         lines.append("|--------|-------|")
         lines.append(f"| **Total Tests** | {summary.get('total_tests', 0)} |")
         lines.append("")
@@ -60,36 +81,34 @@ def generate_markdown(data: dict) -> str:
                 lines.append(f"| {priority} | {count} |")
             lines.append("")
 
-        # Verification coverage
-        verification = summary.get('verification_coverage', {})
-        if verification:
-            lines.append("### Verification Coverage")
+        # Post-verification summary
+        post_verif = summary.get('post_verification', {})
+        if post_verif and post_verif.get('tests_needing_verification', 0) > 0:
+            lines.append("### Post-Verification Coverage")
             lines.append("")
             lines.append("| Metric | Count |")
             lines.append("|--------|-------|")
-            lines.append(f"| Positive Tests | {verification.get('total_positive_tests', 0)} |")
-            lines.append(f"| Tests that Write State | {verification.get('tests_that_write_state', 0)} |")
-            lines.append(f"| Tests that Read State | {verification.get('tests_that_read_state', 0)} |")
-            lines.append(f"| Tests with Verification Links | {verification.get('tests_with_verification_links', 0)} |")
-            lines.append(f"| Tests with Pre-Verification Steps | {verification.get('tests_with_pre_verification_steps', 0)} |")
-            lines.append(f"| Tests with Post-Verification Steps | {verification.get('tests_with_post_verification_steps', 0)} |")
+            lines.append(f"| Tests Needing Verification | {post_verif.get('tests_needing_verification', 0)} |")
+            lines.append(f"| Full Coverage | {post_verif.get('full_coverage', 0)} |")
+            lines.append(f"| Partial Coverage | {post_verif.get('partial_coverage', 0)} |")
+            lines.append(f"| No Coverage | {post_verif.get('no_coverage', 0)} |")
             lines.append("")
 
-            # State categories
-            unique_writes = verification.get('unique_states_written', [])
-            unique_reads = verification.get('unique_states_read', [])
-            unverified = verification.get('unverified_states', [])
+        # Execution plans summary
+        exec_plans = summary.get('execution_plans', {})
+        if exec_plans and exec_plans.get('total_plans', 0) > 0:
+            lines.append("### Execution Plans")
+            lines.append("")
+            lines.append("| Metric | Value |")
+            lines.append("|--------|-------|")
+            lines.append(f"| Total Plans | {exec_plans.get('total_plans', 0)} |")
+            lines.append(f"| Automated Steps | {exec_plans.get('total_automated_steps', 0)} |")
+            lines.append(f"| Manual Steps | {exec_plans.get('total_manual_steps', 0)} |")
+            lines.append(f"| Automation Rate | {exec_plans.get('automation_rate', 0)}% |")
+            lines.append("")
 
-            if unique_writes or unique_reads:
-                lines.append("**State Categories:**")
-                lines.append("")
-                if unique_writes:
-                    lines.append(f"- **Written:** {', '.join(unique_writes)}")
-                if unique_reads:
-                    lines.append(f"- **Read:** {', '.join(unique_reads)}")
-                if unverified:
-                    lines.append(f"- **Unverified:** {', '.join(unverified)}")
-                lines.append("")
+    lines.append("---")
+    lines.append("")
 
     # Group test cases by module
     test_cases = data.get('test_cases', [])
@@ -98,9 +117,7 @@ def generate_markdown(data: dict) -> str:
         module_title = tc.get('module_title', 'Unknown')
         modules[module_title].append(tc)
 
-    # Test Cases by Module
-    lines.append("---")
-    lines.append("")
+    # Test Cases by Module - TABLE FORMAT
     lines.append("## Test Cases")
     lines.append("")
 
@@ -115,9 +132,9 @@ def generate_markdown(data: dict) -> str:
 
         type_order = ['positive', 'negative', 'edge_case']
         type_labels = {
-            'positive': 'Functional Tests',
-            'negative': 'Negative Tests',
-            'edge_case': 'Boundary/Edge Case Tests'
+            'positive': '✅ Functional Tests',
+            'negative': '❌ Negative Tests',
+            'edge_case': '🔄 Edge Case Tests'
         }
 
         for test_type in type_order:
@@ -127,95 +144,92 @@ def generate_markdown(data: dict) -> str:
             type_cases = by_type[test_type]
             lines.append(f"#### {type_labels.get(test_type, test_type.title())}")
             lines.append("")
+            
+            # Table header
+            lines.append("| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |")
+            lines.append("|-------|-----------|---------------|-------|-----------------|----------|")
 
             for tc in type_cases:
                 tc_id = tc.get('id', 'N/A')
-                title = tc.get('title', 'N/A')
-                preconditions = tc.get('preconditions', 'None')
+                title = escape_md(tc.get('title', 'N/A'))
+                preconditions = escape_md(tc.get('preconditions', 'None'))
                 steps = tc.get('steps', [])
-                expected = tc.get('expected_result', 'N/A')
+                # Format steps as numbered list with <br>
+                steps_str = "<br>".join([f"{i+1}. {escape_md(step)}" for i, step in enumerate(steps)])
+                expected = escape_md(tc.get('expected_result', 'N/A'))
                 priority = tc.get('priority', 'Medium')
 
-                # Test case header
-                lines.append(f"**{tc_id}** - {title}")
-                lines.append("")
-                lines.append(f"- **Priority:** {priority}")
-                lines.append(f"- **Preconditions:** {preconditions}")
+                lines.append(f"| {tc_id} | {title} | {preconditions} | {steps_str} | {expected} | {priority} |")
 
-                # State information (for positive tests with verification)
-                reads_state = tc.get('reads_state', [])
-                writes_state = tc.get('writes_state', [])
-                verification_ids = tc.get('verification_test_ids', [])
-
-                if reads_state or writes_state:
-                    lines.append("")
-                    if reads_state:
-                        lines.append(f"- **Reads State:** {', '.join(reads_state)}")
-                    if writes_state:
-                        lines.append(f"- **Writes State:** {', '.join(writes_state)}")
-                    if verification_ids:
-                        lines.append(f"- **Verified By:** {', '.join(verification_ids)}")
-
-                # Pre-verification steps
-                pre_steps = tc.get('pre_verification_steps', [])
-                if pre_steps:
-                    lines.append("")
-                    lines.append("**Pre-Verification Steps:**")
-                    for i, step in enumerate(pre_steps, 1):
-                        lines.append(f"{i}. {step}")
-
-                # Main test steps
-                lines.append("")
-                lines.append("**Test Steps:**")
-                for i, step in enumerate(steps, 1):
-                    lines.append(f"{i}. {step}")
-
-                # Post-verification steps
-                post_steps = tc.get('post_verification_steps', [])
-                if post_steps:
-                    lines.append("")
-                    lines.append("**Post-Verification Steps:**")
-                    for i, step in enumerate(post_steps, 1):
-                        lines.append(f"{i}. {step}")
-
-                # Expected result
-                lines.append("")
-                lines.append(f"**Expected Result:** {expected}")
-                lines.append("")
-                lines.append("---")
-                lines.append("")
+            lines.append("")
 
         lines.append("---")
         lines.append("")
 
-    # Verification Chain
-    # Build verification relationships
-    verification_chain = {}
-    for tc in test_cases:
-        if tc.get('test_type') == 'positive' and tc.get('verification_test_ids'):
-            verification_chain[tc.get('id')] = {
-                'title': tc.get('title'),
-                'writes': tc.get('writes_state', []),
-                'verified_by': tc.get('verification_test_ids', [])
-            }
-
-    if verification_chain:
-        lines.append("## Verification Chain")
+    # Post-Verification Details Section
+    # Collect all tests that need post-verification
+    tests_with_verification = [tc for tc in test_cases if tc.get('needs_post_verification')]
+    
+    if tests_with_verification:
+        lines.append("## Post-Verification Details")
         lines.append("")
-        lines.append("This section shows which test cases verify the results of other tests.")
+        lines.append("This section shows verification requirements for tests that modify application state.")
         lines.append("")
-        lines.append("| Test ID | Test Name | Writes State | Verified By |")
-        lines.append("|---------|-----------|--------------|-------------|")
-
-        for test_id, info in verification_chain.items():
-            writes_str = ', '.join(info['writes']) if info['writes'] else 'N/A'
-            verified_by_str = ', '.join(info['verified_by']) if info['verified_by'] else 'N/A'
-            title = info['title'].replace('|', '\\|')
-            writes_str = writes_str.replace('|', '\\|')
-            verified_by_str = verified_by_str.replace('|', '\\|')
-            lines.append(f"| {test_id} | {title} | {writes_str} | {verified_by_str} |")
-
-        lines.append("")
+        
+        for tc in tests_with_verification:
+            tc_id = tc.get('id', 'N/A')
+            title = tc.get('title', 'N/A')
+            coverage = tc.get('verification_coverage', 'unknown')
+            coverage_icon = '✅' if coverage == 'full' else ('⚠️' if coverage in ['partial', 'minimal'] else '❌')
+            modifies = tc.get('modifies_state', [])
+            
+            lines.append(f"### {tc_id}: {title}")
+            lines.append("")
+            lines.append(f"**Coverage:** {coverage_icon} {coverage.title()}")
+            if modifies:
+                lines.append(f"**Modifies State:** {', '.join(modifies)}")
+            lines.append("")
+            
+            post_verifs = tc.get('post_verifications', [])
+            if post_verifs:
+                lines.append("| # | Verification Needed | Status | Matched Test | Confidence | Remarks |")
+                lines.append("|---|---------------------|--------|--------------|------------|---------|")
+                
+                for i, pv in enumerate(post_verifs, 1):
+                    ideal = escape_md(truncate(pv.get('ideal', 'N/A'), 50))
+                    status = pv.get('status', 'unknown')
+                    status_icon = '✅' if status == 'found' else ('⚠️' if status == 'partial' else '❌')
+                    matched_id = pv.get('matched_test_id', '-')
+                    matched_title = escape_md(truncate(pv.get('matched_test_title', ''), 30))
+                    confidence = pv.get('confidence', 0)
+                    conf_str = f"{confidence:.0%}" if confidence else "-"
+                    
+                    # Build remarks
+                    remarks = []
+                    if pv.get('execution_note'):
+                        remarks.append(escape_md(truncate(pv.get('execution_note'), 50)))
+                    if status != 'found' and pv.get('reason'):
+                        remarks.append(escape_md(truncate(pv.get('reason'), 50)))
+                    if pv.get('suggested_manual_step'):
+                        remarks.append(f"**Manual:** {escape_md(truncate(pv.get('suggested_manual_step'), 40))}")
+                    remarks_str = "<br>".join(remarks) if remarks else "-"
+                    
+                    matched_str = f"{matched_id}<br>({matched_title})" if matched_id != '-' and matched_title else matched_id
+                    
+                    lines.append(f"| {i} | {ideal} | {status_icon} {status} | {matched_str} | {conf_str} | {remarks_str} |")
+                
+                lines.append("")
+            
+            # Coverage gaps
+            gaps = tc.get('coverage_gaps', [])
+            if gaps:
+                lines.append("**⚠️ Coverage Gaps:**")
+                for gap in gaps:
+                    lines.append(f"- {truncate(gap, 100)}")
+                lines.append("")
+            
+            lines.append("---")
+            lines.append("")
 
     # Navigation Graph Info
     nav_graph = data.get('navigation_graph', {})
