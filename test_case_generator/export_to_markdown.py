@@ -170,6 +170,9 @@ def generate_markdown(data: dict) -> str:
     # Collect all tests that need post-verification
     tests_with_verification = [tc for tc in test_cases if tc.get('needs_post_verification')]
     
+    # Create a lookup dictionary for all test cases by ID
+    test_case_lookup = {tc.get('id'): tc for tc in test_cases}
+    
     if tests_with_verification:
         lines.append("## Post-Verification Details")
         lines.append("")
@@ -191,6 +194,8 @@ def generate_markdown(data: dict) -> str:
             lines.append("")
             
             post_verifs = tc.get('post_verifications', [])
+            matched_test_ids = set()  # Collect matched test IDs
+            
             if post_verifs:
                 lines.append("| # | Verification Needed | Status | Matched Test | Confidence | Remarks |")
                 lines.append("|---|---------------------|--------|--------------|------------|---------|")
@@ -203,6 +208,10 @@ def generate_markdown(data: dict) -> str:
                     matched_title = escape_md(truncate(pv.get('matched_test_title', ''), 30))
                     confidence = pv.get('confidence', 0)
                     conf_str = f"{confidence:.0%}" if confidence else "-"
+                    
+                    # Track matched test IDs for later
+                    if matched_id and matched_id != '-':
+                        matched_test_ids.add(matched_id)
                     
                     # Build remarks
                     remarks = []
@@ -226,6 +235,30 @@ def generate_markdown(data: dict) -> str:
                 lines.append("**⚠️ Coverage Gaps:**")
                 for gap in gaps:
                     lines.append(f"- {truncate(gap, 100)}")
+                lines.append("")
+            
+            # Print the matched test cases in detail
+            if matched_test_ids:
+                lines.append("#### 📋 Verification Test Cases to Execute")
+                lines.append("")
+                lines.append("The following test cases should be executed to verify the action:")
+                lines.append("")
+                lines.append("| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |")
+                lines.append("|-------|-----------|---------------|-------|-----------------|----------|")
+                
+                for matched_id in matched_test_ids:
+                    matched_tc = test_case_lookup.get(matched_id)
+                    if matched_tc:
+                        m_id = matched_tc.get('id', 'N/A')
+                        m_title = escape_md(matched_tc.get('title', 'N/A'))
+                        m_preconditions = escape_md(matched_tc.get('preconditions', 'None'))
+                        m_steps = matched_tc.get('steps', [])
+                        m_steps_str = "<br>".join([f"{i+1}. {escape_md(step)}" for i, step in enumerate(m_steps)])
+                        m_expected = escape_md(matched_tc.get('expected_result', 'N/A'))
+                        m_priority = matched_tc.get('priority', 'Medium')
+                        
+                        lines.append(f"| {m_id} | {m_title} | {m_preconditions} | {m_steps_str} | {m_expected} | {m_priority} |")
+                
                 lines.append("")
             
             lines.append("---")

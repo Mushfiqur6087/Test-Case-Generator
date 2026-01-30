@@ -351,6 +351,15 @@ This section shows verification requirements for tests that modify application s
 - This test checks for the presence of an account number, which is part of the requirement, but doe...
 - The test case verifies that the balance is displayed in the Account Overview module, but it does ...
 
+#### 📋 Verification Test Cases to Execute
+
+The following test cases should be executed to verify the action:
+
+| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |
+|-------|-----------|---------------|-------|-----------------|----------|
+| ACCOVE-004 | Verify Accounts Overview displays Balance | None | 1. Check if the Accounts Overview section displays the Balance | Balance is displayed in the Accounts Overview section | High |
+| ACCOVE-003 | Verify Accounts Overview displays account number | None | 1. Check if the Accounts Overview section displays the account number | Account number is displayed in the Accounts Overview section | High |
+
 ---
 
 ### TRAFUN-001: Transfer funds with valid inputs
@@ -367,6 +376,14 @@ This section shows verification requirements for tests that modify application s
 - The test case checks if the transaction is processed, but it does not explicitly verify the trans...
 - None of the test cases verify the specific requirement of checking both source and destination ac...
 
+#### 📋 Verification Test Cases to Execute
+
+The following test cases should be executed to verify the action:
+
+| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |
+|-------|-----------|---------------|-------|-----------------|----------|
+| TRAFUN-006 | Transfer funds with maximum allowable amount | User is logged in and on the Transfer Funds page | 1. Enter the maximum allowable amount<br>2. Select a valid 'From account number'<br>3. Select a valid 'To account number'<br>4. Click on 'Transfer' button | Transaction is processed | Low |
+
 ---
 
 ### BILPAY-001: Successfully send payment with all valid inputs
@@ -381,6 +398,14 @@ This section shows verification requirements for tests that modify application s
 **⚠️ Coverage Gaps:**
 - The test case checks for a confirmation message upon successful payment, which partially verifies...
 
+#### 📋 Verification Test Cases to Execute
+
+The following test cases should be executed to verify the action:
+
+| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |
+|-------|-----------|---------------|-------|-----------------|----------|
+| BILPAY-005 | Successfully send payment with maximum length inputs | None | 1. Enter a payee name with maximum allowed characters<br>2. Enter an address with maximum allowed characters<br>3. Enter a city with maximum allowed characters<br>4. Select a valid state<br>5. Enter a zip code with maximum allowed characters<br>6. Enter a phone number with maximum allowed characters<br>7. Enter an account number with maximum allowed characters<br>8. Re-enter the account number with maximum allowed characters for verification<br>9. Enter the maximum allowed amount<br>10. Select a valid from account number<br>11. Click on Send Payment | A confirmation message appears upon successful transfer | Low |
+
 ---
 
 ### UPDPRO-001: Update profile with valid data
@@ -392,6 +417,14 @@ This section shows verification requirements for tests that modify application s
 |---|---------------------|--------|--------------|------------|---------|
 | 1 | Verify the profile update status is successful | ✅ found | UPDPRO-004<br>(Update profile with maximum...) | 90% | Run this test after updating the profile to ver... |
 
+#### 📋 Verification Test Cases to Execute
+
+The following test cases should be executed to verify the action:
+
+| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |
+|-------|-----------|---------------|-------|-----------------|----------|
+| UPDPRO-004 | Update profile with maximum length first name | User is logged in and on the Update Profile page | 1. Enter a first name with maximum allowed characters<br>2. Enter a valid last name<br>3. Enter a valid address<br>4. Enter a valid city<br>5. Select a valid state from the dropdown<br>6. Enter a valid zip code<br>7. Enter a valid phone number<br>8. Click the Update Profile button | A confirmation message is shown upon successful submission | Low |
+
 ---
 
 ### REQLOA-001: Apply for a loan with all fields filled correctly
@@ -402,6 +435,14 @@ This section shows verification requirements for tests that modify application s
 | # | Verification Needed | Status | Matched Test | Confidence | Remarks |
 |---|---------------------|--------|--------------|------------|---------|
 | 1 | Verify the loan application status is approved | ✅ found | REQLOA-006<br>(Apply for a loan with maxim...) | 90% | Run this test after the action to verify the lo... |
+
+#### 📋 Verification Test Cases to Execute
+
+The following test cases should be executed to verify the action:
+
+| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |
+|-------|-----------|---------------|-------|-----------------|----------|
+| REQLOA-006 | Apply for a loan with maximum valid loan amount | None | 1. Enter the maximum valid loan amount<br>2. Enter a valid down payment<br>3. Select a valid from account number<br>4. Click on Apply Now button | Loan is approved | Low |
 
 ---
 
