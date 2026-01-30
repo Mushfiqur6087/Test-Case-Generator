@@ -19,6 +19,27 @@ def load_test_cases(input_path: str) -> dict:
         return json.load(f)
 
 
+def escape_md(text: str) -> str:
+    """Escape markdown special characters and handle newlines for table cells."""
+    if not text:
+        return ""
+    # Replace newlines with <br> for table cells
+    text = str(text).replace('\n', '<br>')
+    # Escape pipe characters
+    text = text.replace('|', '\\|')
+    return text
+
+
+def truncate(text: str, max_len: int = 60) -> str:
+    """Truncate text to max length."""
+    if not text:
+        return ""
+    text = str(text)
+    if len(text) > max_len:
+        return text[:max_len-3] + "..."
+    return text
+
+
 def generate_markdown(data: dict) -> str:
     """Generate markdown content from test case data."""
     lines = []
@@ -35,7 +56,7 @@ def generate_markdown(data: dict) -> str:
     if summary:
         lines.append("## Summary")
         lines.append("")
-        lines.append(f"| Metric | Count |")
+        lines.append("| Metric | Count |")
         lines.append("|--------|-------|")
         lines.append(f"| **Total Tests** | {summary.get('total_tests', 0)} |")
         lines.append("")
@@ -72,14 +93,6 @@ def generate_markdown(data: dict) -> str:
             lines.append(f"| Partial Coverage | {post_verif.get('partial_coverage', 0)} |")
             lines.append(f"| No Coverage | {post_verif.get('no_coverage', 0)} |")
             lines.append("")
-            
-            gaps = post_verif.get('coverage_gaps', [])
-            if gaps:
-                lines.append("#### Coverage Gaps")
-                lines.append("")
-                for gap in gaps:
-                    lines.append(f"- {gap}")
-                lines.append("")
 
         # Execution plans summary
         exec_plans = summary.get('execution_plans', {})
@@ -93,16 +106,9 @@ def generate_markdown(data: dict) -> str:
             lines.append(f"| Manual Steps | {exec_plans.get('total_manual_steps', 0)} |")
             lines.append(f"| Automation Rate | {exec_plans.get('automation_rate', 0)}% |")
             lines.append("")
-            
-            coverage_dist = exec_plans.get('coverage_distribution', {})
-            if coverage_dist:
-                lines.append("#### Coverage Distribution")
-                lines.append("")
-                lines.append("| Coverage Level | Count |")
-                lines.append("|----------------|-------|")
-                for level, count in coverage_dist.items():
-                    lines.append(f"| {level.title()} | {count} |")
-                lines.append("")
+
+    lines.append("---")
+    lines.append("")
 
     # Group test cases by module
     test_cases = data.get('test_cases', [])
@@ -111,9 +117,7 @@ def generate_markdown(data: dict) -> str:
         module_title = tc.get('module_title', 'Unknown')
         modules[module_title].append(tc)
 
-    # Test Cases by Module
-    lines.append("---")
-    lines.append("")
+    # Test Cases by Module - TABLE FORMAT
     lines.append("## Test Cases")
     lines.append("")
 
@@ -128,9 +132,9 @@ def generate_markdown(data: dict) -> str:
 
         type_order = ['positive', 'negative', 'edge_case']
         type_labels = {
-            'positive': 'Functional Tests',
-            'negative': 'Negative Tests',
-            'edge_case': 'Boundary/Edge Case Tests'
+            'positive': '✅ Functional Tests',
+            'negative': '❌ Negative Tests',
+            'edge_case': '🔄 Edge Case Tests'
         }
 
         for test_type in type_order:
@@ -140,126 +144,88 @@ def generate_markdown(data: dict) -> str:
             type_cases = by_type[test_type]
             lines.append(f"#### {type_labels.get(test_type, test_type.title())}")
             lines.append("")
+            
+            # Table header
+            lines.append("| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |")
+            lines.append("|-------|-----------|---------------|-------|-----------------|----------|")
 
             for tc in type_cases:
                 tc_id = tc.get('id', 'N/A')
-                title = tc.get('title', 'N/A')
-                preconditions = tc.get('preconditions', 'None')
+                title = escape_md(tc.get('title', 'N/A'))
+                preconditions = escape_md(tc.get('preconditions', 'None'))
                 steps = tc.get('steps', [])
-                expected = tc.get('expected_result', 'N/A')
+                # Format steps as numbered list with <br>
+                steps_str = "<br>".join([f"{i+1}. {escape_md(step)}" for i, step in enumerate(steps)])
+                expected = escape_md(tc.get('expected_result', 'N/A'))
                 priority = tc.get('priority', 'Medium')
 
-                # Test case header
-                lines.append(f"**{tc_id}** - {title}")
-                lines.append("")
-                lines.append(f"- **Priority:** {priority}")
-                lines.append(f"- **Preconditions:** {preconditions}")
+                lines.append(f"| {tc_id} | {title} | {preconditions} | {steps_str} | {expected} | {priority} |")
 
-                # Main test steps
-                lines.append("")
-                lines.append("**Test Steps:**")
-                for i, step in enumerate(steps, 1):
-                    lines.append(f"{i}. {step}")
-
-                # Expected result
-                lines.append("")
-                lines.append(f"**Expected Result:** {expected}")
-
-                # Post-verification info (for positive tests that need it)
-                if tc.get('needs_post_verification') and tc.get('post_verifications'):
-                    lines.append("")
-                    lines.append(f"**Post-Verification Required:** ✓ ({tc.get('verification_coverage', 'unknown')} coverage)")
-                    lines.append("")
-                    lines.append("| Verification | Status | Matched Test | Note |")
-                    lines.append("|--------------|--------|--------------|------|")
-                    
-                    for pv in tc.get('post_verifications', []):
-                        ideal = pv.get('ideal', 'N/A')[:40]
-                        status = pv.get('status', 'unknown')
-                        status_icon = '✓' if status == 'found' else ('⚠' if status == 'partial' else '✗')
-                        matched_id = pv.get('matched_test_id', '-')
-                        note = pv.get('execution_note', pv.get('reason', '-'))[:50]
-                        lines.append(f"| {ideal}... | {status_icon} {status} | {matched_id} | {note} |")
-                    lines.append("")
-                    
-                    # Coverage gaps for this test
-                    gaps = tc.get('coverage_gaps', [])
-                    if gaps:
-                        lines.append("**Coverage Gaps:**")
-                        for gap in gaps[:3]:
-                            lines.append(f"- ⚠ {gap}")
-                        lines.append("")
-
-                lines.append("")
-                lines.append("---")
-                lines.append("")
+            lines.append("")
 
         lines.append("---")
         lines.append("")
 
-    # Execution Plans Section (after test cases)
-    execution_plans = data.get('execution_plans', {})
-    if execution_plans:
-        lines.append("## Execution Plans")
+    # Post-Verification Details Section
+    # Collect all tests that need post-verification
+    tests_with_verification = [tc for tc in test_cases if tc.get('needs_post_verification')]
+    
+    if tests_with_verification:
+        lines.append("## Post-Verification Details")
         lines.append("")
-        lines.append("This section shows the recommended test execution sequence for each test case that requires post-verification.")
+        lines.append("This section shows verification requirements for tests that modify application state.")
         lines.append("")
         
-        for test_id, plan in execution_plans.items():
-            source_title = plan.get('source_test_title', 'Unknown')
-            coverage = plan.get('verification_coverage', 'unknown')
-            coverage_icon = '✓' if coverage == 'full' else ('⚠' if coverage in ['partial', 'minimal'] else '✗')
+        for tc in tests_with_verification:
+            tc_id = tc.get('id', 'N/A')
+            title = tc.get('title', 'N/A')
+            coverage = tc.get('verification_coverage', 'unknown')
+            coverage_icon = '✅' if coverage == 'full' else ('⚠️' if coverage in ['partial', 'minimal'] else '❌')
+            modifies = tc.get('modifies_state', [])
             
-            lines.append(f"### {test_id}: {source_title}")
+            lines.append(f"### {tc_id}: {title}")
             lines.append("")
             lines.append(f"**Coverage:** {coverage_icon} {coverage.title()}")
+            if modifies:
+                lines.append(f"**Modifies State:** {', '.join(modifies)}")
             lines.append("")
             
-            # Execution order
-            exec_order = plan.get('execution_order', [])
-            if exec_order:
-                lines.append("**Verification Sequence:**")
-                lines.append("")
-                for step in exec_order:
-                    step_num = step.get('step', '?')
-                    action = step.get('action', 'execute_test')
-                    test_id_ref = step.get('test_id', 'N/A')
-                    test_title = step.get('test_title', 'N/A')
-                    purpose = step.get('purpose', '')
-                    exec_note = step.get('execution_note', '')
-                    confidence = step.get('confidence', 0)
+            post_verifs = tc.get('post_verifications', [])
+            if post_verifs:
+                lines.append("| # | Verification Needed | Status | Matched Test | Confidence | Remarks |")
+                lines.append("|---|---------------------|--------|--------------|------------|---------|")
+                
+                for i, pv in enumerate(post_verifs, 1):
+                    ideal = escape_md(truncate(pv.get('ideal', 'N/A'), 50))
+                    status = pv.get('status', 'unknown')
+                    status_icon = '✅' if status == 'found' else ('⚠️' if status == 'partial' else '❌')
+                    matched_id = pv.get('matched_test_id', '-')
+                    matched_title = escape_md(truncate(pv.get('matched_test_title', ''), 30))
+                    confidence = pv.get('confidence', 0)
+                    conf_str = f"{confidence:.0%}" if confidence else "-"
                     
-                    action_icon = '🔄' if action == 'execute_test_partial' else '▶️'
-                    lines.append(f"{step_num}. {action_icon} **{test_id_ref}** - {test_title}")
-                    if purpose:
-                        lines.append(f"   - *Purpose:* {purpose[:100]}")
-                    if exec_note:
-                        lines.append(f"   - *Note:* {exec_note}")
-                    if confidence > 0:
-                        lines.append(f"   - *Confidence:* {confidence:.0%}")
-                    lines.append("")
-            
-            # Manual steps
-            manual_steps = plan.get('manual_steps', [])
-            if manual_steps:
-                lines.append("**Manual Verification Required:**")
-                lines.append("")
-                for ms in manual_steps:
-                    purpose = ms.get('purpose', 'N/A')
-                    suggested = ms.get('suggested_step', '')
-                    reason = ms.get('reason', '')
+                    # Build remarks
+                    remarks = []
+                    if pv.get('execution_note'):
+                        remarks.append(escape_md(truncate(pv.get('execution_note'), 50)))
+                    if status != 'found' and pv.get('reason'):
+                        remarks.append(escape_md(truncate(pv.get('reason'), 50)))
+                    if pv.get('suggested_manual_step'):
+                        remarks.append(f"**Manual:** {escape_md(truncate(pv.get('suggested_manual_step'), 40))}")
+                    remarks_str = "<br>".join(remarks) if remarks else "-"
                     
-                    lines.append(f"- ⚠ {purpose}")
-                    if suggested:
-                        lines.append(f"  - *Suggested:* {suggested}")
-                    if reason:
-                        lines.append(f"  - *Reason:* {reason}")
+                    matched_str = f"{matched_id}<br>({matched_title})" if matched_id != '-' and matched_title else matched_id
+                    
+                    lines.append(f"| {i} | {ideal} | {status_icon} {status} | {matched_str} | {conf_str} | {remarks_str} |")
+                
                 lines.append("")
             
-            # Notes
-            notes = plan.get('notes', '')
-            if notes:
-                lines.append(f"**Quick Reference:** {notes}")
+            # Coverage gaps
+            gaps = tc.get('coverage_gaps', [])
+            if gaps:
+                lines.append("**⚠️ Coverage Gaps:**")
+                for gap in gaps:
+                    lines.append(f"- {truncate(gap, 100)}")
                 lines.append("")
             
             lines.append("---")
