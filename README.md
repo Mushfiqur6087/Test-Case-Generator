@@ -1,6 +1,6 @@
-# LLM-Powered Test Case Generator
+# LLM-Powered Test Case Generator & Enhancer
 
-An intelligent test case generation system that automatically creates comprehensive test suites from functional descriptions of web applications. Built with a **multi-agent LLM architecture** and **RAG-based post-verification matching**, this tool transforms natural language functional descriptions into structured, automatable test cases.
+An intelligent test case generation and verification system that automatically creates comprehensive test suites from functional descriptions of web applications, then **enhances them by traversing the actual website**. Built with a **multi-agent LLM architecture** and **Playwright browser automation**, this tool transforms natural language functional descriptions into structured, verified, and automatable test cases.
 
 ## Table of Contents
 
@@ -17,21 +17,29 @@ An intelligent test case generation system that automatically creates comprehens
 
 ## Features
 
+### Phase 1: Test Case Generator
 - **Multi-Agent Architecture**: 10 specialized agents work together in a pipeline, each handling a specific aspect of test generation
 - **Comprehensive Test Coverage**: Automatically generates positive, negative, and edge case tests
 - **Post-Verification Pipeline**: Identifies which tests need verification and matches them to existing tests using semantic search
 - **RAG-Based Matching**: Uses sentence-transformers for embedding generation and FAISS for similarity search
 - **Visual Navigation Graph**: Creates PNG visualizations of application navigation flow using NetworkX
 - **Dual Export**: Outputs both JSON (for automation) and Markdown (for human review)
-- **LLM Provider Agnostic**: Works with OpenAI, GitHub Models, or OpenRouter APIs
-- **Debug Mode**: Full logging of all LLM prompts and responses for troubleshooting
+
+### Phase 2: Test Case Enhancer (NEW)
+- **Real Website Traversal**: Uses Playwright to navigate the actual website
+- **Test Case Verification**: Compares generated test cases against real page elements
+- **Functional Description Enhancement**: Updates functional descriptions based on actual page content
+- **Navigation Map Building**: Discovers actual URLs and page connections
+- **Issue Detection**: Identifies mismatches between documentation and reality
+- **LLM Provider Agnostic**: Works with OpenAI, Gemini, GitHub Models, or OpenRouter APIs
 
 ## Architecture Overview
 
-The system uses a **two-phase pipeline architecture**:
+The system uses a **three-phase pipeline architecture**:
 
 1. **Generation Pipeline** (Steps 1-6): Transforms functional descriptions into test cases
 2. **Post-Verification Pipeline** (Steps 7-11): Adds verification coverage for state-changing tests
+3. **Enhancement Pipeline** (NEW): Verifies and fixes test cases against the real website
 
 ```
 ┌──────────────────────────────────────────────────────────────────────────────┐
@@ -40,76 +48,52 @@ The system uses a **two-phase pipeline architecture**:
 └────────────────────────────────┬─────────────────────────────────────────────┘
                                  │
 ┌────────────────────────────────▼─────────────────────────────────────────────┐
-│                       GENERATION PIPELINE                                    │
+│                    PHASE 1: GENERATION PIPELINE                              │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
 │  [Step 1] Load Input Files                                                   │
-│      │    Parse JSON, validate structure                                     │
-│      ▼                                                                       │
-│  [Step 2] Parser Agent                                                       │
-│      │    Extract UI elements, workflows, business rules, behaviors          │
-│      │    Output: ParsedFunctionalDescription with ParsedModule list         │
-│      ▼                                                                       │
-│  [Step 3] Navigation Agent                                                   │
-│      │    Build navigation graph, identify login module, page connections    │
-│      │    Output: NavigationGraph with NavigationNode objects                │
-│      ▼                                                                       │
-│  [Step 4] Chunker Agent                                                      │
-│      │    Split modules into workflow-based chunks                           │
-│      │    Map items/rules/behaviors to specific workflows                    │
-│      │    Output: List[WorkflowChunk]                                        │
-│      ▼                                                                       │
-│  [Step 5] Test Generation Agent                                              │
-│      │    Generate positive, negative, edge case tests per workflow          │
-│      │    Output: List[TestCase] (unassigned IDs)                            │
-│      ▼                                                                       │
-│  [Step 6] Assembler Agent                                                    │
-│      │    Deduplicate, sort by priority, assign IDs (MODULE-001 format)      │
-│      │    Link test cases to navigation nodes                                │
-│      │    Output: TestSuiteOutput                                            │
-│      │                                                                       │
-├──────┴───────────────────────────────────────────────────────────────────────┤
-│                     POST-VERIFICATION PIPELINE                               │
+│  [Step 2] Parser Agent → Extract UI elements, workflows, business rules      │
+│  [Step 3] Navigation Agent → Build navigation graph                          │
+│  [Step 4] Chunker Agent → Split into workflow chunks                         │
+│  [Step 5] Test Generation Agent → Generate tests per workflow                │
+│  [Step 6] Assembler Agent → Deduplicate, assign IDs                          │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│      │                                                                       │
-│      ▼                                                                       │
-│  [Step 7] Summary Agent                                                      │
-│      │    Generate 2-line summaries for each module                          │
-│      │    Identify what states each module can VERIFY vs MODIFY              │
-│      │    Output: Dict[int, ModuleSummary]                                   │
-│      ▼                                                                       │
-│  [Step 8] Verification Flag Agent                                            │
-│      │    Analyze POSITIVE tests only                                        │
-│      │    Flag tests that modify state needing verification                  │
-│      │    Output: TestCase.needs_post_verification = True/False              │
-│      ▼                                                                       │
-│  [Step 9] Ideal Verification Agent                                           │
-│      │    Generate ideal verification scenarios for flagged tests            │
-│      │    Define what SHOULD be checked after each test                      │
-│      │    Output: Dict[test_id, List[IdealVerification]]                     │
-│      ▼                                                                       │
-│  [Step 10] Verification Matcher Agent (RAG)                                  │
-│      │    Build vector index of all test cases using embeddings              │
-│      │    Match ideal verifications to actual tests via semantic search      │
-│      │    Use LLM to validate matches                                        │
-│      │    Output: TestCase.post_verifications populated                      │
-│      ▼                                                                       │
-│  [Step 11] Execution Plan Agent                                              │
-│      │    Compile verification matches into execution sequences              │
-│      │    Generate automation rate and coverage statistics                   │
-│      │    Output: Dict[test_id, ExecutionSequence]                           │
-│      │                                                                       │
-├──────┴───────────────────────────────────────────────────────────────────────┤
-│                              OUTPUT                                          │
+│                    PHASE 2: POST-VERIFICATION PIPELINE                       │
 ├──────────────────────────────────────────────────────────────────────────────┤
-│      │                                                                       │
-│      ▼                                                                       │
-│  [Export] Generate Outputs                                                   │
-│      • test-cases.json      - Structured test suite with verification info   │
-│      • test-cases.md        - Human-readable markdown documentation          │
-│      • navigation_graph.png - Visual graph of application structure          │
-│      • debug_log.txt        - LLM interaction logs (if debug mode enabled)   │
+│  [Step 7] Summary Agent → Module summaries                                   │
+│  [Step 8] Verification Flag Agent → Flag tests needing verification         │
+│  [Step 9] Ideal Verification Agent → Define verification scenarios           │
+│  [Step 10] Verification Matcher Agent (RAG) → Match to actual tests          │
+│  [Step 11] Execution Plan Agent → Compile execution sequences                │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                              INTERMEDIATE OUTPUT                             │
+│  • test-cases.json • test-cases.md • navigation_graph.png                    │
+└────────────────────────────────┬─────────────────────────────────────────────┘
+                                 │
+┌────────────────────────────────▼─────────────────────────────────────────────┐
+│                    PHASE 3: ENHANCEMENT PIPELINE (NEW)                       │
+├──────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
+│  Uses Playwright to traverse the actual website and verify/fix test cases   │
+│                                                                              │
+│  FOR EACH MODULE:                                                            │
+│  ┌─────────────────────────────────────────────────────────────────────┐    │
+│  │  1. Navigate to module page (using Playwright)                       │    │
+│  │  2. Get actual page state (URL, title, elements)                     │    │
+│  │  3. FOR EACH TEST CASE in module:                                    │    │
+│  │     → Compare steps against actual page elements                     │    │
+│  │     → Fix field names, actions, expected results                     │    │
+│  │     → Record issues found                                            │    │
+│  │     → Update navigation map                                          │    │
+│  │  4. AFTER all TCs: Fix functional description for module            │    │
+│  └─────────────────────────────────────────────────────────────────────┘    │
+│                                                                              │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                              FINAL OUTPUT                                    │
+├──────────────────────────────────────────────────────────────────────────────┤
+│  • enhanced-test-cases.json     - Verified test cases                        │
+│  • enhanced-functional-desc.json - Updated functional descriptions           │
+│  • navigation-map.json          - Actual URLs and page connections           │
+│  • issues-found.json            - All discrepancies detected                 │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -136,6 +120,15 @@ The system uses a **two-phase pipeline architecture**:
 | 10 | **Verification Matcher Agent** | Ideal verifications + all tests | Matched verifications | Use RAG + embeddings to find actual tests that can verify each scenario |
 | 11 | **Execution Plan Agent** | Matched verifications | `Dict[test_id, ExecutionSequence]` | Compile execution plans with automated steps and manual fallbacks |
 
+### Phase 3: Enhancement Pipeline (NEW)
+
+| Step | Component | Input | Output | Description |
+|------|-----------|-------|--------|-------------|
+| 1 | **Verifier Pipeline** | Test cases + functional desc | Page state | Navigate to website using Playwright |
+| 2 | **Verification Agent** | Page state + test case | Enhanced test case | Compare each test case against actual page, fix issues |
+| 3 | **Enhancement Agent** | Page state + issues | Enhanced functional desc | Update functional description based on actual page |
+| 4 | **Navigation Builder** | Discovered links | Navigation map | Build actual URL map from website traversal |
+
 ## Installation
 
 ### Prerequisites
@@ -154,8 +147,14 @@ cd Test-Case-Generator
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Install dependencies
+# Install dependencies for test case generator
 pip install -r test_case_generator/requirements.txt
+
+# Install dependencies for test case enhancer
+pip install -r test_case_enhancer/requirements.txt
+
+# Install Playwright browsers
+playwright install chromium
 ```
 
 ### Dependencies
@@ -168,12 +167,15 @@ pip install -r test_case_generator/requirements.txt
 | `sentence-transformers` | Embedding generation for RAG |
 | `numpy` | Numerical operations |
 | `faiss-cpu` (optional) | Fast similarity search |
+| `playwright` | Browser automation for enhancer |
+| `google-generativeai` | Gemini LLM support |
+| `openai` | OpenAI LLM support |
 
 **Note:** On first run, the RAG system downloads the `all-MiniLM-L6-v2` model (~80MB). If `sentence-transformers` is not installed, the system falls back to keyword-based matching.
 
 ## Usage
 
-### Basic Usage
+### Phase 1 & 2: Generate Test Cases
 
 ```bash
 python -m test_case_generator.main \
@@ -186,6 +188,42 @@ python -m test_case_generator.main \
     --model "gpt-4o" \
     --debug
 ```
+
+### Phase 3: Enhance Test Cases (NEW)
+
+After generating test cases, run the enhancer to verify against the actual website:
+
+```bash
+# Using Python
+python test_case_enhancer/run_verifier.py \
+    --test-cases output/test-cases.json \
+    --func-desc parabank.json \
+    --credentials credentials.json \
+    --api-key "your-api-key" \
+    --provider gemini \
+    --output-dir output/enhanced
+
+# Or with OpenAI
+python test_case_enhancer/run_verifier.py \
+    --test-cases output/test-cases.json \
+    --func-desc parabank.json \
+    --credentials credentials.json \
+    --api-key "your-openai-key" \
+    --provider openai \
+    --headless
+```
+
+### Enhancer Command Line Arguments
+
+| Argument | Required | Description |
+|----------|----------|-------------|
+| `--test-cases` | No | Path to generated test-cases.json (default: `output/test-cases.json`) |
+| `--func-desc` | No | Path to functional description JSON (default: `parabank.json`) |
+| `--credentials` | No | Path to credentials JSON (default: `credentials.json`) |
+| `--api-key` | Yes | API key for LLM (Gemini or OpenAI) |
+| `--provider` | No | LLM provider: `gemini` or `openai` (default: `gemini`) |
+| `--headless` | No | Run browser in headless mode |
+| `--output-dir` | No | Output directory (default: `output/enhanced`) |
 
 ### Using the Bash Script
 
@@ -205,7 +243,7 @@ python -m test_case_generator.export_to_markdown \
     --output output/test-cases.md
 ```
 
-### Command Line Arguments
+### Command Line Arguments (Generator)
 
 | Argument | Required | Description |
 |----------|----------|-------------|
@@ -275,7 +313,7 @@ Test data for each module (for future use with test execution):
 
 ## Output Format
 
-### Generated Files
+### Phase 1 & 2: Generated Files
 
 | File | Description |
 |------|-------------|
@@ -283,6 +321,15 @@ Test data for each module (for future use with test execution):
 | `test-cases.md` | Human-readable markdown documentation |
 | `navigation_graph.png` | Visual navigation diagram |
 | `debug_log.txt` | LLM interaction logs (when debug mode enabled) |
+
+### Phase 3: Enhanced Files (NEW)
+
+| File | Description |
+|------|-------------|
+| `enhanced-test-cases.json` | Verified and fixed test cases |
+| `enhanced-functional-desc.json` | Updated functional descriptions based on actual pages |
+| `navigation-map.json` | Actual URLs and page connections discovered |
+| `issues-found.json` | All discrepancies detected during verification |
 
 ### Test Case Structure (JSON)
 
@@ -466,6 +513,58 @@ Test data for each module (for future use with test execution):
 - Manual steps for verifications without automated tests
 - Coverage statistics (automation rate)
 
+---
+
+## Phase 3: Enhancement Agents (NEW)
+
+### 11. Verifier Pipeline
+
+**Purpose:** Orchestrate browser-based verification of generated test cases.
+
+**Process:**
+1. Navigate to each module's page on the actual website
+2. Extract DOM structure and visible elements
+3. Compare test case steps with actual page elements
+4. Fix navigation paths and element references
+5. Update functional descriptions based on real page content
+
+### 12. Verification Agent
+
+**Purpose:** LLM-based analysis of test cases against real page structure.
+
+**Analyzes:**
+- Whether referenced UI elements exist on the page
+- If navigation paths are correct
+- Whether expected behaviors match actual page capability
+- Field types and validation patterns visible on page
+
+**Outputs:**
+- Enhanced test case with corrected steps
+- Navigation updates for reaching the page
+- List of issues found during verification
+
+### 13. Browser Controller
+
+**Purpose:** High-level Playwright automation for page navigation.
+
+**Capabilities:**
+- Navigate to URLs with authentication support
+- Extract DOM tree structure
+- Take screenshots for debugging
+- Execute click, type, and scroll actions
+- Handle login flows using provided credentials
+
+### 14. DOM Tree Parser
+
+**Purpose:** Extract semantic structure from web pages.
+
+**Extracts:**
+- Interactive elements (buttons, links, inputs)
+- Form fields with labels and types
+- Navigation elements
+- Error message containers
+- Hierarchical page structure
+
 ## Project Structure
 
 ```
@@ -476,7 +575,7 @@ Test-Case-Generator/
 ├── parabank.json                    # Example input
 ├── credentials.json                 # Example credentials
 │
-├── test_case_generator/
+├── test_case_generator/             # PHASE 1 & 2: Test Case Generation
 │   ├── __init__.py
 │   ├── main.py                      # Main orchestrator (TestCaseGenerator class)
 │   ├── export_to_markdown.py        # Markdown export utility
@@ -501,10 +600,53 @@ Test-Case-Generator/
 │       ├── __init__.py
 │       └── schemas.py               # All dataclasses
 │
-└── output/                          # Generated outputs
-    ├── test-cases.json
-    ├── test-cases.md
-    └── navigation_graph.png
+├── test_case_enhancer/              # PHASE 3: Test Case Enhancement (NEW)
+│   ├── __init__.py
+│   ├── verifier_pipeline.py         # Main enhancement orchestrator
+│   ├── run_verifier.py              # CLI entry point
+│   ├── requirements.txt             # Dependencies (playwright, etc.)
+│   │
+│   ├── agent/
+│   │   ├── verification_agent/      # Test case verification
+│   │   │   ├── __init__.py
+│   │   │   └── prompts.py           # Verification & enhancement prompts
+│   │   ├── main_agent/              # Browser automation agent
+│   │   │   ├── agent.py
+│   │   │   └── prompt_generator.py
+│   │   ├── instruction_agent/       # Instruction processing
+│   │   │   ├── agent.py
+│   │   │   └── instruction_prompt.py
+│   │   ├── tool_agent/              # LLM-based page analysis
+│   │   │   └── tools.py
+│   │   └── core_utils/
+│   │       ├── llm.py               # LLMClient (Gemini + OpenAI)
+│   │       ├── memory.py            # Execution memory
+│   │       ├── test_result_analyzer.py
+│   │       └── logging_utils.py
+│   │
+│   ├── browser/
+│   │   ├── browser_context.py       # Playwright session manager
+│   │   ├── dom_tree_parser.py       # DOM tree extraction
+│   │   └── dom_tree_builder.py      # DOM tree building
+│   │
+│   └── controller/
+│       └── browser_controller.py    # High-level browser commands
+│
+├── output/                          # Generated outputs
+│   ├── test-cases.json
+│   ├── test-cases.md
+│   ├── navigation_graph.png
+│   └── enhanced/                    # Enhanced outputs (NEW)
+│       ├── enhanced-test-cases.json
+│       ├── enhanced-functional-desc.json
+│       ├── navigation-map.json
+│       └── issues-found.json
+│
+├── ground_truth_case/               # Reference test cases
+│   └── test-cases-parabank.md
+│
+└── docs/
+    └── pipeline_demo.md             # Detailed pipeline documentation
 ```
 
 ## Data Models

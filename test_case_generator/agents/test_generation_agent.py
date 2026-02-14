@@ -21,11 +21,31 @@ GUIDING PRINCIPLES:
 1. Cover all scenarios mentioned in the functional description
 2. Tests must be executable by a browser automation tool
 3. Test steps should describe actions on the current page - NOT navigation to the page
+4. Generate GRANULAR tests - one test per scenario, not combined tests
 
 TEST TYPES:
 1. POSITIVE TESTS: Verify success scenarios work as described
 2. NEGATIVE TESTS: Test error conditions and validation rules mentioned
 3. EDGE CASE TESTS: Boundary values, special characters, format variations if relevant
+
+CRITICAL - NEGATIVE TEST GENERATION RULES:
+1. For forms with multiple required fields, generate SEPARATE test cases for EACH field being empty/invalid
+   - Example: If form has 5 required fields, generate 5 separate "X field empty" test cases
+   - Do NOT combine into single "all fields empty" or "some fields empty" tests
+2. For each validation rule mentioned, create a dedicated test case
+3. Test each mismatch scenario separately (e.g., password mismatch, account number mismatch)
+4. Test insufficient funds/resources scenarios if applicable
+
+CRITICAL - POSITIVE TEST GENERATION RULES:
+1. If multiple valid input types are mentioned (e.g., "username OR email"), create separate tests for EACH
+2. If multiple account types exist (e.g., Checking, Savings), test EACH type separately
+3. Include state verification tests - verify changes are reflected after actions
+4. Test pre-populated/display scenarios (e.g., "fields pre-filled with user data")
+
+CRITICAL - BOUNDARY TEST RULES:
+1. For monetary values: test exact boundary (e.g., exactly $100), just below boundary ($99.99)
+2. For text fields: test maximum length handling
+3. For date fields: test same start/end date, future dates if applicable
 
 DO NOT generate tests for:
 - Device-specific interactions (touch gestures, mobile-only features)
@@ -77,21 +97,52 @@ Generate test cases in this JSON format:
 }}
 
 REQUIREMENTS:
-1. POSITIVE tests: Cover success scenarios mentioned (e.g., login with username, login with email if mentioned)
-2. NEGATIVE tests: Cover error conditions and validations mentioned in business rules
-3. EDGE CASE tests: Include if relevant (boundaries, special characters, max lengths)
-4. Steps should describe actions on THIS page only - do NOT include navigation steps like "Navigate to login page"
-5. Tests must be executable by browser automation
-6. DO NOT use specific values - use generic descriptive text instead
+1. Steps should describe actions on THIS page only - do NOT include navigation steps like "Navigate to login page"
+2. Tests must be executable by browser automation
+3. DO NOT use specific values - use generic descriptive text instead
+
+CRITICAL - GRANULARITY RULES:
+
+1. POSITIVE TESTS - Cover all input variations:
+   - If description mentions "username OR email", generate SEPARATE tests for each
+   - If multiple valid paths exist (e.g., Checking vs Savings account), test EACH separately
+   - Include a test for form/page elements displayed correctly (if form fields are mentioned)
+   - Include state verification tests (e.g., "Balance updated after transfer", "New account visible in overview")
+
+2. NEGATIVE TESTS - Per-field validation (MANDATORY):
+   - If the workflow has N required fields, generate N SEPARATE test cases (one for each field empty)
+   - Example for a form with First Name, Last Name, Email, Password:
+     * Test 1: "First Name field empty" 
+     * Test 2: "Last Name field empty"
+     * Test 3: "Email field empty"
+     * Test 4: "Password field empty"
+   - Do NOT generate combined tests like: "Some fields empty" or "Required fields validation"
+   - Test mismatch scenarios separately (password mismatch, account number mismatch)
+   - Test insufficient funds/invalid credentials as separate cases
+   - Test duplicate/existing data scenarios (e.g., "duplicate username")
+
+3. EDGE CASE/BOUNDARY TESTS (generate when applicable):
+   - Exact boundary values (e.g., exactly $100 minimum balance)
+   - Just below boundary (e.g., $99.99)
+   - Maximum/minimum field lengths
+   - Same start and end date for date ranges
+   - Future dates if date input exists
 
 IMPORTANT:
-- Cover different valid input variations mentioned (e.g., if "username or email" is mentioned, test both)
-- Test the key error scenarios described
 - Do not generate tests for touch gestures, right-click menus, network failures, or rapid clicking
 - Use generic descriptive text for values, NOT specific data:
   ✓ CORRECT: "Enter a valid username", "Enter valid first name", "Enter valid email address"
   ✗ WRONG: "Enter 'John'", "Enter 'john@example.com'", "Enter '123 Main St'"
 - Keep test steps natural and descriptive without hardcoded values
+
+COVERAGE CHECKLIST (ensure all applicable items are covered):
+□ Primary success scenario
+□ All valid input variations (separate tests)
+□ Each required field empty (separate tests)
+□ Each validation rule violation
+□ Mismatch scenarios (password, account numbers)
+□ Boundary values (exact, below, above)
+□ State change verification (if action modifies data)
 """
 
         try:

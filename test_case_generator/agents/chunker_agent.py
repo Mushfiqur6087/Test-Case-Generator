@@ -23,7 +23,13 @@ CRITICAL RULES:
 2. An item can belong to multiple workflows if it's shared
 3. DO NOT invent new items or rules - only use what was extracted
 4. Provide a clear description of what each workflow does
-5. Most modules should have only 1-2 primary workflows - do not over-segment"""
+5. Most modules should have only 1-2 primary workflows - do not over-segment
+
+FIELD-LEVEL GRANULARITY:
+1. Preserve individual field names exactly as provided (including "(required)" suffix)
+2. Do NOT group fields together - keep them as separate items
+3. Each field with validation rules should retain its associated rules
+4. This granularity enables per-field test case generation for comprehensive coverage"""
 
     def run(self, module: ParsedModule) -> List[WorkflowChunk]:
         """Split a module into workflow-based chunks"""
@@ -106,6 +112,12 @@ IMPORTANT:
 - An item/rule/behavior can appear in multiple workflows if relevant
 - Use EXACT text from the provided lists
 - Focus on the primary testable workflows - navigation links don't need separate chunks
+
+FIELD-LEVEL GRANULARITY:
+- Preserve individual field names (do not group them)
+- Include the "(required)" suffix on field names if present
+- Each required field should be listed separately to enable per-field test generation
+- Include all validation rules related to individual fields
 """
 
         try:

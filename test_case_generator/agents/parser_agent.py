@@ -88,22 +88,39 @@ Return a JSON object with these fields:
 }}
 
 Field Descriptions:
-- mentioned_items: Fields, buttons, and interactive elements mentioned (just names). Example: ["Username", "Password", "Log In"]
+
+- mentioned_items: Extract ALL individual form fields, buttons, and interactive elements as SEPARATE items.
+  * List EACH field separately (not grouped as "form fields")
+  * Mark required fields with "(required)" suffix
+  * Include buttons, links, dropdowns, and other interactive elements
+  * Example: ["First Name (required)", "Last Name (required)", "Email (required)", "Phone", "Submit button", "Cancel link"]
+
 - workflows: PRIMARY actions that COMPLETE on this page with a testable outcome.
   * A workflow involves form submission or data processing
   * Navigation links to other pages are NOT workflows
   * Most pages have only 1-2 primary workflows
   * Example for login page: ["Login with credentials"] (NOT "Navigate to register")
-- business_rules: Validation rules and constraints explicitly stated in the description
+
+- business_rules: Extract ALL validation rules and constraints.
+  * Include required field rules (e.g., "First Name is required")
+  * Include format validations (e.g., "Email must be valid format")
+  * Include matching field rules (e.g., "Password and Confirm Password must match")
+  * Include business constraints (e.g., "Minimum balance $100 required")
+  * Include uniqueness rules (e.g., "Username must be unique")
+
 - expected_behaviors: Success/failure outcomes explicitly mentioned
+  * Include success messages/redirects
+  * Include error message behaviors
+  * Include state changes (e.g., "Balance is deducted", "New account appears in list")
+
 - requires_auth: false for login/register/forgot password/public pages, otherwise true
 
-Example for a Login page:
+Example for a Registration page:
 {{
-    "mentioned_items": ["Username", "Password", "Log In", "Register link", "Forgot login info link"],
-    "workflows": ["Login with credentials"],
-    "business_rules": ["Both fields are required", "Invalid credentials show error"],
-    "expected_behaviors": ["Successful login redirects to dashboard", "Error message shown on invalid credentials"],
+    "mentioned_items": ["First Name (required)", "Last Name (required)", "Address (required)", "City (required)", "State (required)", "Zip Code (required)", "Phone (required)", "SSN (required)", "Username (required)", "Password (required)", "Confirm Password (required)", "Register button"],
+    "workflows": ["Register new account"],
+    "business_rules": ["First Name is required", "Last Name is required", "Address is required", "City is required", "State is required", "Zip Code is required", "Phone is required", "SSN is required", "Username is required", "Password is required", "Confirm Password is required", "Password and Confirm Password must match", "Username must be unique"],
+    "expected_behaviors": ["Successful registration creates account and logs user in", "Validation errors shown for empty required fields", "Error shown if passwords do not match", "Error shown if username already exists"],
     "requires_auth": false
 }}
 """

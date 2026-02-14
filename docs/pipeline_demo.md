@@ -7,17 +7,25 @@
 
 ## 📋 Table of Contents
 
+### Phase 1: Generation Pipeline
 1. [Step 1: Load Input Files](#step-1-load-input-files)
 2. [Step 2: Parser Agent](#step-2-parser-agent)
 3. [Step 3: Navigation Agent](#step-3-navigation-agent)
 4. [Step 4: Chunker Agent](#step-4-chunker-agent)
 5. [Step 5: Test Generation Agent](#step-5-test-generation-agent)
 6. [Step 6: Assembler Agent](#step-6-assembler-agent)
+
+### Phase 2: Post-Verification Pipeline
 7. [Step 7: Summary Agent](#step-7-summary-agent)
 8. [Step 8: Verification Flag Agent](#step-8-verification-flag-agent)
 9. [Step 9: Ideal Verification Agent](#step-9-ideal-verification-agent)
 10. [Step 10: Verification Matcher Agent (RAG)](#step-10-verification-matcher-agent-rag)
 11. [Step 11: Execution Plan Agent](#step-11-execution-plan-agent)
+
+### Phase 3: Enhancement Pipeline (NEW)
+12. [Step 12: Browser Navigation](#step-12-browser-navigation)
+13. [Step 13: Test Case Verification](#step-13-test-case-verification)
+14. [Step 14: Functional Description Enhancement](#step-14-functional-description-enhancement)
 
 ---
 
@@ -1062,11 +1070,277 @@ Keep execution notes concise and actionable.
 
 ---
 
+## � PHASE 3: ENHANCEMENT PIPELINE (NEW)
+
+> **Purpose:** Verify and enhance generated test cases by navigating the actual website using browser automation
+
+---
+
+## Step 12: Browser Navigation
+
+> **Purpose:** Navigate to each module's page and extract the actual DOM structure
+
+### 📥 Input
+
+```json
+{
+  "module": {
+    "id": 2,
+    "title": "Transfer Funds",
+    "url_path": "/transfer.htm"
+  },
+  "credentials": {
+    "username": "john",
+    "password": "demo"
+  },
+  "base_url": "https://parabank.parasoft.com/parabank"
+}
+```
+
+### ⚙️ Process
+
+```
+1. Launch Playwright browser (headless or visible)
+2. Navigate to login page if module requires auth
+3. Perform login using provided credentials
+4. Navigate to target module URL
+5. Wait for page to fully load
+6. Extract DOM tree structure
+7. Take screenshot for debugging
+```
+
+### 📤 Output
+
+```json
+{
+  "navigation_success": true,
+  "current_url": "https://parabank.parasoft.com/parabank/transfer.htm",
+  "dom_tree": {
+    "tag": "html",
+    "children": [
+      {
+        "tag": "form",
+        "id": "transferForm",
+        "children": [
+          {
+            "tag": "input",
+            "id": "amount",
+            "type": "text",
+            "label": "Amount"
+          },
+          {
+            "tag": "select",
+            "id": "fromAccountId",
+            "label": "From Account"
+          },
+          {
+            "tag": "select",
+            "id": "toAccountId",
+            "label": "To Account"
+          },
+          {
+            "tag": "input",
+            "type": "submit",
+            "value": "Transfer"
+          }
+        ]
+      }
+    ]
+  },
+  "visible_elements": [
+    "Amount input field",
+    "From Account dropdown",
+    "To Account dropdown",
+    "Transfer button"
+  ],
+  "screenshot_path": "output/screenshots/transfer-funds.png"
+}
+```
+
+---
+
+## Step 13: Test Case Verification
+
+> **Purpose:** Verify each test case against actual page elements and fix navigation/steps
+
+### 📥 Input (User Prompt to LLM)
+
+```json
+{
+  "test_case": {
+    "id": "TRANSFER-001",
+    "title": "Successfully transfer funds between accounts",
+    "steps": [
+      "Navigate to Transfer Funds page",
+      "Enter valid amount in Amount field",
+      "Select source account from From dropdown",
+      "Select destination account from To dropdown",
+      "Click Submit button",
+      "Verify success message appears"
+    ],
+    "expected_result": "Transfer successful message with transaction details"
+  },
+  "page_context": {
+    "url": "/transfer.htm",
+    "visible_elements": ["Amount", "From Account", "To Account", "Transfer"],
+    "dom_summary": "Form with amount input, two account dropdowns, transfer button"
+  },
+  "navigation_from_login": [
+    "Click 'Transfer Funds' in left sidebar"
+  ]
+}
+```
+
+### ⚙️ System Prompt
+
+```
+You are an expert test case verification agent. You analyze test cases against actual website structure.
+
+Given:
+1. A generated test case with steps
+2. The actual DOM structure of the page
+3. The navigation path used to reach this page
+
+Your task:
+1. VERIFY if each test step references elements that exist on the page
+2. FIX any incorrect element names or navigation steps
+3. IDENTIFY if expected behaviors are achievable with the visible elements
+4. UPDATE steps to match actual button/field names on the page
+
+CRITICAL RULES:
+- If a step references "Submit button" but page has "Transfer button", fix it
+- If navigation says "Click Transfer link" but sidebar says "Transfer Funds", fix it
+- Preserve the test intent while correcting implementation details
+- Flag any steps that cannot be performed with visible elements
+
+Output JSON:
+{
+  "enhanced_test_case": { ... },
+  "navigation_update": { ... },
+  "issues_found": [ ... ],
+  "verification_status": "passed" | "fixed" | "needs_manual_review"
+}
+```
+
+### 📤 Output
+
+```json
+{
+  "enhanced_test_case": {
+    "id": "TRANSFER-001",
+    "title": "Successfully transfer funds between accounts",
+    "steps": [
+      "Navigate to Transfer Funds page via left sidebar",
+      "Enter valid amount (e.g., '100') in Amount field",
+      "Select source account from From Account dropdown",
+      "Select destination account from To Account dropdown",
+      "Click Transfer button",
+      "Verify 'Transfer Complete!' message appears"
+    ],
+    "expected_result": "Transfer Complete! message with amount and account details"
+  },
+  "navigation_update": {
+    "path_from_login": ["Click 'Transfer Funds' link in left navigation menu"],
+    "requires_auth": true,
+    "direct_url": "/transfer.htm"
+  },
+  "issues_found": [
+    {
+      "original": "Click Submit button",
+      "fixed": "Click Transfer button",
+      "reason": "Page has 'Transfer' button, not 'Submit'"
+    }
+  ],
+  "verification_status": "fixed"
+}
+```
+
+---
+
+## Step 14: Functional Description Enhancement
+
+> **Purpose:** Update the original functional description based on observations from actual pages
+
+### 📥 Input (User Prompt to LLM)
+
+```json
+{
+  "module": {
+    "id": 2,
+    "title": "Transfer Funds",
+    "original_description": "Transfer money between accounts. Has Amount field, From account dropdown, To account dropdown, and Transfer button."
+  },
+  "observed_from_page": {
+    "actual_elements": [
+      "Amount (text input, numeric validation)",
+      "From Account (dropdown with account numbers)",
+      "To Account (dropdown with account numbers)",
+      "Transfer (submit button)"
+    ],
+    "observed_behaviors": [
+      "Form validates amount is numeric",
+      "Dropdowns populated with user's accounts",
+      "Success shows 'Transfer Complete!' message",
+      "Error shown if same account selected twice"
+    ],
+    "discovered_rules": [
+      "Cannot transfer to same account",
+      "Amount must be greater than 0"
+    ]
+  },
+  "issues_from_test_verification": [
+    "Submit button -> Transfer button",
+    "Missing: validation for non-numeric amounts"
+  ]
+}
+```
+
+### ⚙️ System Prompt
+
+```
+You are enhancing a functional description based on actual observations from the website.
+
+Given:
+1. Original functional description
+2. Observed elements and behaviors from the actual page
+3. Issues found during test case verification
+
+Your task:
+1. ENHANCE the description with discovered elements and behaviors
+2. ADD any missing business rules or validation logic
+3. CORRECT any inaccuracies in the original description
+4. PRESERVE original intent while adding specificity
+
+Output the enhanced functional description that includes all observed details.
+```
+
+### 📤 Output
+
+```json
+{
+  "id": 2,
+  "title": "Transfer Funds",
+  "enhanced_description": "The Transfer Funds page allows authenticated users to transfer money between their accounts. The page displays a form with:\n\n**Form Fields:**\n- Amount: Text input field (validates numeric values, must be > 0)\n- From Account: Dropdown populated with user's account numbers\n- To Account: Dropdown populated with user's account numbers\n- Transfer: Submit button\n\n**Business Rules:**\n- Cannot transfer to the same account (source and destination must differ)\n- Amount must be a positive number\n- Both accounts must belong to the logged-in user\n\n**Expected Behaviors:**\n- Success: Shows 'Transfer Complete!' message with transaction details\n- Error: Shows validation message for invalid inputs\n- Error: Shows error if same account selected for both fields",
+  "discovered_elements": [
+    "Amount field validates numeric input",
+    "Account dropdowns show account numbers with balances"
+  ],
+  "discovered_rules": [
+    "Cannot transfer to same account",
+    "Amount must be positive number"
+  ]
+}
+```
+
+---
+
+---
+
 ## 📊 Final Output Summary
 
-After all 11 steps complete, the system produces:
+After all steps complete, the system produces:
 
-### 📁 Generated Files
+### 📁 Generated Files (Phase 1 & 2)
 
 | File | Description |
 |------|-------------|
@@ -1075,6 +1349,15 @@ After all 11 steps complete, the system produces:
 | `navigation_graph.png` | Visual navigation diagram |
 | `debug_log.txt` | All LLM interactions (if debug enabled) |
 
+### 📁 Enhanced Files (Phase 3)
+
+| File | Description |
+|------|-------------|
+| `enhanced-test-cases.json` | Verified and corrected test cases |
+| `enhanced-functional-desc.json` | Updated functional descriptions with discovered details |
+| `navigation-map.json` | Actual navigation paths discovered from website |
+| `issues-found.json` | All issues found and corrections made |
+
 ### 📈 Console Summary
 
 ```
@@ -1082,7 +1365,7 @@ After all 11 steps complete, the system produces:
 TEST CASE GENERATOR - COMPLETE
 ============================================================
 
-Pipeline Statistics:
+Phase 1 & 2 Statistics:
   • Steps completed: 11/11
   • Modules processed: 3
   • Test cases generated: 15
@@ -1100,6 +1383,13 @@ Execution Plans:
   • Manual steps: 4
   • Automation rate: 66.7%
 
+Phase 3 Enhancement (if enabled):
+  • Modules navigated: 3
+  • Test cases verified: 14
+  • Issues found: 7
+  • Test cases fixed: 5
+  • Functional descriptions enhanced: 3
+
 Output saved to: output/
 ============================================================
 ```
@@ -1110,13 +1400,15 @@ Output saved to: output/
 
 1. **Multi-Agent Architecture**: Each agent has a specialized role, making the system modular and maintainable
 
-2. **Two-Phase Pipeline**: Generation creates tests; Post-Verification adds verification coverage
+2. **Three-Phase Pipeline**: Generation creates tests; Post-Verification adds verification coverage; Enhancement validates against real website
 
 3. **RAG-Based Matching**: Semantic search finds relevant tests for verification
 
-4. **Coverage Analysis**: Automatically identifies gaps where manual verification is needed
+4. **Browser Automation**: Playwright-based verification ensures test cases match actual website structure
 
-5. **LLM Agnostic**: Works with OpenAI, GitHub Models, or OpenRouter
+5. **Coverage Analysis**: Automatically identifies gaps where manual verification is needed
+
+6. **LLM Agnostic**: Works with OpenAI, GitHub Models, OpenRouter, or Gemini
 
 ---
 
