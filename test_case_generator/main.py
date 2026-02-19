@@ -60,7 +60,6 @@ class TestCaseGenerator:
     def generate(
         self,
         functional_desc_path: str,
-        credentials_path: str = None,
         output_dir: str = "output",
     ) -> TestSuiteOutput:
         """
@@ -68,7 +67,6 @@ class TestCaseGenerator:
 
         Args:
             functional_desc_path: Path to functional_desc.json
-            credentials_path: Optional path to credentials.json
             output_dir: Directory to save output files
 
         Returns:
@@ -87,18 +85,12 @@ class TestCaseGenerator:
         # Load inputs
         print("\nLoading input files...")
         functional_desc = self._load_json(functional_desc_path)
-        credentials = None
-        if credentials_path:
-            credentials = self._load_json(credentials_path)
-            print(f"  - Loaded: {functional_desc_path}, {credentials_path}")
-        else:
-            print(f"  - Loaded: {functional_desc_path}")
+        print(f"  - Loaded: {functional_desc_path}")
 
         # Build the initial state for the graph
         initial_state: PipelineState = {
             # Inputs
             "functional_desc": functional_desc,
-            "credentials": credentials,
             # Config
             "api_key": self.api_key,
             "model": self.model,
@@ -198,7 +190,6 @@ def main():
         help="Generate test cases using the LLM",
     )
     parser.add_argument("--input", type=str, required=False, help="Path to functional description JSON")
-    parser.add_argument("--credentials", type=str, default=None, help="Path to credentials JSON (optional)")
     parser.add_argument("--output", type=str, default="output", help="Output directory")
     parser.add_argument(
         "--api-key", type=str, required=False,
@@ -233,7 +224,6 @@ def main():
 
         generator.generate(
             functional_desc_path=args.input,
-            credentials_path=args.credentials,
             output_dir=args.output,
         )
     else:

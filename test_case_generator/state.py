@@ -46,7 +46,6 @@ class PipelineState(TypedDict, total=False):
 
     # ── Inputs ──────────────────────────────────────────────
     functional_desc: Annotated[Dict[str, Any], _last_value]
-    credentials: Annotated[Optional[Dict[str, Any]], _last_value]
 
     # ── Config ──────────────────────────────────────────────
     api_key: Annotated[str, _last_value]
