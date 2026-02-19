@@ -17,12 +17,28 @@ class VerificationMatcherAgent(BaseAgent):
         return """You are an expert at matching verification requirements to test cases.
 
 Given an ideal verification scenario and candidate test cases from RAG search,
-determine if any of the candidates can actually verify what we need.
+determine if any of the candidates can serve as the verification test.
+
+IMPORTANT — Execution Strategy Awareness:
+
+When execution_strategy is "before_after":
+  The verification test will be run TWICE — once BEFORE the action to record a baseline,
+  and once AFTER to compare. Therefore, the test does NOT need to detect a "change" on its
+  own. It only needs to OBSERVE/DISPLAY the relevant data. The comparison is handled by
+  the execution plan.
+  → Ask: "Does this test display or access the relevant data?"
+  → A test that simply shows a value IS a full match for before_after verification.
+
+When execution_strategy is "after_only":
+  The test runs only after the action. It must be able to confirm the expected outcome
+  by itself (e.g., a new record exists, a status changed to a specific value).
+  → Ask: "Can this test confirm the expected result exists?"
 
 Consider:
 1. Does the test case operate on the right module/page?
-2. Does it check the right data (balance, transaction, profile, etc.)?
-3. Can it detect the expected change?"""
+2. Does it access/display the relevant data?
+3. For before_after: can it observe the data? (sufficient for full match)
+4. For after_only: can it confirm the expected outcome?"""
 
     def run(
         self,
@@ -122,7 +138,12 @@ Consider:
                 ideal_description=ideal.description,
                 status="not_found",
                 reason=f"No test cases found for module '{ideal.target_module}'",
-                suggested_manual_step=f"Manual verification: {ideal.verification_action}. Expected: {ideal.expected_change}"
+                suggested_manual_step=f"Manual verification: {ideal.verification_action}. Expected: {ideal.expected_change}",
+                execution_strategy=ideal.execution_strategy,
+                before_action=ideal.before_action,
+                after_action=ideal.after_action,
+                requires_different_session=ideal.requires_different_session,
+                session_note=ideal.session_note,
             )
         
         # Use LLM to validate the best candidates
@@ -147,6 +168,31 @@ Similarity Score: {score:.2f}
 ---
 """
 
+        # Build strategy-aware prompt
+        if ideal.execution_strategy == "before_after":
+            strategy_instruction = f"""EXECUTION STRATEGY: before_after
+This verification test will be run TWICE:
+  - BEFORE the action: {ideal.before_action or 'Record the relevant data'}
+  - AFTER the action: {ideal.after_action or 'Compare and confirm the change'}
+
+Therefore, the candidate test does NOT need to detect a "change" on its own.
+It only needs to DISPLAY or ACCESS the relevant data so we can record it before
+and compare it after. A test that shows the relevant value is a FULL MATCH ("found").
+
+Do NOT mark a test as "partial" just because it "shows data but doesn't verify the change."
+The before/after execution handles the change detection — the test just needs to observe the data."""
+        else:
+            strategy_instruction = """EXECUTION STRATEGY: after_only
+This verification test runs only AFTER the action. It must confirm the expected
+outcome by itself (e.g., new record exists, status shows expected value)."""
+
+        session_instruction = ""
+        if ideal.requires_different_session:
+            session_instruction = f"""
+SESSION NOTE: This verification requires a different user session.
+{ideal.session_note}
+Consider whether the candidate test can be run under a different user context."""
+
         prompt = f"""Determine if any of these test cases can verify the following requirement:
 
 VERIFICATION NEEDED:
@@ -156,13 +202,17 @@ VERIFICATION NEEDED:
 - Expected Change: {ideal.expected_change}
 - State to Verify: {ideal.state_to_verify}
 
+{strategy_instruction}
+{session_instruction}
+
 CANDIDATE TEST CASES:
 {candidates_text}
 
 Analyze each candidate and determine:
-1. Can it verify the required state change?
-2. Is it from the correct module?
-3. Does it check the right data?
+1. Does it operate on the correct module/page?
+2. Does it access or display the relevant data?
+3. For before_after strategy: Can it OBSERVE the data? (If yes → status should be "found")
+4. For after_only strategy: Can it CONFIRM the expected outcome?
 
 Return JSON:
 {{
@@ -170,15 +220,17 @@ Return JSON:
         "test_id": "TEST-ID or null if none match",
         "status": "found|partial|not_found",
         "confidence": 0.0 to 1.0,
-        "execution_note": "How to use this test for verification (e.g., 'Run this test after the action to verify the change')",
+        "execution_note": "How to use this test for verification",
         "reason": "Explanation if not_found or partial",
         "suggested_manual_step": "Manual step if no automated option exists"
     }}
 }}
 
 STATUS DEFINITIONS:
-- found: Test case can fully verify the requirement
-- partial: Test case partially verifies but misses some aspects
+- found: Test case can fully serve as the verification test
+  (for before_after: it can observe/display the relevant data)
+  (for after_only: it can confirm the expected outcome)
+- partial: Test case is on the right module but doesn't access the specific data needed
 - not_found: None of the candidates can verify this requirement"""
 
         try:
@@ -207,7 +259,12 @@ STATUS DEFINITIONS:
                 confidence=matched_confidence,
                 execution_note=match_data.get("execution_note", ""),
                 reason=match_data.get("reason", ""),
-                suggested_manual_step=match_data.get("suggested_manual_step", "")
+                suggested_manual_step=match_data.get("suggested_manual_step", ""),
+                execution_strategy=ideal.execution_strategy,
+                before_action=ideal.before_action,
+                after_action=ideal.after_action,
+                requires_different_session=ideal.requires_different_session,
+                session_note=ideal.session_note,
             )
             
         except Exception as e:
@@ -222,11 +279,21 @@ STATUS DEFINITIONS:
                     matched_test_title=best_tc.title if best_score > 0.3 else "",
                     confidence=best_score,
                     execution_note=f"Execute {best_tc.id} to verify",
-                    reason="LLM validation failed, using similarity score"
+                    reason="LLM validation failed, using similarity score",
+                    execution_strategy=ideal.execution_strategy,
+                    before_action=ideal.before_action,
+                    after_action=ideal.after_action,
+                    requires_different_session=ideal.requires_different_session,
+                    session_note=ideal.session_note,
                 )
             
             return VerificationMatch(
                 ideal_description=ideal.description,
                 status="not_found",
-                reason="No matching test cases found"
+                reason="No matching test cases found",
+                execution_strategy=ideal.execution_strategy,
+                before_action=ideal.before_action,
+                after_action=ideal.after_action,
+                requires_different_session=ideal.requires_different_session,
+                session_note=ideal.session_note,
             )

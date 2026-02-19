@@ -4,9 +4,12 @@ matplotlib>=3.7.0
 sentence-transformers>=2.2.0
 numpy>=1.24.0
 
+# LangGraph orchestration
+langgraph>=0.2.0
+langchain-core>=0.3.0
+
 # RAG dependencies for post-verification matching
-sentence-transformers>=2.2.0
-numpy>=1.24.0
+# sentence-transformers already listed above
 
 # Optional: FAISS for faster similarity search (CPU version)
 # faiss-cpu>=1.7.4

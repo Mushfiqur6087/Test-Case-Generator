@@ -183,15 +183,29 @@ class IdealVerification:
     verification_action: str      # "View balance of source account"
     expected_change: str          # "Balance reduced by transfer amount"
     state_to_verify: str = ""     # "account_balance"
+    # Before/after strategy fields
+    execution_strategy: str = "after_only"  # "before_after" | "after_only"
+    before_action: str = ""       # What to capture/record before the action
+    after_action: str = ""        # What to check/compare after the action
+    requires_different_session: bool = False  # True if verification needs a different user session
+    session_note: str = ""        # e.g. "Login as the recipient user"
     
     def to_dict(self) -> dict:
-        return {
+        result = {
             "description": self.description,
             "target_module": self.target_module,
             "verification_action": self.verification_action,
             "expected_change": self.expected_change,
-            "state_to_verify": self.state_to_verify
+            "state_to_verify": self.state_to_verify,
+            "execution_strategy": self.execution_strategy,
         }
+        if self.execution_strategy == "before_after":
+            result["before_action"] = self.before_action
+            result["after_action"] = self.after_action
+        if self.requires_different_session:
+            result["requires_different_session"] = True
+            result["session_note"] = self.session_note
+        return result
 
 
 # ============================================================================
@@ -209,17 +223,30 @@ class VerificationMatch:
     execution_note: str = ""      # How to execute for verification
     reason: str = ""              # Reason if not found
     suggested_manual_step: str = ""  # Manual step if not automatable
+    # Before/after strategy fields (carried from IdealVerification)
+    execution_strategy: str = "after_only"  # "before_after" | "after_only"
+    before_action: str = ""       # What to capture/record before the action
+    after_action: str = ""        # What to check/compare after the action
+    requires_different_session: bool = False
+    session_note: str = ""
     
     def to_dict(self) -> dict:
         result = {
             "ideal": self.ideal_description,
-            "status": self.status
+            "status": self.status,
+            "execution_strategy": self.execution_strategy
         }
         if self.status == "found" or self.status == "partial":
             result["matched_test_id"] = self.matched_test_id
             result["matched_test_title"] = self.matched_test_title
             result["confidence"] = round(self.confidence, 2)
             result["execution_note"] = self.execution_note
+        if self.execution_strategy == "before_after":
+            result["before_action"] = self.before_action
+            result["after_action"] = self.after_action
+        if self.requires_different_session:
+            result["requires_different_session"] = True
+            result["session_note"] = self.session_note
         if self.status == "not_found" or self.status == "partial":
             result["reason"] = self.reason
             if self.suggested_manual_step:

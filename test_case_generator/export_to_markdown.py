@@ -173,10 +173,15 @@ def generate_markdown(data: dict) -> str:
     # Create a lookup dictionary for all test cases by ID
     test_case_lookup = {tc.get('id'): tc for tc in test_cases}
     
+    # Also grab execution plans from data
+    execution_plans = data.get('execution_plans', {})
+    
     if tests_with_verification:
         lines.append("## Post-Verification Details")
         lines.append("")
         lines.append("This section shows verification requirements for tests that modify application state.")
+        lines.append("Tests using the **before/after** strategy require running a verification test BEFORE")
+        lines.append("and AFTER the action to compare values.")
         lines.append("")
         
         for tc in tests_with_verification:
@@ -194,72 +199,169 @@ def generate_markdown(data: dict) -> str:
             lines.append("")
             
             post_verifs = tc.get('post_verifications', [])
-            matched_test_ids = set()  # Collect matched test IDs
+            matched_test_ids = set()
             
             if post_verifs:
-                lines.append("| # | Verification Needed | Status | Matched Test | Confidence | Remarks |")
-                lines.append("|---|---------------------|--------|--------------|------------|---------|")
-                
                 for i, pv in enumerate(post_verifs, 1):
-                    ideal = escape_md(truncate(pv.get('ideal', 'N/A'), 50))
+                    ideal = pv.get('ideal', 'N/A')
                     status = pv.get('status', 'unknown')
                     status_icon = '✅' if status == 'found' else ('⚠️' if status == 'partial' else '❌')
                     matched_id = pv.get('matched_test_id', '-')
-                    matched_title = escape_md(truncate(pv.get('matched_test_title', ''), 30))
+                    matched_title = pv.get('matched_test_title', '')
                     confidence = pv.get('confidence', 0)
                     conf_str = f"{confidence:.0%}" if confidence else "-"
+                    strategy = pv.get('execution_strategy', 'after_only')
+                    strategy_label = '🔄 Before/After' if strategy == 'before_after' else '▶️ After Only'
                     
-                    # Track matched test IDs for later
                     if matched_id and matched_id != '-':
                         matched_test_ids.add(matched_id)
                     
-                    # Build remarks
-                    remarks = []
+                    lines.append(f"**{i}. {ideal}**")
+                    lines.append("")
+                    
+                    matched_str = f"{matched_id} ({matched_title})" if matched_id != '-' and matched_title else matched_id
+                    lines.append(f"- **Status:** {status_icon} {status}")
+                    lines.append(f"- **Strategy:** {strategy_label}")
+                    lines.append(f"- **Matched Test:** {matched_str}")
+                    lines.append(f"- **Confidence:** {conf_str}")
+                    
+                    if strategy == 'before_after':
+                        before_action = pv.get('before_action', '')
+                        after_action = pv.get('after_action', '')
+                        if before_action:
+                            lines.append(f"- **Before Action:** {before_action}")
+                        if after_action:
+                            lines.append(f"- **After Action:** {after_action}")
+                    
+                    if pv.get('requires_different_session'):
+                        lines.append(f"- **⚠️ Session Switch Required:** {pv.get('session_note', 'Different user login needed')}")
+                    
                     if pv.get('execution_note'):
-                        remarks.append(escape_md(truncate(pv.get('execution_note'), 50)))
+                        lines.append(f"- **Execution Note:** {pv.get('execution_note')}")
                     if status != 'found' and pv.get('reason'):
-                        remarks.append(escape_md(truncate(pv.get('reason'), 50)))
+                        lines.append(f"- **Reason:** {pv.get('reason')}")
                     if pv.get('suggested_manual_step'):
-                        remarks.append(f"**Manual:** {escape_md(truncate(pv.get('suggested_manual_step'), 40))}")
-                    remarks_str = "<br>".join(remarks) if remarks else "-"
+                        lines.append(f"- **Manual Step:** {pv.get('suggested_manual_step')}")
                     
-                    matched_str = f"{matched_id}<br>({matched_title})" if matched_id != '-' and matched_title else matched_id
-                    
-                    lines.append(f"| {i} | {ideal} | {status_icon} {status} | {matched_str} | {conf_str} | {remarks_str} |")
-                
-                lines.append("")
+                    lines.append("")
             
             # Coverage gaps
             gaps = tc.get('coverage_gaps', [])
             if gaps:
                 lines.append("**⚠️ Coverage Gaps:**")
                 for gap in gaps:
-                    lines.append(f"- {truncate(gap, 100)}")
+                    lines.append(f"- {gap}")
                 lines.append("")
             
-            # Print the matched test cases in detail
-            if matched_test_ids:
-                lines.append("#### 📋 Verification Test Cases to Execute")
-                lines.append("")
-                lines.append("The following test cases should be executed to verify the action:")
-                lines.append("")
-                lines.append("| TC ID | Test Case | Preconditions | Steps | Expected Result | Priority |")
-                lines.append("|-------|-----------|---------------|-------|-----------------|----------|")
+            # Execution Plan (PRE → ACTION → POST sequence)
+            plan = execution_plans.get(tc_id, {})
+            if isinstance(plan, dict):
+                exec_order = plan.get('execution_order', [])
+            elif hasattr(plan, 'execution_order'):
+                exec_order = plan.execution_order
+            else:
+                exec_order = []
+            
+            if exec_order:
+                has_ba = plan.get('has_before_after', False) if isinstance(plan, dict) else getattr(plan, 'has_before_after', False)
                 
-                for matched_id in matched_test_ids:
-                    matched_tc = test_case_lookup.get(matched_id)
-                    if matched_tc:
-                        m_id = matched_tc.get('id', 'N/A')
-                        m_title = escape_md(matched_tc.get('title', 'N/A'))
-                        m_preconditions = escape_md(matched_tc.get('preconditions', 'None'))
-                        m_steps = matched_tc.get('steps', [])
-                        m_steps_str = "<br>".join([f"{i+1}. {escape_md(step)}" for i, step in enumerate(m_steps)])
-                        m_expected = escape_md(matched_tc.get('expected_result', 'N/A'))
-                        m_priority = matched_tc.get('priority', 'Medium')
-                        
-                        lines.append(f"| {m_id} | {m_title} | {m_preconditions} | {m_steps_str} | {m_expected} | {m_priority} |")
-                
+                lines.append("#### 📋 Execution Plan")
                 lines.append("")
+                if has_ba:
+                    lines.append("> **Strategy:** Run verification tests BEFORE and AFTER the action to compare values.")
+                    lines.append("")
+                
+                # Phase icons
+                phase_icons = {
+                    'pre_verify': '📸',
+                    'navigate': '🧭',
+                    'session': '🔑',
+                    'action': '⚡',
+                    'post_verify': '🔍',
+                }
+                phase_labels = {
+                    'pre_verify': 'PRE-VERIFY',
+                    'navigate': 'NAVIGATE',
+                    'session': 'SESSION',
+                    'action': 'ACTION',
+                    'post_verify': 'POST-VERIFY',
+                }
+                
+                for step in exec_order:
+                    step_num = step.get('step', '?')
+                    phase = step.get('phase', '')
+                    action = step.get('action', '')
+                    test_id = step.get('test_id', '')
+                    test_title = step.get('test_title', '')
+                    purpose = step.get('purpose', '')
+                    note = step.get('note', '')
+                    
+                    icon = phase_icons.get(phase, '•')
+                    label = phase_labels.get(phase, phase.upper())
+                    
+                    if test_id:
+                        lines.append(f"**{step_num}. [{label}] {icon} {test_id}** — {test_title}")
+                    else:
+                        lines.append(f"**{step_num}. [{label}] {icon}** {purpose}")
+                    
+                    if note:
+                        lines.append(f"   > {note}")
+                    elif purpose and test_id:
+                        lines.append(f"   > {purpose}")
+                    
+                    limitation = step.get('limitation', '')
+                    if limitation:
+                        lines.append(f"   > ⚠️ Limitation: {limitation}")
+                    
+                    lines.append("")
+                
+                # Plan notes
+                plan_notes = plan.get('notes', '') if isinstance(plan, dict) else getattr(plan, 'notes', '')
+                if plan_notes:
+                    lines.append(f"**Notes:** {plan_notes}")
+                    lines.append("")
+                
+                # Manual steps from the plan
+                plan_manual = plan.get('manual_steps', []) if isinstance(plan, dict) else getattr(plan, 'manual_steps', [])
+                if plan_manual:
+                    lines.append("**⚠️ Manual Verification Required:**")
+                    for ms in plan_manual:
+                        if isinstance(ms, dict):
+                            lines.append(f"- {ms.get('purpose', '')}")
+                            suggested = ms.get('suggested_step', '')
+                            if suggested:
+                                lines.append(f"  - Suggested: {suggested}")
+                        else:
+                            lines.append(f"- {ms}")
+                    lines.append("")
+            
+            else:
+                # Fallback: show matched test cases in detail (no execution plan)
+                if matched_test_ids:
+                    lines.append("#### 📋 Matched Test Cases")
+                    lines.append("")
+                    lines.append("Execute these test cases after the action to verify the result:")
+                    lines.append("")
+                    
+                    for matched_id in matched_test_ids:
+                        matched_tc = test_case_lookup.get(matched_id)
+                        if matched_tc:
+                            m_id = matched_tc.get('id', 'N/A')
+                            m_title = matched_tc.get('title', 'N/A')
+                            m_preconditions = matched_tc.get('preconditions', 'None')
+                            m_steps = matched_tc.get('steps', [])
+                            m_expected = matched_tc.get('expected_result', 'N/A')
+                            m_priority = matched_tc.get('priority', 'Medium')
+                            
+                            lines.append(f"##### {m_id}: {m_title}")
+                            lines.append("")
+                            lines.append(f"- **Priority:** {m_priority}")
+                            lines.append(f"- **Preconditions:** {m_preconditions}")
+                            lines.append(f"- **Steps:**")
+                            for si, step in enumerate(m_steps, 1):
+                                lines.append(f"  {si}. {step}")
+                            lines.append(f"- **Expected Result:** {m_expected}")
+                            lines.append("")
             
             lines.append("---")
             lines.append("")
