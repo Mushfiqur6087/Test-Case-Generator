@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeftRight, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,17 +7,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { MOCK_ACCOUNTS } from "@/lib/mockData";
+import { apiGetAccounts, apiTransfer, getUser } from "@/lib/api";
 
-const transferAccounts = MOCK_ACCOUNTS.filter(account => 
-  account.type === "Checking" || account.type === "Savings"
-).map(account => ({
-  id: account.id,
-  name: `${account.type} Account (${account.accountNumber})`,
-  balance: account.balance
-}));
+interface TransferAccount {
+  id: string;
+  name: string;
+  balance: number;
+}
 
 export default function Transfer() {
+  const [transferAccounts, setTransferAccounts] = useState<TransferAccount[]>([]);
+  const user = getUser();
+
+  useEffect(() => {
+    if (!user) return;
+    apiGetAccounts(user.id).then((accounts) => {
+      setTransferAccounts(
+        accounts
+          .filter((a) => a.type === "Checking" || a.type === "Savings")
+          .map((a) => ({ id: a.id, name: `${a.type} Account (${a.accountNumber})`, balance: a.balance }))
+      );
+    });
+  }, []);
+
   const [formData, setFormData] = useState({
     amount: "",
     fromAccount: "",
@@ -70,24 +82,32 @@ export default function Transfer() {
 
     setIsLoading(true);
 
-    // Simulate transfer
-    setTimeout(() => {
-      const transactionId = Math.random().toString(36).substr(2, 9).toUpperCase();
+    try {
+      const res = await apiTransfer({
+        userId: user!.id,
+        amount: parseFloat(formData.amount),
+        fromAccountId: formData.fromAccount,
+        toAccountId: formData.isExternal ? undefined : formData.toAccount,
+        transferType: formData.isExternal ? "external" : "internal",
+        externalAccountNumber: formData.isExternal ? formData.toAccount : undefined,
+      });
       toast({
         title: "Transfer completed successfully",
-        description: `Transaction ID: ${transactionId}`,
+        description: `Transaction ID: ${res.transactionId}`,
       });
-      
-      // Reset form
-      setFormData({
-        amount: "",
-        fromAccount: "",
-        toAccount: "",
-        toAccountConfirm: "",
-        isExternal: false,
-      });
+      setFormData({ amount: "", fromAccount: "", toAccount: "", toAccountConfirm: "", isExternal: false });
+      // Refresh account balances
+      const accounts = await apiGetAccounts(user!.id);
+      setTransferAccounts(
+        accounts
+          .filter((a) => a.type === "Checking" || a.type === "Savings")
+          .map((a) => ({ id: a.id, name: `${a.type} Account (${a.accountNumber})`, balance: a.balance }))
+      );
+    } catch (err: any) {
+      toast({ title: "Transfer failed", description: err.message, variant: "destructive" });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

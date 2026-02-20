@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { apiRegister } from "@/lib/api";
 
 const states = [
   "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
@@ -99,15 +100,33 @@ export default function Register() {
 
     setIsLoading(true);
 
-    // Simulate registration
-    setTimeout(() => {
+    try {
+      await apiRegister({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        streetAddress: formData.streetAddress,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        phoneNumber: formData.phoneNumber,
+        ssn: formData.ssn,
+        username: formData.username,
+        password: formData.password,
+      });
       toast({
-        title: "Congratulations! You are registered!",
-        description: "Account created successfully. Please sign in with your new credentials.",
+        title: "Account created successfully",
+        description: "Account created successfully — please sign in.",
       });
       navigate("/login");
+    } catch (err: any) {
+      toast({
+        title: "Registration failed",
+        description: err.message || "An error occurred during registration.",
+        variant: "destructive",
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

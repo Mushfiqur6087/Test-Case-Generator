@@ -10,6 +10,12 @@ import Transfer from "./pages/Transfer";
 import OpenAccount from "./pages/OpenAccount";
 import BillPay from "./pages/BillPay";
 import RequestLoan from "./pages/RequestLoan";
+import UpdateContactInfo from "./pages/UpdateContactInfo";
+import ManageCards from "./pages/ManageCards";
+import Investments from "./pages/Investments";
+import AccountStatements from "./pages/AccountStatements";
+import SecuritySettings from "./pages/SecuritySettings";
+import SupportCenter from "./pages/SupportCenter";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
 
@@ -33,12 +39,12 @@ const App = () => (
           <Route path="/open-account" element={<Layout><OpenAccount /></Layout>} />
           <Route path="/bill-pay" element={<Layout><BillPay /></Layout>} />
           <Route path="/loan" element={<Layout><RequestLoan /></Layout>} />
-          <Route path="/profile" element={<Layout><div className="text-center py-8"><h1 className="text-2xl font-bold">Update Contact Info</h1><p className="text-muted-foreground">Coming soon...</p></div></Layout>} />
-          <Route path="/cards" element={<Layout><div className="text-center py-8"><h1 className="text-2xl font-bold">Manage Cards</h1><p className="text-muted-foreground">Coming soon...</p></div></Layout>} />
-          <Route path="/investments" element={<Layout><div className="text-center py-8"><h1 className="text-2xl font-bold">Investments</h1><p className="text-muted-foreground">Coming soon...</p></div></Layout>} />
-          <Route path="/statements" element={<Layout><div className="text-center py-8"><h1 className="text-2xl font-bold">Account Statements</h1><p className="text-muted-foreground">Coming soon...</p></div></Layout>} />
-          <Route path="/security" element={<Layout><div className="text-center py-8"><h1 className="text-2xl font-bold">Security Settings</h1><p className="text-muted-foreground">Coming soon...</p></div></Layout>} />
-          <Route path="/support" element={<Layout><div className="text-center py-8"><h1 className="text-2xl font-bold">Support Center</h1><p className="text-muted-foreground">Coming soon...</p></div></Layout>} />
+          <Route path="/profile" element={<Layout><UpdateContactInfo /></Layout>} />
+          <Route path="/cards" element={<Layout><ManageCards /></Layout>} />
+          <Route path="/investments" element={<Layout><Investments /></Layout>} />
+          <Route path="/statements" element={<Layout><AccountStatements /></Layout>} />
+          <Route path="/security" element={<Layout><SecuritySettings /></Layout>} />
+          <Route path="/support" element={<Layout><SupportCenter /></Layout>} />
           
           {/* Catch-all route */}
           <Route path="*" element={<NotFound />} />

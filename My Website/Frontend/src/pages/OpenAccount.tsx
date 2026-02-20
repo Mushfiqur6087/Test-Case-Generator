@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PlusCircle, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,32 +7,34 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { MOCK_ACCOUNTS } from "@/lib/mockData";
+import { apiGetAccounts, apiOpenAccount, getUser } from "@/lib/api";
 
-const fundingAccounts = MOCK_ACCOUNTS.filter(account => 
-  account.type === "Checking" || account.type === "Savings"
-).map(account => ({
-  id: account.id,
-  name: `${account.type} Account (${account.accountNumber})`,
-  balance: account.balance
-}));
-
-const accountTypes = [
-  {
-    type: "Checking",
-    description: "For everyday transactions and bill payments",
-    minimumDeposit: 25,
-    features: ["No monthly fees", "Unlimited transactions", "Online banking", "Mobile app"],
-  },
-  {
-    type: "Savings",
-    description: "Earn interest on your savings",
-    minimumDeposit: 100,
-    features: ["2.5% APY", "No monthly fees", "Online banking", "Mobile app"],
-  },
-];
+interface FundingAccount {
+  id: string;
+  name: string;
+  balance: number;
+}
 
 export default function OpenAccount() {
+  const [fundingAccounts, setFundingAccounts] = useState<FundingAccount[]>([]);
+  const user = getUser();
+
+  useEffect(() => {
+    if (!user) return;
+    apiGetAccounts(user.id).then((accounts) => {
+      setFundingAccounts(
+        accounts
+          .filter((a) => a.type === "Checking" || a.type === "Savings")
+          .map((a) => ({ id: a.id, name: `${a.type} Account (${a.accountNumber})`, balance: a.balance }))
+      );
+    });
+  }, []);
+
+  const accountTypes = [
+    { type: "Checking", description: "For everyday transactions and bill payments", minimumDeposit: 25, features: ["No monthly fees", "Unlimited transactions", "Online banking", "Mobile app"] },
+    { type: "Savings", description: "Earn interest on your savings", minimumDeposit: 100, features: ["2.5% APY", "No monthly fees", "Online banking", "Mobile app"] },
+  ];
+
   const [formData, setFormData] = useState({
     accountType: "",
     initialDeposit: "",
@@ -79,22 +81,30 @@ export default function OpenAccount() {
 
     setIsLoading(true);
 
-    // Simulate account creation
-    setTimeout(() => {
-      const newAccountNumber = Math.random().toString().substr(2, 9);
+    try {
+      const res = await apiOpenAccount({
+        userId: user!.id,
+        type: formData.accountType,
+        initialDeposit: parseFloat(formData.initialDeposit),
+        fundingAccountId: formData.fundingAccount,
+      });
       toast({
         title: "Account created successfully",
-        description: `Your new ${formData.accountType} account (****${newAccountNumber.slice(-4)}) has been created with a balance of $${formData.initialDeposit}`,
+        description: `Your new ${res.account.type} account (${res.account.accountNumber}) has been created with a balance of $${formData.initialDeposit}`,
       });
-      
-      // Reset form
-      setFormData({
-        accountType: "",
-        initialDeposit: "",
-        fundingAccount: "",
-      });
+      setFormData({ accountType: "", initialDeposit: "", fundingAccount: "" });
+      // Refresh funding accounts
+      const accounts = await apiGetAccounts(user!.id);
+      setFundingAccounts(
+        accounts
+          .filter((a) => a.type === "Checking" || a.type === "Savings")
+          .map((a) => ({ id: a.id, name: `${a.type} Account (${a.accountNumber})`, balance: a.balance }))
+      );
+    } catch (err: any) {
+      toast({ title: "Account creation failed", description: err.message, variant: "destructive" });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

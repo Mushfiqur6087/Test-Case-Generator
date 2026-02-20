@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { authenticateUser, MOCK_CREDENTIALS } from "@/lib/mockData";
+import { apiLogin, saveUser } from "@/lib/api";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -22,24 +22,24 @@ export default function Login() {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate authentication delay
-    setTimeout(() => {
-      if (authenticateUser(formData.username, formData.password)) {
-        toast({
-          title: "Signed in successfully",
-          description: "Welcome back to ParaBank",
-        });
-        navigate("/dashboard");
-      } else {
-        toast({
-          title: "Sign in failed",
-          description: "Incorrect email or password. Please try again.",
-          variant: "destructive",
-        });
-        setFormData({ ...formData, password: "" });
-      }
+    try {
+      const res = await apiLogin(formData.username, formData.password);
+      saveUser(res.user);
+      toast({
+        title: "Signed in successfully",
+        description: "Welcome back to ParaBank",
+      });
+      navigate("/dashboard");
+    } catch (err: any) {
+      toast({
+        title: "Sign in failed",
+        description: err.message || "Incorrect email or password. Please try again.",
+        variant: "destructive",
+      });
+      setFormData({ ...formData, password: "" });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,13 +146,13 @@ export default function Login() {
           <p className="text-sm text-center font-semibold text-primary mb-2">Demo Credentials</p>
           <div className="text-center space-y-1">
             <p className="text-sm font-mono bg-background/80 px-3 py-1 rounded">
-              <span className="text-muted-foreground">Email:</span> <span className="font-semibold">{MOCK_CREDENTIALS.email}</span>
+              <span className="text-muted-foreground">Email:</span> <span className="font-semibold">admin@parabank.com</span>
             </p>
             <p className="text-sm font-mono bg-background/80 px-3 py-1 rounded">
-              <span className="text-muted-foreground">Username:</span> <span className="font-semibold">{MOCK_CREDENTIALS.username}</span>
+              <span className="text-muted-foreground">Username:</span> <span className="font-semibold">admin</span>
             </p>
             <p className="text-sm font-mono bg-background/80 px-3 py-1 rounded">
-              <span className="text-muted-foreground">Password:</span> <span className="font-semibold">{MOCK_CREDENTIALS.password}</span>
+              <span className="text-muted-foreground">Password:</span> <span className="font-semibold">Admin123!@#</span>
             </p>
           </div>
           <p className="text-xs text-center text-muted-foreground mt-2">

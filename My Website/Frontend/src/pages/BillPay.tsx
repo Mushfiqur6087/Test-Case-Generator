@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CreditCard, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,25 +7,39 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { MOCK_ACCOUNTS, MOCK_PAYEES } from "@/lib/mockData";
+import { apiGetAccounts, apiGetPayees, apiPayBill, getUser, type Payee } from "@/lib/api";
 
-const paymentAccounts = MOCK_ACCOUNTS.filter(account => 
-  account.type === "Checking" || account.type === "Savings"
-).map(account => ({
-  id: account.id,
-  name: `${account.type} Account (${account.accountNumber})`,
-  balance: account.balance
-}));
-
-const states = [
-  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
-  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
-];
+interface PaymentAccount {
+  id: string;
+  name: string;
+  balance: number;
+}
 
 export default function BillPay() {
+  const [paymentAccounts, setPaymentAccounts] = useState<PaymentAccount[]>([]);
+  const [payees, setPayees] = useState<Payee[]>([]);
+  const user = getUser();
+
+  useEffect(() => {
+    if (!user) return;
+    Promise.all([apiGetAccounts(user.id), apiGetPayees(user.id)]).then(([accounts, p]) => {
+      setPaymentAccounts(
+        accounts
+          .filter((a) => a.type === "Checking" || a.type === "Savings")
+          .map((a) => ({ id: a.id, name: `${a.type} Account (${a.accountNumber})`, balance: a.balance }))
+      );
+      setPayees(p);
+    });
+  }, []);
+
+  const states = [
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
+    "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+    "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+    "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+    "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+  ];
+
   const [formData, setFormData] = useState({
     payeeName: "",
     streetAddress: "",
@@ -95,29 +109,35 @@ export default function BillPay() {
 
     setIsLoading(true);
 
-    // Simulate payment processing
-    setTimeout(() => {
-      const referenceCode = Math.random().toString(36).substr(2, 9).toUpperCase();
+    try {
+      const res = await apiPayBill({
+        userId: user!.id,
+        payeeName: formData.payeeName,
+        payeeAccount: formData.payeeAccount,
+        amount: parseFloat(formData.paymentAmount),
+        sourceAccountId: formData.sourceAccount,
+      });
       toast({
         title: "Payment submitted successfully",
-        description: `Reference Code: ${referenceCode}`,
+        description: `Reference Code: ${res.referenceCode}`,
       });
-      
-      // Reset form
       setFormData({
-        payeeName: "",
-        streetAddress: "",
-        city: "",
-        state: "",
-        zipCode: "",
-        phoneNumber: "",
-        payeeAccount: "",
-        payeeAccountConfirm: "",
-        paymentAmount: "",
-        sourceAccount: "",
+        payeeName: "", streetAddress: "", city: "", state: "", zipCode: "",
+        phoneNumber: "", payeeAccount: "", payeeAccountConfirm: "",
+        paymentAmount: "", sourceAccount: "",
       });
+      // Refresh account balances
+      const accounts = await apiGetAccounts(user!.id);
+      setPaymentAccounts(
+        accounts
+          .filter((a) => a.type === "Checking" || a.type === "Savings")
+          .map((a) => ({ id: a.id, name: `${a.type} Account (${a.accountNumber})`, balance: a.balance }))
+      );
+    } catch (err: any) {
+      toast({ title: "Payment failed", description: err.message, variant: "destructive" });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -189,7 +209,7 @@ export default function BillPay() {
                 <div className="text-sm">
                   <Label className="text-xs text-muted-foreground">Quick Select:</Label>
                   <div className="flex flex-wrap gap-2 mt-1">
-                    {MOCK_PAYEES.map((payee) => (
+                    {payees.map((payee) => (
                       <Button
                         key={payee.id}
                         type="button"

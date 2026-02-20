@@ -20,6 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+import { clearUser, getUser } from "@/lib/api";
 
 const navigation = [
   { name: "Accounts Overview", href: "/dashboard", icon: Home },
@@ -44,11 +45,10 @@ export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const user = getUser();
 
   const handleLogout = () => {
-    // Clear any stored session data (if you have any in localStorage/sessionStorage)
-    localStorage.removeItem('authToken');
-    sessionStorage.removeItem('userSession');
+    clearUser();
     
     // Show logout confirmation
     toast({
@@ -148,7 +148,7 @@ export default function Layout({ children }: LayoutProps) {
           </Button>
           
           <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground">Welcome back, John Doe</span>
+            <span className="text-sm text-muted-foreground">Welcome back, {user ? `${user.firstName} ${user.lastName}` : "Guest"}</span>
           </div>
         </header>
 

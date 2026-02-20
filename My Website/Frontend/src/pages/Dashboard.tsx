@@ -1,20 +1,40 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Eye, EyeOff, PlusCircle, ArrowLeftRight, CreditCard, TrendingUp, TrendingDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MOCK_ACCOUNTS, getRecentTransactions, getTotalBalance, getTotalAssets, getTotalLiabilities } from "@/lib/mockData";
+import { apiGetAccounts, apiGetTotals, apiGetRecentTransactions, getUser, type Account, type Transaction, type Totals } from "@/lib/api";
 
 export default function Dashboard() {
   const [showBalance, setShowBalance] = useState(true);
+  const [accounts, setAccounts] = useState<Account[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [totals, setTotals] = useState<Totals>({ totalBalance: 0, totalAssets: 0, totalLiabilities: 0 });
+  const [loading, setLoading] = useState(true);
 
-  // Use mock data
-  const mockAccounts = MOCK_ACCOUNTS;
-  const mockTransactions = getRecentTransactions(4);
-  const totalBalance = getTotalBalance();
-  const totalAssets = getTotalAssets();
-  const totalLiabilities = getTotalLiabilities();
+  const user = getUser();
+
+  useEffect(() => {
+    if (!user) return;
+    const load = async () => {
+      try {
+        const [accts, tots, txns] = await Promise.all([
+          apiGetAccounts(user.id),
+          apiGetTotals(user.id),
+          apiGetRecentTransactions(user.id, 4),
+        ]);
+        setAccounts(accts);
+        setTotals(tots);
+        setTransactions(txns);
+      } catch (err) {
+        console.error("Failed to load dashboard data:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, []);
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -30,6 +50,10 @@ export default function Dashboard() {
       year: 'numeric',
     });
   };
+
+  if (loading) {
+    return <div className="text-center py-12"><p className="text-muted-foreground">Loading dashboard...</p></div>;
+  }
 
   return (
     <div className="space-y-6">
@@ -67,7 +91,7 @@ export default function Dashboard() {
             <div>
               <p className="text-primary-foreground/80 text-sm">Total Balance</p>
               <p className="text-3xl font-bold">
-                {showBalance ? formatCurrency(totalBalance) : "••••••"}
+                {showBalance ? formatCurrency(totals.totalBalance) : "••••••"}
               </p>
             </div>
             <div className="text-right">
@@ -125,10 +149,11 @@ export default function Dashboard() {
                   <th className="text-left py-3 px-4 font-semibold">Account Type</th>
                   <th className="text-right py-3 px-4 font-semibold">Current Balance</th>
                   <th className="text-center py-3 px-4 font-semibold">Status</th>
+                  <th className="text-left py-3 px-4 font-semibold">Open Date</th>
                 </tr>
               </thead>
               <tbody>
-                {mockAccounts.map((account) => (
+                {accounts.map((account) => (
                   <tr key={account.id} className="border-b hover:bg-muted/50 transition-colors">
                     <td className="py-3 px-4">
                       <Link
@@ -156,6 +181,9 @@ export default function Dashboard() {
                         {account.status}
                       </Badge>
                     </td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {account.openDate ? formatDate(account.openDate) : "—"}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -167,23 +195,23 @@ export default function Dashboard() {
             <div className="flex justify-between items-center py-2 px-4">
               <span className="text-sm text-muted-foreground">Total Assets:</span>
               <span className="text-sm font-mono text-green-600">
-                {showBalance ? `+${formatCurrency(totalAssets)}` : "••••••"}
+                {showBalance ? `+${formatCurrency(totals.totalAssets)}` : "••••••"}
               </span>
             </div>
             <div className="flex justify-between items-center py-2 px-4">
               <span className="text-sm text-muted-foreground">Total Liabilities:</span>
               <span className="text-sm font-mono text-red-600">
-                {showBalance ? `-${formatCurrency(totalLiabilities)}` : "••••••"}
+                {showBalance ? `-${formatCurrency(totals.totalLiabilities)}` : "••••••"}
               </span>
             </div>
             <div className="border-t pt-2">
               <div className="flex justify-between items-center py-2 px-4">
                 <span className="font-semibold">Net Worth:</span>
-                <span className={`font-semibold font-mono ${totalBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                <span className={`font-semibold font-mono ${totals.totalBalance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                   {showBalance ? (
-                    totalBalance >= 0 
-                      ? `+${formatCurrency(totalBalance)}` 
-                      : `-${formatCurrency(Math.abs(totalBalance))}`
+                    totals.totalBalance >= 0 
+                      ? `+${formatCurrency(totals.totalBalance)}` 
+                      : `-${formatCurrency(Math.abs(totals.totalBalance))}`
                   ) : "••••••"}
                 </span>
               </div>
@@ -199,7 +227,7 @@ export default function Dashboard() {
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {mockTransactions.map((transaction) => (
+            {transactions.map((transaction) => (
               <div key={transaction.id} className="flex items-center justify-between py-2 border-b last:border-b-0">
                 <div className="flex items-center gap-3">
                   {transaction.type === "credit" ? (

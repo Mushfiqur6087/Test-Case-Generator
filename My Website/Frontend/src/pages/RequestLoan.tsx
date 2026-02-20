@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FileText, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -7,41 +7,35 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import { MOCK_ACCOUNTS } from "@/lib/mockData";
+import { apiGetAccounts, apiRequestLoan, getUser } from "@/lib/api";
 
-const collateralAccounts = MOCK_ACCOUNTS.filter(account => 
-  account.type === "Checking" || account.type === "Savings"
-).map(account => ({
-  id: account.id,
-  name: `${account.type} Account (${account.accountNumber})`,
-  balance: account.balance
-}));
-
-const loanTypes = [
-  {
-    type: "Personal Loan",
-    minAmount: 1000,
-    maxAmount: 50000,
-    interestRate: 7.5,
-    term: "12-60 months"
-  },
-  {
-    type: "Auto Loan",
-    minAmount: 5000,
-    maxAmount: 100000,
-    interestRate: 4.5,
-    term: "24-84 months"
-  },
-  {
-    type: "Home Loan",
-    minAmount: 50000,
-    maxAmount: 500000,
-    interestRate: 3.5,
-    term: "15-30 years"
-  }
-];
+interface CollateralAccount {
+  id: string;
+  name: string;
+  balance: number;
+}
 
 export default function RequestLoan() {
+  const [collateralAccounts, setCollateralAccounts] = useState<CollateralAccount[]>([]);
+  const user = getUser();
+
+  useEffect(() => {
+    if (!user) return;
+    apiGetAccounts(user.id).then((accounts) => {
+      setCollateralAccounts(
+        accounts
+          .filter((a) => a.type === "Checking" || a.type === "Savings")
+          .map((a) => ({ id: a.id, name: `${a.type} Account (${a.accountNumber})`, balance: a.balance }))
+      );
+    });
+  }, []);
+
+  const loanTypes = [
+    { type: "Personal Loan", minAmount: 1000, maxAmount: 50000, interestRate: 7.5, term: "12-60 months" },
+    { type: "Auto Loan", minAmount: 5000, maxAmount: 75000, interestRate: 4.5, term: "24-84 months" },
+    { type: "Home Loan", minAmount: 50000, maxAmount: 500000, interestRate: 3.5, term: "15-30 years" },
+  ];
+
   const [formData, setFormData] = useState({
     loanType: "",
     loanAmount: "",
@@ -103,20 +97,6 @@ export default function RequestLoan() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const simulateCreditUnderwriting = () => {
-    // Simplified credit underwriting simulation
-    const loanAmount = parseFloat(formData.loanAmount);
-    const downPayment = parseFloat(formData.downPayment);
-    const downPaymentRatio = downPayment / loanAmount;
-    
-    // Approval criteria (simplified)
-    const hasGoodDownPayment = downPaymentRatio >= 0.1; // At least 10% down
-    const reasonableLoanAmount = loanAmount <= 75000; // Reasonable amount
-    const randomApproval = Math.random() > 0.2; // 80% approval rate
-    
-    return hasGoodDownPayment && reasonableLoanAmount && randomApproval;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -126,49 +106,31 @@ export default function RequestLoan() {
 
     setIsLoading(true);
 
-    // Simulate loan processing and credit underwriting
-    setTimeout(() => {
-      const isApproved = simulateCreditUnderwriting();
-      
-      if (isApproved) {
-        const accountNumber = Math.random().toString().substr(2, 9);
-        const interestRate = selectedLoanType?.interestRate || 7.5;
-        const monthlyPayment = calculateMonthlyPayment(
-          parseFloat(formData.loanAmount) - parseFloat(formData.downPayment),
-          interestRate,
-          60 // 5 years default
-        );
+    try {
+      const res = await apiRequestLoan({
+        userId: user!.id,
+        loanType: formData.loanType,
+        loanAmount: parseFloat(formData.loanAmount),
+        downPayment: parseFloat(formData.downPayment),
+        collateralAccountId: formData.collateralAccount,
+      });
 
+      if (res.loan) {
         toast({
           title: "Loan approved and created successfully!",
-          description: `Account: ****${accountNumber.slice(-4)} | Monthly Payment: $${monthlyPayment.toFixed(2)} | Rate: ${interestRate}%`,
+          description: `Account: ${res.loan.accountNumber} | Monthly Payment: $${res.loan.monthlyPayment} | Rate: ${res.loan.rate}%`,
         });
-
-        // Reset form
-        setFormData({
-          loanType: "",
-          loanAmount: "",
-          downPayment: "",
-          collateralAccount: "",
-        });
-      } else {
-        const denialReasons = [
-          "Insufficient credit history",
-          "Debt-to-income ratio too high",
-          "Inadequate collateral value",
-          "Income verification required"
-        ];
-        const randomReason = denialReasons[Math.floor(Math.random() * denialReasons.length)];
-        
-        toast({
-          title: "Loan application denied",
-          description: `Reason: ${randomReason}. Please contact our loan officer for assistance.`,
-          variant: "destructive",
-        });
+        setFormData({ loanType: "", loanAmount: "", downPayment: "", collateralAccount: "" });
       }
-      
+    } catch (err: any) {
+      toast({
+        title: "Loan application denied",
+        description: err.message,
+        variant: "destructive",
+      });
+    } finally {
       setIsLoading(false);
-    }, 2000);
+    }
   };
 
   const calculateMonthlyPayment = (principal: number, annualRate: number, months: number) => {
