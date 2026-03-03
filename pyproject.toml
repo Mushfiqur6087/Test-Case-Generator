@@ -1,0 +1,63 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "testwright"
+version = "2.0.0"
+description = "AI-powered test case generation from functional specifications"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["testing", "test-generation", "qa", "langgraph", "llm", "ai-agents"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+dependencies = [
+    "httpx>=0.25.0",
+    "networkx>=3.0",
+    "matplotlib>=3.7.0",
+    "sentence-transformers>=2.2.0",
+    "numpy>=1.24.0",
+    "langgraph>=0.2.0",
+    "langchain-core>=0.3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "mypy>=1.0",
+    "ruff>=0.1.0",
+]
+faiss = [
+    "faiss-cpu>=1.7.4",
+]
+
+[project.scripts]
+testwright = "testwright.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/testwright"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

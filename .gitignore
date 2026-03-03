@@ -42,8 +42,7 @@ venv.bak/
 debug_log.txt
 *.log
 
-# Keep output files in git for demo purposes
-# output/ files are included
+
 
 # Environment variables
 .env
@@ -68,3 +67,6 @@ dmypy.json
 *.tmp
 *.temp
 .cache/
+
+# Legacy package directory (migrated to src/testwright/)
+test_case_generator/
