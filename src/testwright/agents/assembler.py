@@ -97,28 +97,51 @@ Your task is to:
         )
 
     def _assign_ids(self, test_cases: List[TestCase]) -> List[TestCase]:
-        """Assign proper IDs in MODULE-XXX format"""
+        """Assign proper IDs in MODULE_ID.PREFIX-XXX format.
+
+        Prepends the numeric module_id to guarantee uniqueness even when
+        two modules produce the same text prefix.
+
+        Example outputs:
+            Module 10 "Assignment (Student View)"  → 10.ASV-001, 10.ASV-002
+            Module 14 "Activities (Student View)"  → 14.ASV-001, 14.ASV-002
+        """
 
         module_counters: Dict[int, int] = {}
         module_prefixes: Dict[int, str] = {}
 
+        # --- Phase 1: generate raw prefixes for every module ----------------
         for tc in test_cases:
-            # Generate prefix from module title
             if tc.module_id not in module_prefixes:
-                prefix = self._generate_prefix(tc.module_title)
-                module_prefixes[tc.module_id] = prefix
+                module_prefixes[tc.module_id] = self._generate_prefix(tc.module_title)
                 module_counters[tc.module_id] = 1
 
-            prefix = module_prefixes[tc.module_id]
-            counter = module_counters[tc.module_id]
+        # --- Phase 2: detect collisions and prepend module_id ---------------
+        # Always prepend module_id so IDs are deterministic and collision-free.
+        # Format: "{module_id}.{PREFIX}"  e.g. "10.ASV", "14.ASV"
+        resolved_prefixes: Dict[int, str] = {}
+        for mid, prefix in module_prefixes.items():
+            resolved_prefixes[mid] = f"{mid}.{prefix}"
 
+        # --- Phase 3: assign final IDs -------------------------------------
+        for tc in test_cases:
+            prefix = resolved_prefixes[tc.module_id]
+            counter = module_counters[tc.module_id]
             tc.id = f"{prefix}-{counter:03d}"
             module_counters[tc.module_id] += 1
 
         return test_cases
 
     def _generate_prefix(self, module_title: str) -> str:
-        """Generate a short prefix from module title dynamically"""
+        """Generate a short prefix from module title dynamically.
+
+        Examples:
+            "Login"                             → "LOGIN"
+            "My Courses"                        → "MYCOUR"
+            "Assignment (Student View)"          → "ASV"
+            "Activities (Student View)"          → "ASV"
+            "Adding Activities (Teacher Only)"   → "AATO"
+        """
         # Clean the title
         title = module_title.strip()
         if not title:

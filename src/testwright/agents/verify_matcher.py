@@ -81,10 +81,19 @@ Consider:
                 tc.coverage_gaps = ["No verification scenarios identified"]
                 continue
 
+            # Build set of modules whose can_verify_states overlap with this
+            # test's modifies_state — used for cross-module RAG boosting.
+            verifier_module_names = set()
+            for ms in module_summaries.values():
+                if any(s in ms.can_verify_states for s in tc.modifies_state):
+                    verifier_module_names.add(ms.module_title)
+
             # Match each ideal verification
             matches = []
             for ideal in ideals:
-                match = self._match_verification(ideal, rag, all_test_cases, tc.id)
+                match = self._match_verification(
+                    ideal, rag, all_test_cases, tc.id, verifier_module_names,
+                )
                 matches.append(match.to_dict())
 
             # Store matches in test case
@@ -116,19 +125,59 @@ Consider:
         ideal: IdealVerification,
         rag: RAGIndexer,
         all_tests: List[TestCase],
-        source_test_id: str
+        source_test_id: str,
+        verifier_module_names: set = None,
     ) -> VerificationMatch:
-        """Match a single ideal verification to test cases"""
+        """Match a single ideal verification to test cases.
+
+        Uses a TWO-PASS search strategy:
+          Pass 1 — Module-filtered search (preferred, same-module matches).
+          Pass 2 — Unfiltered search across ALL modules to catch cross-module
+                   verifiers (e.g., grading in Submissions verified by Student
+                   Grades view). Results from pass 2 are de-duped against pass 1.
+
+        Additionally, if ``verifier_module_names`` is provided (modules whose
+        ``can_verify_states`` overlap with the source test's ``modifies_state``),
+        a targeted third pass searches those modules specifically.
+
+        Example: Grading a submission (module "Assignment Submissions") can be
+        verified by "Assignment (Student View)" which can_verify grade_display.
+        Pass 1 finds only Submissions tests; Pass 2 / Pass 3 finds the Student
+        View test that actually displays the grade.
+        """
 
         # Build search query from ideal verification
         query = f"{ideal.description} {ideal.verification_action} {ideal.target_module} {ideal.expected_change}"
 
-        # Search RAG
+        # --- Pass 1: Module-filtered search (preferred) ---------------------
         candidates = rag.search(
             query=query,
             top_k=5,
             module_filter=ideal.target_module if ideal.target_module else None
         )
+
+        # --- Pass 2: Unfiltered cross-module search -------------------------
+        # Only triggered when pass 1 didn't find enough candidates.
+        seen_ids = {tc.id for tc, _ in candidates}
+        if len(candidates) < 3:
+            all_candidates = rag.search(query=query, top_k=5, module_filter=None)
+            for tc, score in all_candidates:
+                if tc.id not in seen_ids:
+                    candidates.append((tc, score))
+                    seen_ids.add(tc.id)
+
+        # --- Pass 3: Targeted search in verifier modules --------------------
+        # If module_summaries told us specific modules can verify the relevant
+        # state, search those modules explicitly so we don't miss them.
+        if verifier_module_names:
+            for vmod in verifier_module_names:
+                if ideal.target_module and vmod.lower() == ideal.target_module.lower():
+                    continue  # Already covered by pass 1
+                vmod_candidates = rag.search(query=query, top_k=3, module_filter=vmod)
+                for tc, score in vmod_candidates:
+                    if tc.id not in seen_ids:
+                        candidates.append((tc, score))
+                        seen_ids.add(tc.id)
 
         # Filter out the source test case itself
         candidates = [(tc, score) for tc, score in candidates if tc.id != source_test_id]

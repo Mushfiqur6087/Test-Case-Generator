@@ -35,6 +35,42 @@ DOES NOT NEED POST-VERIFICATION (needs_post_verification = false):
 - Password reset requests: External verification (email), out of scope
 - Search/Filter: Just filtering displayed data, no state change"""
 
+    # ---- Heuristic pre-filter for read-only tests -------------------------
+    # Steps/results containing ONLY these words are almost certainly read-only
+    # and should never be flagged as state-changing.
+    _READ_ONLY_STEP_INDICATORS = {
+        "check", "verify", "observe", "confirm", "locate", "ensure",
+        "view", "scroll", "look", "inspect", "see",
+    }
+    _READ_ONLY_RESULT_INDICATORS = {
+        "displayed", "visible", "present", "shown", "appears",
+        "is displayed", "is visible", "is present",
+    }
+
+    def _is_likely_read_only(self, tc: TestCase) -> bool:
+        """Return True if every step is observational and the result is purely display.
+
+        Examples that ARE read-only:
+            Steps:    ["Check if the heading is visible", "Verify the table is displayed"]
+            Expected: "Heading is displayed correctly"
+
+        Examples that are NOT read-only:
+            Steps:    ["Enter a valid name", "Click Save"]
+            Expected: "Record is saved successfully"
+        """
+        # Check steps — every step must start with a read-only verb
+        for step in tc.steps:
+            first_word = step.strip().split()[0].lower().rstrip(".,:") if step.strip() else ""
+            if first_word not in self._READ_ONLY_STEP_INDICATORS:
+                return False
+
+        # Check expected result — must contain a display-related phrase
+        expected_lower = tc.expected_result.lower()
+        if not any(ind in expected_lower for ind in self._READ_ONLY_RESULT_INDICATORS):
+            return False
+
+        return True
+
     def run(
         self,
         test_cases: List[TestCase],
@@ -49,12 +85,31 @@ DOES NOT NEED POST-VERIFICATION (needs_post_verification = false):
         if not positive_tests:
             return test_cases
 
+        # --- Pre-filter: skip obviously read-only tests before LLM call ------
+        # This prevents the LLM from accidentally flagging "Verify X is displayed"
+        # tests as state-changing, which was a source of false-positive flags.
+        actionable_tests = []
+        read_only_tests = []
+        for tc in positive_tests:
+            if self._is_likely_read_only(tc):
+                tc.needs_post_verification = False
+                tc.modifies_state = []
+                read_only_tests.append(tc)
+            else:
+                actionable_tests.append(tc)
+
+        if read_only_tests:
+            print(f"  - Pre-filter skipped {len(read_only_tests)} read-only tests")
+
+        if not actionable_tests:
+            return positive_tests + other_tests
+
         # Build context about modules for the LLM
         modules_context = self._build_modules_context(module_summaries)
 
-        # Build test cases for analysis
+        # Build test cases for analysis (only actionable ones)
         tests_for_analysis = []
-        for tc in positive_tests:
+        for tc in actionable_tests:
             tests_for_analysis.append({
                 "id": tc.id,
                 "title": tc.title,
@@ -108,15 +163,15 @@ RULES:
             # Create lookup for flagged tests
             flags = {item["test_id"]: item for item in result.get("flagged_tests", [])}
 
-            # Update test cases with flags
-            for tc in positive_tests:
+            # Update test cases with flags (only actionable tests were sent to LLM)
+            for tc in actionable_tests:
                 if tc.id in flags:
                     flag_data = flags[tc.id]
                     tc.needs_post_verification = flag_data.get("needs_post_verification", False)
                     tc.modifies_state = flag_data.get("modifies_state", [])
 
-            # Combine back with other tests
-            return positive_tests + other_tests
+            # Combine back: actionable (LLM-flagged) + read-only (pre-filtered) + other types
+            return actionable_tests + read_only_tests + other_tests
 
         except Exception as e:
             print(f"Warning: Verification flagging failed: {e}")

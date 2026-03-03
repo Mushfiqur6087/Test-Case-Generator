@@ -71,13 +71,30 @@ These are IDEAL verifications — we'll later match them to actual test cases th
         return all_verifications
 
     def _build_verification_context(self, module_summaries: Dict[int, ModuleSummary]) -> str:
-        """Build context about what each module can verify"""
-        lines = ["MODULES THAT CAN VERIFY DATA:"]
+        """Build context about what each module can verify.
+
+        Lists ALL modules (not just those with can_verify_states) so the LLM
+        can discover cross-module verification opportunities.  Modules that
+        CAN verify states are highlighted.
+
+        Example output:
+            MODULES (can_verify_states highlighted):
+            - Dashboard:
+                Summary: ...
+                Can verify: activity_schedule, user_dashboard   <-- highlighted
+            - Course Page:
+                Summary: ...
+                (no verifiable states)
+        """
+        lines = ["ALL MODULES (modules that can verify states are marked with \u2713):"]
         for summary in module_summaries.values():
+            marker = "\u2713" if summary.can_verify_states else " "
+            lines.append(f"- [{marker}] {summary.module_title} (module_id={summary.module_id}):")
+            lines.append(f"    Summary: {summary.summary}")
             if summary.can_verify_states:
-                lines.append(f"- {summary.module_title}:")
-                lines.append(f"    Summary: {summary.summary}")
                 lines.append(f"    Can verify: {', '.join(summary.can_verify_states)}")
+            if summary.action_states:
+                lines.append(f"    Modifies: {', '.join(summary.action_states)}")
         return "\n".join(lines)
 
     def _generate_verifications_for_batch(
@@ -109,6 +126,23 @@ TEST CASES NEEDING VERIFICATION:
 {tests_text}
 
 For each test case, generate 1-3 ideal verifications that would confirm the test truly succeeded.
+
+CRITICAL — CROSS-MODULE VERIFICATION RULE:
+When choosing target_module, consider ALL modules in the list above — not just the module
+where the action takes place. Many actions are best verified from a DIFFERENT module.
+
+Examples of cross-module verification:
+  - Teacher grades a submission (module: "Assignment Submissions") → verified in
+    "Assignment (Student View)" where the student sees their grade, AND in
+    "Gradebook / Grader Report" where the grade appears in the report.
+  - Teacher creates an assignment (module: "Adding Activities") → verified in
+    "Course Page" where the activity appears in sections, AND in
+    "Activities (Student View)" where students see it listed.
+  - User enrolls a participant (module: "Participants") → verified in
+    "Participants" list where the new user appears (same module is OK too).
+
+If MULTIPLE modules can verify the same state, generate SEPARATE ideal verifications
+for each target module. This maximises the chance of finding a matching test case later.
 
 For EACH verification, you MUST choose an execution_strategy:
 - "before_after": When the action MODIFIES existing data. The same verification test runs

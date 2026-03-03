@@ -80,7 +80,31 @@ NAMING CONVENTION FOR STATES:
 - Use snake_case descriptive names based on what the module actually does
 - Examples: user_profile, item_list, order_history, submission_status, record_data, settings_config
 - Be specific to the application domain from the functional description
-- Do NOT use generic placeholder names - derive them from the actual module functionality"""
+- Do NOT use generic placeholder names - derive them from the actual module functionality
+
+UI STATE CHANGES — COVER THESE TOO:
+Many modules allow users to change the UI layout or preferences. These ARE modifiable
+states and must be listed in action_states. Examples:
+  - Reordering items (e.g., moving a block, re-arranging sections) → action_state: "layout_order"
+  - Starring/favoriting (e.g., marking a course as favourite) → action_state: "favorite_status"
+  - Hiding/removing from view (e.g., "Remove from view" option) → action_state: "visibility_status"
+  - Toggling modes (e.g., Edit mode on/off) → action_state: "edit_mode_status"
+  - Collapsing/expanding sections → usually transient, skip unless persisted
+
+If the same module DISPLAYS the result of these actions (e.g., the Dashboard shows
+blocks in their current positions), also add the state to can_verify_states.
+
+CROSS-MODULE VERIFICATION — BE THOROUGH:
+A module may be able to verify states that are MODIFIED by a different module. Think
+about every piece of data this module displays and where that data could come from.
+
+Examples:
+  - A "Grades / User Report" module displays grades → can_verify: "grade_display"
+    even though grades are entered in "Assignment Submissions".
+  - A "Course Page" displays activities → can_verify: "course_content_display"
+    even though activities are added in "Adding Activities".
+  - A "Participants" list displays enrolled users → can_verify: "enrollment_list"
+    even though enrollment happens in an enrolment dialog."""
 
         try:
             result = self.call_llm_json(prompt, max_tokens=4000)
