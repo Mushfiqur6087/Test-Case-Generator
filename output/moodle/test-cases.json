@@ -1,0 +1,4243 @@
+{
+  "project_name": "Moodle",
+  "base_url": "",
+  "generated_at": "2026-03-04T04:16:51.604224",
+  "navigation_graph": {
+    "login_module_id": 1,
+    "graph_image_path": "output/moodle/navigation_graph.png",
+    "nodes": [
+      {
+        "module_id": 1,
+        "title": "1. Login",
+        "requires_auth": false,
+        "url_path": "/login",
+        "connected_to": [
+          2,
+          3,
+          4
+        ],
+        "test_case_ids": [
+          "1.LOG-001",
+          "1.LOG-002",
+          "1.LOG-003",
+          "1.LOG-004",
+          "1.LOG-005",
+          "1.LOG-006",
+          "1.LOG-007",
+          "1.LOG-008"
+        ]
+      },
+      {
+        "module_id": 2,
+        "title": "2. Dashboard",
+        "requires_auth": true,
+        "url_path": "/dashboard",
+        "connected_to": [
+          3,
+          4,
+          15
+        ],
+        "test_case_ids": [
+          "2.DAS-001",
+          "2.DAS-002",
+          "2.DAS-003",
+          "2.DAS-004",
+          "2.DAS-005",
+          "2.DAS-006",
+          "2.DAS-007",
+          "2.DAS-008",
+          "2.DAS-009",
+          "2.DAS-010",
+          "2.DAS-011",
+          "2.DAS-012",
+          "2.DAS-013",
+          "2.DAS-014",
+          "2.DAS-015"
+        ]
+      },
+      {
+        "module_id": 3,
+        "title": "3. My Courses",
+        "requires_auth": true,
+        "url_path": "/my-courses",
+        "connected_to": [
+          4,
+          15
+        ],
+        "test_case_ids": [
+          "3MC-001",
+          "3MC-002",
+          "3MC-003",
+          "3MC-004",
+          "3MC-005",
+          "3MC-006",
+          "3MC-007",
+          "3MC-008",
+          "3MC-009",
+          "3MC-010",
+          "3MC-011",
+          "3MC-012"
+        ]
+      },
+      {
+        "module_id": 4,
+        "title": "4. Course Page",
+        "requires_auth": true,
+        "url_path": "/course",
+        "connected_to": [
+          5,
+          6,
+          7,
+          8,
+          10,
+          14
+        ],
+        "test_case_ids": [
+          "4CP-001",
+          "4CP-002",
+          "4CP-003",
+          "4CP-004",
+          "4CP-005",
+          "4CP-006",
+          "4CP-007",
+          "4CP-008",
+          "4CP-009",
+          "4CP-010",
+          "4CP-011",
+          "4CP-012",
+          "4CP-013",
+          "4CP-014",
+          "4CP-015",
+          "4CP-016",
+          "4CP-017",
+          "4CP-018",
+          "4CP-019",
+          "4CP-020",
+          "4CP-021"
+        ]
+      },
+      {
+        "module_id": 5,
+        "title": "5. Adding Activities (Teacher Only)",
+        "requires_auth": true,
+        "url_path": "/course/activities",
+        "connected_to": [
+          4
+        ],
+        "test_case_ids": [
+          "5AA(O-001",
+          "5AA(O-002",
+          "5AA(O-003",
+          "5AA(O-004",
+          "5AA(O-005",
+          "5AA(O-006",
+          "5AA(O-007",
+          "5AA(O-008",
+          "5AA(O-009",
+          "5AA(O-010",
+          "5AA(O-011",
+          "5AA(O-012",
+          "5AA(O-013",
+          "5AA(O-014",
+          "5AA(O-015",
+          "5AA(O-016",
+          "5AA(O-017",
+          "5AA(O-018",
+          "5AA(O-019"
+        ]
+      },
+      {
+        "module_id": 6,
+        "title": "6. Course Settings (Teacher Only)",
+        "requires_auth": true,
+        "url_path": "/course/settings",
+        "connected_to": [
+          4
+        ],
+        "test_case_ids": [
+          "6CS(O-001",
+          "6CS(O-002",
+          "6CS(O-003",
+          "6CS(O-004",
+          "6CS(O-005",
+          "6CS(O-006"
+        ]
+      },
+      {
+        "module_id": 7,
+        "title": "7. Participants",
+        "requires_auth": true,
+        "url_path": "/course/participants",
+        "connected_to": [
+          4
+        ],
+        "test_case_ids": [
+          "7.PAR-001",
+          "7.PAR-002",
+          "7.PAR-003",
+          "7.PAR-004",
+          "7.PAR-005",
+          "7.PAR-006",
+          "7.PAR-007",
+          "7.PAR-008",
+          "7.PAR-009",
+          "7.PAR-010",
+          "7.PAR-011",
+          "7.PAR-012",
+          "7.PAR-013",
+          "7.PAR-014",
+          "7.PAR-015",
+          "7.PAR-016",
+          "7.PAR-017"
+        ]
+      },
+      {
+        "module_id": 8,
+        "title": "8. Assignment (Teacher View)",
+        "requires_auth": true,
+        "url_path": "/course/assignment",
+        "connected_to": [
+          9,
+          11
+        ],
+        "test_case_ids": [
+          "8A(V-001",
+          "8A(V-002",
+          "8A(V-003",
+          "8A(V-004",
+          "8A(V-005",
+          "8A(V-006",
+          "8A(V-007",
+          "8A(V-008",
+          "8A(V-009",
+          "8A(V-010",
+          "8A(V-011",
+          "8A(V-012",
+          "8A(V-013",
+          "8A(V-014",
+          "8A(V-015",
+          "8A(V-016",
+          "8A(V-017",
+          "8A(V-018"
+        ]
+      },
+      {
+        "module_id": 9,
+        "title": "9. Assignment Submissions (Teacher Only)",
+        "requires_auth": true,
+        "url_path": "/course/assignment/submissions",
+        "connected_to": [
+          8
+        ],
+        "test_case_ids": [
+          "9AS(O-001",
+          "9AS(O-002",
+          "9AS(O-003",
+          "9AS(O-004",
+          "9AS(O-005",
+          "9AS(O-006",
+          "9AS(O-007",
+          "9AS(O-008",
+          "9AS(O-009",
+          "9AS(O-010",
+          "9AS(O-011"
+        ]
+      },
+      {
+        "module_id": 10,
+        "title": "10. Assignment (Student View)",
+        "requires_auth": true,
+        "url_path": "/course/assignment",
+        "connected_to": [
+          4
+        ],
+        "test_case_ids": [
+          "1A(V-001",
+          "1A(V-002",
+          "1A(V-003",
+          "1A(V-004",
+          "1A(V-005",
+          "1A(V-006",
+          "1A(V-007",
+          "1A(V-008",
+          "1A(V-009"
+        ]
+      },
+      {
+        "module_id": 11,
+        "title": "11. Advanced Grading (Teacher Only)",
+        "requires_auth": true,
+        "url_path": "/course/assignment/advanced-grading",
+        "connected_to": [
+          8
+        ],
+        "test_case_ids": [
+          "1AG(O-001",
+          "1AG(O-002",
+          "1AG(O-003",
+          "1AG(O-004"
+        ]
+      },
+      {
+        "module_id": 12,
+        "title": "12. Gradebook / Grader Report (Teacher Only)",
+        "requires_auth": true,
+        "url_path": "/course/gradebook",
+        "connected_to": [
+          4
+        ],
+        "test_case_ids": [
+          "1G/GR(-001",
+          "1G/GR(-002",
+          "1G/GR(-003",
+          "1G/GR(-004",
+          "1G/GR(-005",
+          "1G/GR(-006",
+          "1G/GR(-007",
+          "1G/GR(-008",
+          "1G/GR(-009",
+          "1G/GR(-010",
+          "1G/GR(-011",
+          "1G/GR(-012",
+          "1G/GR(-013",
+          "1G/GR(-014",
+          "1G/GR(-015",
+          "1G/GR(-016",
+          "1G/GR(-017"
+        ]
+      },
+      {
+        "module_id": 13,
+        "title": "13. Grades / User Report (Student View)",
+        "requires_auth": true,
+        "url_path": "/grades",
+        "connected_to": [
+          15
+        ],
+        "test_case_ids": [
+          "1G/UR(-001",
+          "1G/UR(-002",
+          "1G/UR(-003",
+          "1G/UR(-004",
+          "1G/UR(-005"
+        ]
+      },
+      {
+        "module_id": 14,
+        "title": "14. Activities (Student View)",
+        "requires_auth": true,
+        "url_path": "/course/activities",
+        "connected_to": [
+          4
+        ],
+        "test_case_ids": [
+          "1A(V-001",
+          "1A(V-002",
+          "1A(V-003",
+          "1A(V-004",
+          "1A(V-005",
+          "1A(V-006",
+          "1A(V-007",
+          "1A(V-008"
+        ]
+      },
+      {
+        "module_id": 15,
+        "title": "15. Profile",
+        "requires_auth": true,
+        "url_path": "/profile",
+        "connected_to": [
+          2,
+          3,
+          13
+        ],
+        "test_case_ids": [
+          "15.PRO-001",
+          "15.PRO-002",
+          "15.PRO-003",
+          "15.PRO-004",
+          "15.PRO-005",
+          "15.PRO-006",
+          "15.PRO-007",
+          "15.PRO-008",
+          "15.PRO-009",
+          "15.PRO-010"
+        ]
+      }
+    ]
+  },
+  "module_summaries": [
+    {
+      "module_id": 1,
+      "module_title": "1. Login",
+      "summary": "Users can log in or access courses as guests.\nDisplays login form with username and password fields.",
+      "verification_keywords": [
+        "login",
+        "username",
+        "password",
+        "guest"
+      ],
+      "can_verify_states": [
+        "login_status"
+      ],
+      "action_states": [
+        "user_authentication"
+      ]
+    },
+    {
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "summary": "Users can view upcoming activities and manage their timeline.\nDisplays personalized greeting, timeline, and calendar.",
+      "verification_keywords": [
+        "timeline",
+        "calendar",
+        "greeting"
+      ],
+      "can_verify_states": [
+        "user_dashboard",
+        "activity_schedule"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "summary": "Users can view and filter their enrolled courses.\nDisplays course cards with images and category names.",
+      "verification_keywords": [
+        "course",
+        "overview",
+        "filter"
+      ],
+      "can_verify_states": [
+        "course_list"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "summary": "Users can navigate through course content and sections.\nDisplays course name, tabs, and content sections.",
+      "verification_keywords": [
+        "course",
+        "content",
+        "navigation"
+      ],
+      "can_verify_states": [
+        "course_content"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "summary": "Teachers can add or edit course activities and resources.\nDisplays editing controls and activity options.",
+      "verification_keywords": [
+        "edit",
+        "activity",
+        "resource"
+      ],
+      "can_verify_states": [],
+      "action_states": [
+        "course_content_management"
+      ]
+    },
+    {
+      "module_id": 6,
+      "module_title": "6. Course Settings (Teacher Only)",
+      "summary": "Teachers can configure course settings and properties.\nDisplays collapsible sections with course details.",
+      "verification_keywords": [
+        "settings",
+        "course",
+        "properties"
+      ],
+      "can_verify_states": [
+        "course_settings"
+      ],
+      "action_states": [
+        "course_configuration"
+      ]
+    },
+    {
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "summary": "Users can manage and filter course participants.\nDisplays enrolled users with filtering options.",
+      "verification_keywords": [
+        "participants",
+        "enrolled",
+        "filter"
+      ],
+      "can_verify_states": [
+        "participant_list"
+      ],
+      "action_states": [
+        "enrollment_management"
+      ]
+    },
+    {
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "summary": "Teachers can view and manage assignment details.\nDisplays assignment info, dates, and grading summary.",
+      "verification_keywords": [
+        "assignment",
+        "grading",
+        "dates"
+      ],
+      "can_verify_states": [
+        "assignment_details"
+      ],
+      "action_states": [
+        "assignment_management"
+      ]
+    },
+    {
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "summary": "Teachers can view and grade student submissions.\nDisplays submission table with filtering and grading options.",
+      "verification_keywords": [
+        "submission",
+        "grade",
+        "filter"
+      ],
+      "can_verify_states": [
+        "submission_list"
+      ],
+      "action_states": [
+        "grading"
+      ]
+    },
+    {
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "summary": "Students can view assignment details and submit work.\nDisplays submission form and assignment instructions.",
+      "verification_keywords": [
+        "submission",
+        "assignment",
+        "details"
+      ],
+      "can_verify_states": [
+        "assignment_submission"
+      ],
+      "action_states": [
+        "work_submission"
+      ]
+    },
+    {
+      "module_id": 11,
+      "module_title": "11. Advanced Grading (Teacher Only)",
+      "summary": "Teachers can create advanced grading methods.\nDisplays options for rubric and grading form templates.",
+      "verification_keywords": [
+        "grading",
+        "rubric",
+        "template"
+      ],
+      "can_verify_states": [
+        "grading_methods"
+      ],
+      "action_states": [
+        "grading_form_creation"
+      ]
+    },
+    {
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "summary": "Teachers can view and manage course grades.\nDisplays grade table with filtering and report options.",
+      "verification_keywords": [
+        "grades",
+        "report",
+        "filter"
+      ],
+      "can_verify_states": [
+        "gradebook"
+      ],
+      "action_states": [
+        "grade_management"
+      ]
+    },
+    {
+      "module_id": 13,
+      "module_title": "13. Grades / User Report (Student View)",
+      "summary": "Students can view their grades and feedback.\nDisplays grade table with item details and percentages.",
+      "verification_keywords": [
+        "grades",
+        "feedback",
+        "percentage"
+      ],
+      "can_verify_states": [
+        "user_grades"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "summary": "Students can view all course activities by type.\nDisplays activities grouped in collapsible sections.",
+      "verification_keywords": [
+        "activities",
+        "overview",
+        "type"
+      ],
+      "can_verify_states": [
+        "activity_overview"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "summary": "Users can view and edit their profile information.\nDisplays user details, profile description, and settings.",
+      "verification_keywords": [
+        "profile",
+        "details",
+        "edit"
+      ],
+      "can_verify_states": [
+        "user_profile"
+      ],
+      "action_states": [
+        "profile_update"
+      ]
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "1.LOG-001",
+      "title": "Successful login with valid username and password",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User has valid credentials",
+      "steps": [
+        "Enter a valid username",
+        "Enter a valid password",
+        "Click the Log in button"
+      ],
+      "expected_result": "Redirects to the Dashboard"
+    },
+    {
+      "id": "1.LOG-007",
+      "title": "Access as a guest",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Click the Access as a guest button"
+      ],
+      "expected_result": "Redirects to the guest access page"
+    },
+    {
+      "id": "1.LOG-008",
+      "title": "Cookies notice button functionality",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Click the Cookies notice button"
+      ],
+      "expected_result": "Cookies notice is dismissed"
+    },
+    {
+      "id": "2.DAS-001",
+      "title": "Verify current date is highlighted in calendar block",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entry",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Open the Calendar block",
+        "Observe the calendar display"
+      ],
+      "expected_result": "Current date is highlighted"
+    },
+    {
+      "id": "2.DAS-002",
+      "title": "Verify event names are displayed on dates with events",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entry",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Open the Calendar block",
+        "Identify a date with an existing event",
+        "Observe the event name display on the date"
+      ],
+      "expected_result": "Event names are displayed on dates with events"
+    },
+    {
+      "id": "2.DAS-003",
+      "title": "Create a new calendar entry for a future date",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entry",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Open the Calendar block",
+        "Click on the 'New event' button",
+        "Enter valid event details for a future date",
+        "Save the event"
+      ],
+      "expected_result": "New event is saved and displayed on the selected future date",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "activity_schedule"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the new calendar event appears on the selected future date",
+          "status": "partial",
+          "execution_strategy": "after_only",
+          "matched_test_id": "2.DAS-002",
+          "matched_test_title": "Verify event names are displayed on dates with events",
+          "confidence": 0.6,
+          "execution_note": "This test can be adapted to verify if the new event is displayed on a specific date by modifying it to check the selected future date instead of any date with an existing event.",
+          "reason": "The test operates on the correct module and accesses the calendar to display event names. However, it does not specifically confirm the presence of a new event on a selected future date.",
+          "suggested_manual_step": "Manually navigate to the selected future date in the calendar and verify the new event is displayed."
+        }
+      ],
+      "verification_coverage": "partial",
+      "coverage_gaps": [
+        "The test operates on the correct module and accesses the calendar to display event names. However, it does not specifically confirm the presence of a new event on a selected future date."
+      ]
+    },
+    {
+      "id": "2.DAS-004",
+      "title": "Create a new calendar entry for the current date",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entry",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Open the Calendar block",
+        "Click on the 'New event' button",
+        "Enter valid event details for the current date",
+        "Save the event"
+      ],
+      "expected_result": "New event is saved and displayed on the current date",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "activity_schedule"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the new calendar event appears on the current date",
+          "status": "found",
+          "execution_strategy": "after_only",
+          "matched_test_id": "2.DAS-002",
+          "matched_test_title": "Verify event names are displayed on dates with events",
+          "confidence": 0.8,
+          "execution_note": "Use this test to open the Calendar block and verify that the new event is displayed on the current date."
+        }
+      ],
+      "verification_coverage": "full"
+    },
+    {
+      "id": "2.DAS-005",
+      "title": "Toggle edit mode to add a block",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Dashboard is open",
+      "steps": [
+        "Click on the Edit mode toggle",
+        "Verify Edit mode is activated"
+      ],
+      "expected_result": "Edit mode is activated successfully"
+    },
+    {
+      "id": "2.DAS-006",
+      "title": "Open Add a block modal",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Edit mode is activated",
+      "steps": [
+        "Click on the + Add a block button"
+      ],
+      "expected_result": "Add a block modal is displayed"
+    },
+    {
+      "id": "2.DAS-007",
+      "title": "Verify block is added to the dashboard",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Add a block modal is open and block type is selected",
+      "steps": [
+        "Click on the Add button in the Add a block modal"
+      ],
+      "expected_result": "New block is added to the dashboard",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "user_dashboard"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the new block is added to the dashboard",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "None of the test cases access or display the presence of a new block on the dashboard.",
+          "suggested_manual_step": "Manually check the dashboard for the presence of the new block after the action."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "None of the test cases access or display the presence of a new block on the dashboard."
+      ]
+    },
+    {
+      "id": "2.DAS-008",
+      "title": "Cancel adding a block using X button",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Add a block modal is open",
+      "steps": [
+        "Click on the X button in the Add a block modal"
+      ],
+      "expected_result": "Add a block modal is closed"
+    },
+    {
+      "id": "2.DAS-009",
+      "title": "Cancel adding a block using Cancel button",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Add a block modal is open",
+      "steps": [
+        "Click on the Cancel button in the Add a block modal"
+      ],
+      "expected_result": "Add a block modal is closed"
+    },
+    {
+      "id": "2.DAS-010",
+      "title": "Cancel adding a block using Cancel link",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Add a block page is open",
+      "steps": [
+        "Click on the Cancel link on the Add a block page"
+      ],
+      "expected_result": "User is returned to the previous state without adding a block"
+    },
+    {
+      "id": "2.DAS-011",
+      "title": "Move a block using Move icon",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Dashboard has multiple blocks",
+      "steps": [
+        "Click and hold the Move icon on a block",
+        "Drag the block to a new position",
+        "Release the Move icon"
+      ],
+      "expected_result": "Block is moved to the new position on the dashboard"
+    },
+    {
+      "id": "2.DAS-012",
+      "title": "Access block options using Three-dot menu",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Add a block",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Dashboard has at least one block",
+      "steps": [
+        "Click on the Three-dot menu of a block"
+      ],
+      "expected_result": "Options menu for the block is displayed"
+    },
+    {
+      "id": "3MC-001",
+      "title": "Verify My Courses heading is displayed",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the 'My courses' heading is visible on the page"
+      ],
+      "expected_result": "'My courses' heading is displayed"
+    },
+    {
+      "id": "3MC-002",
+      "title": "Verify Course overview subheading is displayed",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the 'Course overview' subheading is visible on the page"
+      ],
+      "expected_result": "'Course overview' subheading is displayed"
+    },
+    {
+      "id": "3MC-003",
+      "title": "Verify course cards are displayed",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is enrolled in courses",
+      "steps": [
+        "Check if course cards are displayed on the page"
+      ],
+      "expected_result": "Course cards are displayed"
+    },
+    {
+      "id": "3MC-004",
+      "title": "Verify course name link is clickable",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Course card is displayed",
+      "steps": [
+        "Click on the course name link on a course card"
+      ],
+      "expected_result": "Course name link is clickable and navigates to the course details"
+    },
+    {
+      "id": "3MC-005",
+      "title": "Verify search field functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a course name in the search field",
+        "Press Enter or click the search icon"
+      ],
+      "expected_result": "Courses matching the search criteria are displayed"
+    },
+    {
+      "id": "3MC-006",
+      "title": "Verify category name is displayed on course card",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Course card is displayed",
+      "steps": [
+        "Check if the category name is visible on a course card"
+      ],
+      "expected_result": "Category name is displayed on the course card"
+    },
+    {
+      "id": "3MC-007",
+      "title": "Verify All dropdown functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'All' dropdown",
+        "Select an option from the dropdown"
+      ],
+      "expected_result": "Courses are filtered based on the selected option"
+    },
+    {
+      "id": "3MC-008",
+      "title": "Verify Sort by course name dropdown functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'Sort by course name' dropdown",
+        "Select an option to sort courses"
+      ],
+      "expected_result": "Courses are sorted based on the selected option"
+    },
+    {
+      "id": "3MC-009",
+      "title": "Verify Card dropdown functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Course card is displayed",
+      "steps": [
+        "Click on the card dropdown on a course card",
+        "Select an option from the dropdown"
+      ],
+      "expected_result": "Selected action is performed on the course card"
+    },
+    {
+      "id": "3MC-010",
+      "title": "Verify Three-dot menu functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Course card is displayed",
+      "steps": [
+        "Click on the three-dot menu on a course card",
+        "Select an option from the menu"
+      ],
+      "expected_result": "Selected action is performed on the course card"
+    },
+    {
+      "id": "3MC-011",
+      "title": "Verify Star this course option",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Course card is displayed",
+      "steps": [
+        "Click on the three-dot menu on a course card",
+        "Select 'Star this course' option"
+      ],
+      "expected_result": "Course is starred and marked as favorite"
+    },
+    {
+      "id": "3MC-012",
+      "title": "Verify Remove from view option",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Course card is displayed",
+      "steps": [
+        "Click on the three-dot menu on a course card",
+        "Select 'Remove from view' option"
+      ],
+      "expected_result": "Course is removed from the view"
+    },
+    {
+      "id": "4CP-001",
+      "title": "Verify course full name is displayed as a heading",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the course full name is displayed as a heading at the top of the page"
+      ],
+      "expected_result": "Course full name is displayed as a heading"
+    },
+    {
+      "id": "4CP-002",
+      "title": "Verify horizontal navigation bar is present",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the horizontal navigation bar is present below the course full name"
+      ],
+      "expected_result": "Horizontal navigation bar is present"
+    },
+    {
+      "id": "4CP-003",
+      "title": "Verify Course tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Course tab in the navigation bar"
+      ],
+      "expected_result": "Course tab is clickable and displays course content"
+    },
+    {
+      "id": "4CP-004",
+      "title": "Verify Edit mode can be toggled",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Edit mode button to toggle it"
+      ],
+      "expected_result": "Edit mode can be toggled on and off"
+    },
+    {
+      "id": "4CP-005",
+      "title": "Verify BUS301 Course Overview is accessible",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on BUS301 Course Overview"
+      ],
+      "expected_result": "BUS301 Course Overview is accessible and displays content"
+    },
+    {
+      "id": "4CP-006",
+      "title": "Verify BUS301 Business Discussion is accessible",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on BUS301 Business Discussion"
+      ],
+      "expected_result": "BUS301 Business Discussion is accessible and displays content"
+    },
+    {
+      "id": "4CP-007",
+      "title": "Verify BUS301 - Case Study Analysis is accessible",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on BUS301 - Case Study Analysis"
+      ],
+      "expected_result": "BUS301 - Case Study Analysis is accessible and displays content"
+    },
+    {
+      "id": "4CP-008",
+      "title": "Verify BUS301 - Business Plan Draft is accessible",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on BUS301 - Business Plan Draft"
+      ],
+      "expected_result": "BUS301 - Business Plan Draft is accessible and displays content"
+    },
+    {
+      "id": "4CP-009",
+      "title": "Verify BUS301 - Final Presentation is accessible",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on BUS301 - Final Presentation"
+      ],
+      "expected_result": "BUS301 - Final Presentation is accessible and displays content"
+    },
+    {
+      "id": "4CP-010",
+      "title": "Verify Settings tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Settings tab in the navigation bar"
+      ],
+      "expected_result": "Settings tab is clickable and displays settings options"
+    },
+    {
+      "id": "4CP-011",
+      "title": "Verify Participants tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Participants tab in the navigation bar"
+      ],
+      "expected_result": "Participants tab is clickable and displays participants list"
+    },
+    {
+      "id": "4CP-012",
+      "title": "Verify Grades tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Grades tab in the navigation bar"
+      ],
+      "expected_result": "Grades tab is clickable and displays grades overview"
+    },
+    {
+      "id": "4CP-013",
+      "title": "Verify Activities tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Activities tab in the navigation bar"
+      ],
+      "expected_result": "Activities tab is clickable and displays activities list"
+    },
+    {
+      "id": "4CP-014",
+      "title": "Verify More dropdown is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the More dropdown in the navigation bar"
+      ],
+      "expected_result": "More dropdown is clickable and displays additional options"
+    },
+    {
+      "id": "4CP-015",
+      "title": "Verify Competencies tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Competencies tab in the navigation bar"
+      ],
+      "expected_result": "Competencies tab is clickable and displays competencies overview"
+    },
+    {
+      "id": "4CP-016",
+      "title": "Verify collapsible chevron arrow functionality",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the collapsible chevron arrow next to a section name"
+      ],
+      "expected_result": "Section content is expanded or collapsed"
+    },
+    {
+      "id": "4CP-017",
+      "title": "Verify Collapse all link collapses all sections",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Collapse all link"
+      ],
+      "expected_result": "All sections are collapsed"
+    },
+    {
+      "id": "4CP-018",
+      "title": "Verify announcements are displayed",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if announcements are displayed on the course page"
+      ],
+      "expected_result": "Announcements are displayed"
+    },
+    {
+      "id": "4CP-019",
+      "title": "Verify Course Index is accessible",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Course Index"
+      ],
+      "expected_result": "Course Index is accessible and displays content"
+    },
+    {
+      "id": "4CP-020",
+      "title": "Verify Close button (X) closes the overlay",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "An overlay is open",
+      "steps": [
+        "Click on the Close button (X)"
+      ],
+      "expected_result": "Overlay is closed"
+    },
+    {
+      "id": "4CP-021",
+      "title": "Verify activity icon is displayed next to activity name",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Check if an activity icon is displayed next to each activity name"
+      ],
+      "expected_result": "Activity icon is displayed next to each activity name"
+    },
+    {
+      "id": "5AA(O-001",
+      "title": "Enable edit mode successfully",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the edit mode toggle"
+      ],
+      "expected_result": "Edit mode is enabled"
+    },
+    {
+      "id": "5AA(O-002",
+      "title": "Open Activity Chooser modal",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Click on the + button"
+      ],
+      "expected_result": "Activity Chooser modal is displayed"
+    },
+    {
+      "id": "5AA(O-003",
+      "title": "Select an activity from Activity Chooser",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Select an activity or resource option from the grid"
+      ],
+      "expected_result": "Selected activity or resource is highlighted"
+    },
+    {
+      "id": "5AA(O-004",
+      "title": "Confirm selection of an activity",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "An activity or resource is selected",
+      "steps": [
+        "Click on the Add button"
+      ],
+      "expected_result": "Activity or resource is added to the course",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "course_content_management"
+      ],
+      "post_verifications": [],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "No verification scenarios identified"
+      ]
+    },
+    {
+      "id": "5AA(O-005",
+      "title": "Create new assignment with all valid inputs",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Enter a description in the rich text editor",
+        "Check the 'Display description on course page' checkbox",
+        "Enter activity instructions in the rich text editor",
+        "Upload a valid file in the additional files upload area",
+        "Set a valid 'Allow submissions from' date/time",
+        "Set a valid 'Due date' date/time",
+        "Set a valid 'Cut-off date' date/time",
+        "Set a valid 'Remind me to grade by' date/time",
+        "Check the 'Always show description' checkbox",
+        "Check the 'Online text' checkbox",
+        "Check the 'File submissions' checkbox",
+        "Select a valid option from 'Maximum number of uploaded files' dropdown",
+        "Select a valid option from 'Maximum submission size' dropdown",
+        "Enter valid accepted file types",
+        "Check the 'Send content change notification' checkbox",
+        "Click the 'Save and return to course' button"
+      ],
+      "expected_result": "Assignment is created and the user is returned to the course page",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "course_content_management"
+      ],
+      "post_verifications": [],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "No verification scenarios identified"
+      ]
+    },
+    {
+      "id": "5AA(O-006",
+      "title": "Create new assignment with 'Save and display'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Click the 'Save and display' button"
+      ],
+      "expected_result": "Assignment is created and the activity page is displayed",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "course_content_management"
+      ],
+      "post_verifications": [],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "No verification scenarios identified"
+      ]
+    },
+    {
+      "id": "5AA(O-008",
+      "title": "Search for an activity in Activity Chooser",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Enter a search term in the search field"
+      ],
+      "expected_result": "Relevant activities or resources are filtered and displayed"
+    },
+    {
+      "id": "5AA(O-009",
+      "title": "Filter activities by category",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Select a category filter such as Assessment"
+      ],
+      "expected_result": "Activities or resources related to the selected category are displayed"
+    },
+    {
+      "id": "5AA(O-010",
+      "title": "View information about an activity",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Click on the Info button for an activity"
+      ],
+      "expected_result": "Information about the selected activity is displayed"
+    },
+    {
+      "id": "5AA(O-011",
+      "title": "Star an activity for quick access",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Click on the Star button for an activity"
+      ],
+      "expected_result": "Activity is starred and marked for quick access"
+    },
+    {
+      "id": "5AA(O-012",
+      "title": "Cancel creating a new assignment",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Click the 'Cancel' button"
+      ],
+      "expected_result": "Changes are discarded and no assignment is created"
+    },
+    {
+      "id": "6CS(O-001",
+      "title": "Save course settings with all valid inputs",
+      "module_id": 6,
+      "module_title": "6. Course Settings (Teacher Only)",
+      "workflow": "Save course settings",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the Course Settings page",
+      "steps": [
+        "Enter a valid course full name",
+        "Enter a valid course short name",
+        "Select a valid course category",
+        "Select a course visibility option",
+        "Select a course start date",
+        "Enable course end date and select a date",
+        "Enter a valid course ID number",
+        "Enter a course summary",
+        "Upload a valid file",
+        "Select a format from the dropdown",
+        "Select an option for hidden sections",
+        "Select a course layout",
+        "Select a force language option",
+        "Enter a number of announcements",
+        "Select an option to show gradebook to students",
+        "Select an option to show activity reports",
+        "Select an option to show activity dates",
+        "Select a maximum upload size",
+        "Enable completion tracking",
+        "Select an option to show activity completion conditions",
+        "Select a group mode",
+        "Select a force group mode",
+        "Select a default grouping",
+        "Enter tags",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Course settings are saved successfully and displayed",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "course_configuration"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the course settings are saved and displayed correctly",
+          "status": "partial",
+          "execution_strategy": "after_only",
+          "matched_test_id": "6CS(O-005",
+          "matched_test_title": "Course start date and end date are the same",
+          "confidence": 0.5,
+          "execution_note": "This test case verifies that course settings are saved successfully, but it does not explicitly confirm that all settings are displayed correctly.",
+          "reason": "The test case operates on the correct module and confirms that settings are saved, but it focuses on a specific condition (same start and end date) rather than verifying all settings are displayed correctly.",
+          "suggested_manual_step": "Manually check that all course settings are displayed correctly on the course settings page after saving."
+        }
+      ],
+      "verification_coverage": "partial",
+      "coverage_gaps": [
+        "The test case operates on the correct module and confirms that settings are saved, but it focuses on a specific condition (same start and end date) rather than verifying all settings are displayed correctly."
+      ]
+    },
+    {
+      "id": "7.PAR-001",
+      "title": "Apply filter with a single condition",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Select a criterion from the Any dropdown",
+        "Select a corresponding value from the Select dropdown",
+        "Click the Apply filters button"
+      ],
+      "expected_result": "Count displays the number of participants matching the filter criteria"
+    },
+    {
+      "id": "7.PAR-002",
+      "title": "Apply filter with multiple conditions",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Select a criterion from the Any dropdown",
+        "Select a corresponding value from the Select dropdown",
+        "Click the + Add condition link",
+        "Select another criterion from the Any dropdown",
+        "Select a corresponding value from the Select dropdown",
+        "Click the Apply filters button"
+      ],
+      "expected_result": "Count displays the number of participants matching all filter criteria"
+    },
+    {
+      "id": "7.PAR-003",
+      "title": "Enroll user with valid username and role",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Select a valid username from the Enrolled users dropdown",
+        "Select a valid role from the role dropdown",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "User is successfully enrolled with the selected role",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "enrollment_management"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the user is enrolled with the selected role",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "All candidate test cases focus on the enrollment process itself, but none verify the outcome by checking the participants list for the new user with the correct role.",
+          "suggested_manual_step": "Manually check the participants list to confirm the new user is listed with the selected role."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "All candidate test cases focus on the enrollment process itself, but none verify the outcome by checking the participants list for the new user with the correct role."
+      ]
+    },
+    {
+      "id": "7.PAR-004",
+      "title": "Enroll user with valid email and role",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Select a valid email from the Enrolled users dropdown",
+        "Select a valid role from the role dropdown",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "User is successfully enrolled with the selected role",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "enrollment_management"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the user is enrolled with the selected role",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "All candidate test cases focus on the enrollment process itself and do not include steps to verify the participants list for the new user with the correct role after enrollment.",
+          "suggested_manual_step": "After enrolling a user, manually check the participants list to confirm the user is listed with the correct role."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "All candidate test cases focus on the enrollment process itself and do not include steps to verify the participants list for the new user with the correct role after enrollment."
+      ]
+    },
+    {
+      "id": "7.PAR-005",
+      "title": "Clear filters after applying",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Filters have been applied",
+      "steps": [
+        "Click the Clear filters button"
+      ],
+      "expected_result": "All filters are removed and the full list of participants is displayed"
+    },
+    {
+      "id": "7.PAR-006",
+      "title": "Remove a single condition using X button",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Multiple filter conditions are applied",
+      "steps": [
+        "Click the X button next to a condition"
+      ],
+      "expected_result": "The selected condition is removed and the participant count updates accordingly"
+    },
+    {
+      "id": "7.PAR-007",
+      "title": "Use alphabetical filter buttons",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on an alphabetical filter button"
+      ],
+      "expected_result": "List of participants is filtered to show only those whose names start with the selected letter"
+    },
+    {
+      "id": "7.PAR-008",
+      "title": "Enroll user with enrollment duration set",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Select a valid username from the Enrolled users dropdown",
+        "Select a valid role from the role dropdown",
+        "Set a valid enrollment duration",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "User is successfully enrolled with the selected role and duration",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "enrollment_management"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the user is enrolled with the selected role and duration",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "All candidate test cases focus on the enrollment process itself and do not include steps to verify the presence of the user in the participants list with the correct role and duration after enrollment.",
+          "suggested_manual_step": "After enrolling a user, manually check the participants list to confirm the user is listed with the correct role and duration."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "All candidate test cases focus on the enrollment process itself and do not include steps to verify the presence of the user in the participants list with the correct role and duration after enrollment."
+      ]
+    },
+    {
+      "id": "8A(V-001",
+      "title": "Verify assignment icon is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the assignment icon is visible on the page"
+      ],
+      "expected_result": "Assignment icon is displayed"
+    },
+    {
+      "id": "8A(V-002",
+      "title": "Verify heading 'ASSIGNMENT' is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the heading 'ASSIGNMENT' is visible on the page"
+      ],
+      "expected_result": "Heading 'ASSIGNMENT' is displayed"
+    },
+    {
+      "id": "8A(V-003",
+      "title": "Verify assignment name is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the assignment name is visible on the page"
+      ],
+      "expected_result": "Assignment name is displayed"
+    },
+    {
+      "id": "8A(V-004",
+      "title": "Verify Assignment tab is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Assignment tab is visible on the page"
+      ],
+      "expected_result": "Assignment tab is displayed"
+    },
+    {
+      "id": "8A(V-005",
+      "title": "Verify Settings tab is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Settings tab is visible on the page"
+      ],
+      "expected_result": "Settings tab is displayed"
+    },
+    {
+      "id": "8A(V-006",
+      "title": "Verify Submissions tab is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Submissions tab is visible on the page"
+      ],
+      "expected_result": "Submissions tab is displayed"
+    },
+    {
+      "id": "8A(V-007",
+      "title": "Verify Advanced grading tab is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Advanced grading tab is visible on the page"
+      ],
+      "expected_result": "Advanced grading tab is displayed"
+    },
+    {
+      "id": "8A(V-008",
+      "title": "Verify More dropdown is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the More dropdown is visible on the page"
+      ],
+      "expected_result": "More dropdown is displayed"
+    },
+    {
+      "id": "8A(V-009",
+      "title": "Verify Opened date is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Opened date is visible on the page"
+      ],
+      "expected_result": "Opened date is displayed"
+    },
+    {
+      "id": "8A(V-010",
+      "title": "Verify Due date is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Due date is visible on the page"
+      ],
+      "expected_result": "Due date is displayed"
+    },
+    {
+      "id": "8A(V-011",
+      "title": "Verify assignment description text is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the assignment description text is visible on the page"
+      ],
+      "expected_result": "Assignment description text is displayed"
+    },
+    {
+      "id": "8A(V-012",
+      "title": "Verify Grade button is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Grade button is visible on the page"
+      ],
+      "expected_result": "Grade button is displayed"
+    },
+    {
+      "id": "8A(V-013",
+      "title": "Verify Grading summary section is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Grading summary section is visible on the page"
+      ],
+      "expected_result": "Grading summary section is displayed"
+    },
+    {
+      "id": "8A(V-014",
+      "title": "Verify 'Hidden from students' indicator is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the 'Hidden from students' indicator is visible on the page"
+      ],
+      "expected_result": "'Hidden from students' indicator is displayed"
+    },
+    {
+      "id": "8A(V-015",
+      "title": "Verify Participants count is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Participants count is visible on the page"
+      ],
+      "expected_result": "Participants count is displayed"
+    },
+    {
+      "id": "8A(V-016",
+      "title": "Verify Submitted count is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Submitted count is visible on the page"
+      ],
+      "expected_result": "Submitted count is displayed"
+    },
+    {
+      "id": "8A(V-017",
+      "title": "Verify Needs grading count is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Needs grading count is visible on the page"
+      ],
+      "expected_result": "Needs grading count is displayed"
+    },
+    {
+      "id": "8A(V-018",
+      "title": "Verify Time remaining until due date is displayed",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Time remaining until due date is visible on the page"
+      ],
+      "expected_result": "Time remaining until due date is displayed"
+    },
+    {
+      "id": "9AS(O-001",
+      "title": "Verify all elements are displayed correctly on the Submissions tab",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Search users field",
+        "Check the presence of the Filter by name dropdown",
+        "Check the presence of the Status filter",
+        "Check the presence of the Advanced dropdown",
+        "Check the presence of the Grade button",
+        "Check the presence of the Quick grading checkbox",
+        "Check the presence of the Actions dropdown",
+        "Check the presence of the Select checkbox",
+        "Check the presence of First name / Last name link",
+        "Check the presence of Email address",
+        "Check the presence of Status",
+        "Check the presence of Grade",
+        "Check the presence of Last modified (submission)",
+        "Check the presence of Online text",
+        "Check the presence of File submissions",
+        "Check the presence of Submission comments",
+        "Check the presence of Last modified (grade)",
+        "Check the presence of Feedback comments",
+        "Check the presence of Feedback files",
+        "Check the presence of Final grade",
+        "Check the presence of Three-dot menus"
+      ],
+      "expected_result": "All elements are displayed correctly on the Submissions tab"
+    },
+    {
+      "id": "9AS(O-002",
+      "title": "Search for a user using the Search users field",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username into the Search users field",
+        "Press the Enter key"
+      ],
+      "expected_result": "The table displays submissions for the searched user"
+    },
+    {
+      "id": "9AS(O-003",
+      "title": "Grade a submission using the Grade button",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Grade button for a submission",
+        "Enter a valid grade",
+        "Save the grade"
+      ],
+      "expected_result": "The submission is graded successfully and the grade is displayed",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "grading"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the grade is displayed correctly for the submission",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "None of the test cases access or display the grade for a submission, which is necessary to confirm the expected outcome in an after_only strategy.",
+          "suggested_manual_step": "Manually check the submission table to ensure the grade is displayed correctly for the submission."
+        },
+        {
+          "ideal": "Verify the grade appears in the Grader report",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "None of the test cases access or confirm the presence of a specific grade in the Grader report.",
+          "suggested_manual_step": "Manually check the Grader report to confirm the updated grade is displayed."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "None of the test cases access or display the grade for a submission, which is necessary to confirm the expected outcome in an after_only strategy.",
+        "None of the test cases access or confirm the presence of a specific grade in the Grader report."
+      ]
+    },
+    {
+      "id": "9AS(O-004",
+      "title": "Filter submissions by name using the Filter by name dropdown",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select a name from the Filter by name dropdown"
+      ],
+      "expected_result": "The table displays submissions filtered by the selected name"
+    },
+    {
+      "id": "9AS(O-005",
+      "title": "Filter submissions by status using the Status filter",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select a status from the Status filter"
+      ],
+      "expected_result": "The table displays submissions filtered by the selected status"
+    },
+    {
+      "id": "9AS(O-006",
+      "title": "Use the Advanced dropdown to apply additional filters",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Advanced dropdown",
+        "Select additional filters"
+      ],
+      "expected_result": "The table displays submissions filtered by the selected advanced filters"
+    },
+    {
+      "id": "9AS(O-007",
+      "title": "Enable quick grading using the Quick grading checkbox",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the Quick grading checkbox"
+      ],
+      "expected_result": "Quick grading is enabled, allowing grades to be entered directly into the table"
+    },
+    {
+      "id": "9AS(O-008",
+      "title": "Perform an action using the Actions dropdown",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select an action from the Actions dropdown"
+      ],
+      "expected_result": "The selected action is performed on the chosen submissions"
+    },
+    {
+      "id": "9AS(O-009",
+      "title": "Select a submission using the Select checkbox",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Select checkbox for a submission"
+      ],
+      "expected_result": "The submission is selected"
+    },
+    {
+      "id": "9AS(O-010",
+      "title": "Access student details via First name / Last name link",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the First name / Last name link for a student"
+      ],
+      "expected_result": "The student details page is displayed"
+    },
+    {
+      "id": "9AS(O-011",
+      "title": "View submission details using the Three-dot menu",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Three-dot menu for a submission",
+        "Select 'View details'"
+      ],
+      "expected_result": "The submission details are displayed"
+    },
+    {
+      "id": "1A(V-001",
+      "title": "Submit assignment with online text",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Assignment is available for submission",
+      "steps": [
+        "Click on 'Add submission' button",
+        "Enter valid text in the 'Online text' field",
+        "Click on 'Submit' button"
+      ],
+      "expected_result": "Submission status updates to 'Submitted for grading'",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the page heading 'Activities' is displayed correctly",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "All candidate tests focus on verifying specific sections within the Activities page, such as Assignments, Forums, and Resources, but none of them check the page heading.",
+          "suggested_manual_step": "Manually navigate to the Activities page and verify that the page heading is 'Activities'."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "All candidate tests focus on verifying specific sections within the Activities page, such as Assignments, Forums, and Resources, but none of them check the page heading."
+      ]
+    },
+    {
+      "id": "1A(V-002",
+      "title": "Submit assignment by uploading files",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Assignment is available for submission",
+      "steps": [
+        "Click on 'Add submission' button",
+        "Upload valid file(s) in the 'Upload files' section",
+        "Click on 'Submit' button"
+      ],
+      "expected_result": "Submission status updates to 'Submitted for grading'",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the Assignments section is displayed on the Activities page",
+          "status": "partial",
+          "execution_strategy": "after_only",
+          "matched_test_id": "1A(V-005",
+          "matched_test_title": "Verify activity name is displayed in Assignments section",
+          "confidence": 0.6,
+          "execution_note": "This test case checks the Assignments section but focuses on activity names. It confirms the presence of the section indirectly by verifying content within it.",
+          "reason": "The test case operates on the correct module and accesses the Assignments section, but it does not explicitly confirm the presence of the section itself.",
+          "suggested_manual_step": "Manually verify the presence of the Assignments section on the Activities page."
+        }
+      ],
+      "verification_coverage": "partial",
+      "coverage_gaps": [
+        "The test case operates on the correct module and accesses the Assignments section, but it does not explicitly confirm the presence of the section itself."
+      ]
+    },
+    {
+      "id": "1A(V-003",
+      "title": "Verify grade and feedback appear after grading",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Assignment has been graded",
+      "steps": [
+        "View the assignment details page"
+      ],
+      "expected_result": "Grade and feedback are displayed"
+    },
+    {
+      "id": "1A(V-004",
+      "title": "Edit submission before due date",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Assignment is submitted and due date has not passed",
+      "steps": [
+        "Click on 'Edit submission' button",
+        "Modify the content in the 'Online text' field or replace uploaded files",
+        "Click on 'Save changes' button"
+      ],
+      "expected_result": "Submission is updated with the new content",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the Resources section is displayed on the Activities page",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "All candidate tests focus on different sections (Assignments, Forums) or general page elements (page heading) and do not confirm the presence of the Resources section.",
+          "suggested_manual_step": "Manually navigate to the Activities page in the Student View and check for the presence of the Resources section."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "All candidate tests focus on different sections (Assignments, Forums) or general page elements (page heading) and do not confirm the presence of the Resources section."
+      ]
+    },
+    {
+      "id": "1A(V-005",
+      "title": "Remove submission before due date",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Assignment is submitted and due date has not passed",
+      "steps": [
+        "Click on 'Edit submission' button",
+        "Remove all content from 'Online text' and 'Upload files'",
+        "Click on 'Save changes' button"
+      ],
+      "expected_result": "Submission status updates to 'Draft (not submitted)'",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify each activity in the Assignments section has a name displayed",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "None of the test cases check for the presence of activity names in the Assignments section. They focus on due dates, submission status, or the presence of the section itself.",
+          "suggested_manual_step": "Manually verify that each activity in the Assignments section has a name displayed by checking the Activities page in the Student View."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "None of the test cases check for the presence of activity names in the Assignments section. They focus on due dates, submission status, or the presence of the section itself."
+      ]
+    },
+    {
+      "id": "1AG(O-001",
+      "title": "Verify dropdown default selection is 'Rubric'",
+      "module_id": 11,
+      "module_title": "11. Advanced Grading (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Locate the 'Change active grading method to' dropdown",
+        "Check the default selected option"
+      ],
+      "expected_result": "The default selected option is 'Rubric'"
+    },
+    {
+      "id": "1AG(O-002",
+      "title": "Verify 'Define new grading form from scratch' option is displayed",
+      "module_id": 11,
+      "module_title": "11. Advanced Grading (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Locate the 'Define new grading form from scratch' card"
+      ],
+      "expected_result": "The 'Define new grading form from scratch' option is displayed"
+    },
+    {
+      "id": "1AG(O-003",
+      "title": "Verify 'Create new grading form from a template' option is displayed",
+      "module_id": 11,
+      "module_title": "11. Advanced Grading (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Locate the 'Create new grading form from a template' card"
+      ],
+      "expected_result": "The 'Create new grading form from a template' option is displayed"
+    },
+    {
+      "id": "1AG(O-004",
+      "title": "Verify notification message when advanced grading form is not ready",
+      "module_id": 11,
+      "module_title": "11. Advanced Grading (Teacher Only)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Ensure the advanced grading form is not in a valid status",
+        "Check for the notification message"
+      ],
+      "expected_result": "Notification message 'Please note: the advanced grading form is not ready at the moment. Simple grading method will be used until the form has a valid status.' is displayed"
+    },
+    {
+      "id": "1G/GR(-001",
+      "title": "Save changes with valid data in all fields",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Grader report is in edit mode",
+      "steps": [
+        "Enter valid data in all assignment columns",
+        "Click the Save changes button"
+      ],
+      "expected_result": "Changes are saved successfully and reflected in the Grader report",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "grade_management"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify changes are reflected in the Grader report",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "None of the test cases confirm changes in the Grader report. They only check for the presence of UI elements.",
+          "suggested_manual_step": "Manually check the Grader report to ensure that the expected changes are visible and correctly reflected."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "None of the test cases confirm changes in the Grader report. They only check for the presence of UI elements."
+      ]
+    },
+    {
+      "id": "1G/GR(-002",
+      "title": "Verify Grader report dropdown is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Grader report dropdown"
+      ],
+      "expected_result": "Grader report dropdown is displayed"
+    },
+    {
+      "id": "1G/GR(-003",
+      "title": "Verify Search users field is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Search users field"
+      ],
+      "expected_result": "Search users field is displayed"
+    },
+    {
+      "id": "1G/GR(-004",
+      "title": "Verify Filter by name dropdown is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Filter by name dropdown"
+      ],
+      "expected_result": "Filter by name dropdown is displayed"
+    },
+    {
+      "id": "1G/GR(-005",
+      "title": "Verify Three-dot menu in course name header is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Three-dot menu in course name header"
+      ],
+      "expected_result": "Three-dot menu in course name header is displayed"
+    },
+    {
+      "id": "1G/GR(-006",
+      "title": "Verify First name / Last name links are displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of First name / Last name links"
+      ],
+      "expected_result": "First name / Last name links are displayed"
+    },
+    {
+      "id": "1G/GR(-007",
+      "title": "Verify Email address column is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Email address column"
+      ],
+      "expected_result": "Email address column is displayed"
+    },
+    {
+      "id": "1G/GR(-008",
+      "title": "Verify Assignment columns are displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of Assignment columns"
+      ],
+      "expected_result": "Assignment columns are displayed"
+    },
+    {
+      "id": "1G/GR(-009",
+      "title": "Verify r column is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the r column"
+      ],
+      "expected_result": "r column is displayed"
+    },
+    {
+      "id": "1G/GR(-010",
+      "title": "Verify Course total column is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Course total column"
+      ],
+      "expected_result": "Course total column is displayed"
+    },
+    {
+      "id": "1G/GR(-011",
+      "title": "Verify Three-dot menu in column headers is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Three-dot menu in column headers"
+      ],
+      "expected_result": "Three-dot menu in column headers is displayed"
+    },
+    {
+      "id": "1G/GR(-012",
+      "title": "Verify Three-dot menu in grade cells is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Three-dot menu in grade cells"
+      ],
+      "expected_result": "Three-dot menu in grade cells is displayed"
+    },
+    {
+      "id": "1G/GR(-013",
+      "title": "Verify Overall average row is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Overall average row"
+      ],
+      "expected_result": "Overall average row is displayed"
+    },
+    {
+      "id": "1G/GR(-014",
+      "title": "Verify Save changes button is displayed",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of the Save changes button"
+      ],
+      "expected_result": "Save changes button is displayed"
+    },
+    {
+      "id": "1G/UR(-001",
+      "title": "Verify student can view their own grades",
+      "module_id": 13,
+      "module_title": "13. Grades / User Report (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Student is logged in and on the Grades page",
+      "steps": [
+        "Locate the 'User report' dropdown",
+        "Verify the dropdown indicates the current report view",
+        "Check that the grades displayed belong to the logged-in student"
+      ],
+      "expected_result": "Student's own grades are displayed correctly"
+    },
+    {
+      "id": "1G/UR(-002",
+      "title": "Verify display of ungraded items",
+      "module_id": 13,
+      "module_title": "13. Grades / User Report (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Student is logged in and on the Grades page",
+      "steps": [
+        "Locate a grade item that has not been submitted or graded",
+        "Verify that '(Empty)' is displayed in the Calculated weight column"
+      ],
+      "expected_result": "Ungraded items show '(Empty)' in Calculated weight"
+    },
+    {
+      "id": "1G/UR(-003",
+      "title": "Verify grade item details display",
+      "module_id": 13,
+      "module_title": "13. Grades / User Report (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Student is logged in and on the Grades page",
+      "steps": [
+        "Locate a grade item",
+        "Verify the presence of Grade, Range, Percentage, Feedback, Contribution to course total, Type label, and Activity name link"
+      ],
+      "expected_result": "All grade item details are displayed correctly"
+    },
+    {
+      "id": "1G/UR(-004",
+      "title": "Verify AGGREGATION Course total row display",
+      "module_id": 13,
+      "module_title": "13. Grades / User Report (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Student is logged in and on the Grades page",
+      "steps": [
+        "Scroll to the bottom of the grades list",
+        "Verify the presence of the AGGREGATION Course total row"
+      ],
+      "expected_result": "AGGREGATION Course total row is displayed correctly"
+    },
+    {
+      "id": "1G/UR(-005",
+      "title": "Verify three-dot menu functionality",
+      "module_id": 13,
+      "module_title": "13. Grades / User Report (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "Student is logged in and on the Grades page",
+      "steps": [
+        "Locate the three-dot menu next to a grade item",
+        "Click on the three-dot menu",
+        "Verify that additional options are displayed"
+      ],
+      "expected_result": "Three-dot menu displays additional options"
+    },
+    {
+      "id": "1A(V-001",
+      "title": "Verify Activities page heading displays correctly",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Verify the page heading displays 'Activities' at the top of the page"
+      ],
+      "expected_result": "The page heading 'Activities' is displayed correctly",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the page heading 'Activities' is displayed correctly",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "All candidate test cases focus on verifying the presence of specific sections (Assignments, Forums, Resources) within the Activities module, but none check the page heading itself.",
+          "suggested_manual_step": "Manually navigate to the Activities page and verify that the page heading is 'Activities'."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "All candidate test cases focus on verifying the presence of specific sections (Assignments, Forums, Resources) within the Activities module, but none check the page heading itself."
+      ]
+    },
+    {
+      "id": "1A(V-002",
+      "title": "Verify Assignments section is displayed",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Assignments section is present on the Activities page"
+      ],
+      "expected_result": "Assignments section is displayed on the Activities page",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the Assignments section is displayed on the Activities page",
+          "status": "partial",
+          "execution_strategy": "after_only",
+          "matched_test_id": "1A(V-005",
+          "matched_test_title": "Verify activity name is displayed in Assignments section",
+          "confidence": 0.6,
+          "execution_note": "This test can be adapted to verify the presence of the Assignments section by confirming that it exists before checking for activity names.",
+          "reason": "The test operates on the correct module and accesses the Assignments section, but it does not explicitly confirm the presence of the Assignments section itself.",
+          "suggested_manual_step": "Manually verify the presence of the Assignments section on the Activities page."
+        }
+      ],
+      "verification_coverage": "partial",
+      "coverage_gaps": [
+        "The test operates on the correct module and accesses the Assignments section, but it does not explicitly confirm the presence of the Assignments section itself."
+      ]
+    },
+    {
+      "id": "1A(V-003",
+      "title": "Verify Forums section is displayed",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Forums section is present on the Activities page"
+      ],
+      "expected_result": "Forums section is displayed on the Activities page"
+    },
+    {
+      "id": "1A(V-004",
+      "title": "Verify Resources section is displayed",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Resources section is present on the Activities page"
+      ],
+      "expected_result": "Resources section is displayed on the Activities page",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the Resources section is displayed on the Activities page",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "All candidate test cases focus on different sections or elements of the Activities page and do not address the Resources section.",
+          "suggested_manual_step": "Manually check the Activities page to confirm the Resources section is displayed."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "All candidate test cases focus on different sections or elements of the Activities page and do not address the Resources section."
+      ]
+    },
+    {
+      "id": "1A(V-005",
+      "title": "Verify activity name is displayed in Assignments section",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Assignments section is displayed",
+      "steps": [
+        "Check if each activity in the Assignments section has a name displayed"
+      ],
+      "expected_result": "Each activity in the Assignments section has a name displayed",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "work_submission"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify each activity in the Assignments section has a name displayed",
+          "status": "not_found",
+          "execution_strategy": "after_only",
+          "reason": "None of the test cases access or display the activity names in the Assignments section. They focus on due dates, submission status, and the presence of the Assignments section itself.",
+          "suggested_manual_step": "Manually navigate to the Assignments section in the Activities module and verify that each activity has a name displayed."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "None of the test cases access or display the activity names in the Assignments section. They focus on due dates, submission status, and the presence of the Assignments section itself."
+      ]
+    },
+    {
+      "id": "1A(V-006",
+      "title": "Verify due date is displayed in Assignments section",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Assignments section is displayed",
+      "steps": [
+        "Check if each activity in the Assignments section has a due date displayed"
+      ],
+      "expected_result": "Each activity in the Assignments section has a due date displayed"
+    },
+    {
+      "id": "1A(V-007",
+      "title": "Verify submission status is displayed in Assignments section",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Assignments section is displayed",
+      "steps": [
+        "Check if each activity in the Assignments section has a submission status displayed"
+      ],
+      "expected_result": "Each activity in the Assignments section has a submission status displayed"
+    },
+    {
+      "id": "1A(V-008",
+      "title": "Verify arrow icon is present for each activity",
+      "module_id": 14,
+      "module_title": "14. Activities (Student View)",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "Activities are displayed in any section",
+      "steps": [
+        "Check if an arrow icon is present next to each activity"
+      ],
+      "expected_result": "An arrow icon is present next to each activity"
+    },
+    {
+      "id": "15.PRO-001",
+      "title": "Update profile with valid first name, last name, and email",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Enter a valid email address",
+        "Click the Update profile button"
+      ],
+      "expected_result": "Profile is updated successfully with the new details",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "profile_update"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the profile details are updated with the new first name, last name, and email",
+          "status": "found",
+          "execution_strategy": "before_after",
+          "matched_test_id": "15.PRO-002",
+          "matched_test_title": "Verify profile fields are displayed correctly",
+          "confidence": 0.9,
+          "execution_note": "Use this test to display the profile fields before and after the update. It verifies the presence of the first name, last name, and email fields, which allows for observation of the data.",
+          "before_action": "Record the current first name, last name, and email before the update",
+          "after_action": "Compare the profile details and confirm they match the new inputs"
+        }
+      ],
+      "verification_coverage": "full"
+    },
+    {
+      "id": "15.PRO-002",
+      "title": "Verify profile fields are displayed correctly",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Verify the presence of the first name field",
+        "Verify the presence of the last name field",
+        "Verify the presence of the email address field",
+        "Verify the presence of the timezone dropdown",
+        "Verify the presence of the description rich text editor"
+      ],
+      "expected_result": "All profile fields are displayed correctly"
+    },
+    {
+      "id": "15.PRO-003",
+      "title": "Update profile with valid picture upload",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Upload a valid picture file within the size limit",
+        "Click the Update profile button"
+      ],
+      "expected_result": "Profile picture is updated successfully",
+      "needs_post_verification": true,
+      "modifies_state": [
+        "profile_update"
+      ],
+      "post_verifications": [
+        {
+          "ideal": "Verify the profile picture is updated successfully",
+          "status": "not_found",
+          "execution_strategy": "before_after",
+          "before_action": "Record the current profile picture before the update",
+          "after_action": "Compare the profile picture and confirm it matches the uploaded file",
+          "reason": "None of the test cases access or display the profile picture, which is necessary for the before_after strategy to observe the data.",
+          "suggested_manual_step": "Manually navigate to the profile page and verify the profile picture is displayed correctly before and after the update."
+        }
+      ],
+      "verification_coverage": "none",
+      "coverage_gaps": [
+        "None of the test cases access or display the profile picture, which is necessary for the before_after strategy to observe the data."
+      ]
+    },
+    {
+      "id": "1.LOG-002",
+      "title": "Username field empty",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the Username field empty",
+        "Enter a valid password",
+        "Click the Log in button"
+      ],
+      "expected_result": "Error message appears indicating the username is required"
+    },
+    {
+      "id": "1.LOG-003",
+      "title": "Password field empty",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username",
+        "Leave the Password field empty",
+        "Click the Log in button"
+      ],
+      "expected_result": "Error message appears indicating the password is required"
+    },
+    {
+      "id": "1.LOG-004",
+      "title": "Invalid username and valid password",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter an invalid username",
+        "Enter a valid password",
+        "Click the Log in button"
+      ],
+      "expected_result": "Error message appears indicating invalid credentials"
+    },
+    {
+      "id": "1.LOG-005",
+      "title": "Valid username and invalid password",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username",
+        "Enter an invalid password",
+        "Click the Log in button"
+      ],
+      "expected_result": "Error message appears indicating invalid credentials"
+    },
+    {
+      "id": "1.LOG-006",
+      "title": "Username field remains populated after error",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username",
+        "Enter an invalid password",
+        "Click the Log in button"
+      ],
+      "expected_result": "Username field remains populated for correction"
+    },
+    {
+      "id": "2.DAS-013",
+      "title": "Create a new calendar entry with a past date",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entry",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Open the Calendar block",
+        "Click on the 'New event' button",
+        "Enter valid event details for a past date",
+        "Attempt to save the event"
+      ],
+      "expected_result": "System prevents saving an event with a past date"
+    },
+    {
+      "id": "2.DAS-014",
+      "title": "Create a new calendar entry with an empty event name",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entry",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Open the Calendar block",
+        "Click on the 'New event' button",
+        "Leave the event name field empty",
+        "Enter valid details for other fields",
+        "Attempt to save the event"
+      ],
+      "expected_result": "System prevents saving an event with an empty event name"
+    },
+    {
+      "id": "2.DAS-015",
+      "title": "Create a new calendar entry with maximum length event name",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entry",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Open the Calendar block",
+        "Click on the 'New event' button",
+        "Enter an event name with maximum allowed characters",
+        "Enter valid details for other fields",
+        "Save the event"
+      ],
+      "expected_result": "New event is saved and displayed correctly with the maximum length event name"
+    },
+    {
+      "id": "5AA(O-007",
+      "title": "Assignment name field empty",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Leave the assignment name field empty",
+        "Click the 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating that the assignment name is required"
+    },
+    {
+      "id": "5AA(O-013",
+      "title": "Add button disabled when no activity selected",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open with no activity selected",
+      "steps": [
+        "Attempt to click the Add button"
+      ],
+      "expected_result": "Add button remains disabled"
+    },
+    {
+      "id": "5AA(O-014",
+      "title": "Upload file exceeding maximum size",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Upload a file larger than 100 MB in the additional files upload area",
+        "Click the 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating the file exceeds the maximum size limit"
+    },
+    {
+      "id": "5AA(O-015",
+      "title": "Maximum submission size exceeds site limit",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select an option from 'Maximum submission size' dropdown that exceeds 100 MB",
+        "Click the 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating the submission size exceeds the site limit"
+    },
+    {
+      "id": "5AA(O-016",
+      "title": "Search with no matching results",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "negative",
+      "priority": "Low",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Enter a search term that does not match any activity"
+      ],
+      "expected_result": "No activities or resources are displayed"
+    },
+    {
+      "id": "5AA(O-017",
+      "title": "Filter by category with no activities",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Add an activity or resource",
+      "test_type": "negative",
+      "priority": "Low",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Select a category filter with no available activities"
+      ],
+      "expected_result": "No activities or resources are displayed"
+    },
+    {
+      "id": "5AA(O-018",
+      "title": "Set same date for 'Allow submissions from' and 'Due date'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Set the same date/time for 'Allow submissions from' and 'Due date'",
+        "Click the 'Save and return to course' button"
+      ],
+      "expected_result": "Assignment is created successfully with the same start and due date"
+    },
+    {
+      "id": "5AA(O-019",
+      "title": "Set future date for 'Due date'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities (Teacher Only)",
+      "workflow": "Create new assignment",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Set a future date/time for 'Due date'",
+        "Click the 'Save and return to course' button"
+      ],
+      "expected_result": "Assignment is created successfully with a future due date"
+    },
+    {
+      "id": "6CS(O-002",
+      "title": "Course full name field empty",
+      "module_id": 6,
+      "module_title": "6. Course Settings (Teacher Only)",
+      "workflow": "Save course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Course Settings page",
+      "steps": [
+        "Leave the course full name field empty",
+        "Enter a valid course short name",
+        "Select a valid course category",
+        "Click the Save and display button"
+      ],
+      "expected_result": "An error message is displayed indicating that the course full name is required"
+    },
+    {
+      "id": "6CS(O-003",
+      "title": "Course short name field empty",
+      "module_id": 6,
+      "module_title": "6. Course Settings (Teacher Only)",
+      "workflow": "Save course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Course Settings page",
+      "steps": [
+        "Enter a valid course full name",
+        "Leave the course short name field empty",
+        "Select a valid course category",
+        "Click the Save and display button"
+      ],
+      "expected_result": "An error message is displayed indicating that the course short name is required"
+    },
+    {
+      "id": "6CS(O-004",
+      "title": "Course category field empty",
+      "module_id": 6,
+      "module_title": "6. Course Settings (Teacher Only)",
+      "workflow": "Save course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Course Settings page",
+      "steps": [
+        "Enter a valid course full name",
+        "Enter a valid course short name",
+        "Leave the course category field empty",
+        "Click the Save and display button"
+      ],
+      "expected_result": "An error message is displayed indicating that the course category is required"
+    },
+    {
+      "id": "6CS(O-005",
+      "title": "Course start date and end date are the same",
+      "module_id": 6,
+      "module_title": "6. Course Settings (Teacher Only)",
+      "workflow": "Save course settings",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is on the Course Settings page",
+      "steps": [
+        "Enter a valid course full name",
+        "Enter a valid course short name",
+        "Select a valid course category",
+        "Select the same date for course start date and course end date",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Course settings are saved successfully with the same start and end date"
+    },
+    {
+      "id": "6CS(O-006",
+      "title": "Maximum upload size at boundary value",
+      "module_id": 6,
+      "module_title": "6. Course Settings (Teacher Only)",
+      "workflow": "Save course settings",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is on the Course Settings page",
+      "steps": [
+        "Enter a valid course full name",
+        "Enter a valid course short name",
+        "Select a valid course category",
+        "Select the maximum allowed upload size from the dropdown",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Course settings are saved successfully with the maximum upload size"
+    },
+    {
+      "id": "7.PAR-009",
+      "title": "Apply filter with no conditions",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Ensure no conditions are selected",
+        "Click the Apply filters button"
+      ],
+      "expected_result": "No filters are applied and the full list of participants is displayed"
+    },
+    {
+      "id": "7.PAR-010",
+      "title": "Add condition without selecting criteria",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click the + Add condition link",
+        "Leave the Any dropdown unselected",
+        "Click the Apply filters button"
+      ],
+      "expected_result": "No filters are applied and an error message prompts the user to select criteria"
+    },
+    {
+      "id": "7.PAR-011",
+      "title": "Add condition without selecting value",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select a criterion from the Any dropdown",
+        "Leave the Select dropdown unselected",
+        "Click the Apply filters button"
+      ],
+      "expected_result": "No filters are applied and an error message prompts the user to select a value"
+    },
+    {
+      "id": "7.PAR-012",
+      "title": "Enroll user with no username selected",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Leave the Enrolled users dropdown empty",
+        "Select a valid role from the role dropdown",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "Error message displayed indicating username is required"
+    },
+    {
+      "id": "7.PAR-013",
+      "title": "Enroll user with no role selected",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Select a valid username from the Enrolled users dropdown",
+        "Leave the role dropdown empty",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "Error message displayed indicating role is required"
+    },
+    {
+      "id": "7.PAR-014",
+      "title": "Enroll user with invalid enrollment duration",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Select a valid username from the Enrolled users dropdown",
+        "Select a valid role from the role dropdown",
+        "Enter an invalid enrollment duration",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "Error message displayed indicating invalid enrollment duration"
+    },
+    {
+      "id": "7.PAR-015",
+      "title": "Apply filter with maximum number of conditions",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Add the maximum number of conditions allowed using the + Add condition link",
+        "Select criteria and corresponding values for each condition",
+        "Click the Apply filters button"
+      ],
+      "expected_result": "Count displays the number of participants matching all filter criteria"
+    },
+    {
+      "id": "7.PAR-016",
+      "title": "Enroll user with maximum enrollment duration",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Select a valid username from the Enrolled users dropdown",
+        "Select a valid role from the role dropdown",
+        "Enter the maximum allowed enrollment duration",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "User is successfully enrolled with the selected role and maximum duration"
+    },
+    {
+      "id": "7.PAR-017",
+      "title": "Enroll user with minimum enrollment duration",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enrol users",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is on the enrol users page",
+      "steps": [
+        "Select a valid username from the Enrolled users dropdown",
+        "Select a valid role from the role dropdown",
+        "Enter the minimum allowed enrollment duration",
+        "Click on the Enrol users button"
+      ],
+      "expected_result": "User is successfully enrolled with the selected role and minimum duration"
+    },
+    {
+      "id": "1A(V-006",
+      "title": "Attempt to submit assignment with empty online text",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Assignment is available for submission",
+      "steps": [
+        "Click on 'Add submission' button",
+        "Leave 'Online text' field empty",
+        "Click on 'Submit' button"
+      ],
+      "expected_result": "Error message displayed indicating online text is required"
+    },
+    {
+      "id": "1A(V-007",
+      "title": "Attempt to submit assignment without uploading files",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Assignment is available for submission",
+      "steps": [
+        "Click on 'Add submission' button",
+        "Do not upload any files in the 'Upload files' section",
+        "Click on 'Submit' button"
+      ],
+      "expected_result": "Error message displayed indicating file upload is required"
+    },
+    {
+      "id": "1A(V-008",
+      "title": "Submit assignment with maximum length online text",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "Assignment is available for submission",
+      "steps": [
+        "Click on 'Add submission' button",
+        "Enter maximum allowed characters in the 'Online text' field",
+        "Click on 'Submit' button"
+      ],
+      "expected_result": "Submission status updates to 'Submitted for grading'"
+    },
+    {
+      "id": "1A(V-009",
+      "title": "Submit assignment with future due date",
+      "module_id": 10,
+      "module_title": "10. Assignment (Student View)",
+      "workflow": "Submit assignment",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "Assignment is available for submission and due date is set in the future",
+      "steps": [
+        "Click on 'Add submission' button",
+        "Enter valid text in the 'Online text' field",
+        "Click on 'Submit' button"
+      ],
+      "expected_result": "Submission status updates to 'Submitted for grading'"
+    },
+    {
+      "id": "1G/GR(-015",
+      "title": "Attempt to save changes with an empty assignment column",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Grader report is in edit mode",
+      "steps": [
+        "Leave one assignment column empty",
+        "Click the Save changes button"
+      ],
+      "expected_result": "An error message is displayed indicating the assignment column cannot be empty"
+    },
+    {
+      "id": "1G/GR(-016",
+      "title": "Attempt to save changes with invalid data in assignment column",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Grader report is in edit mode",
+      "steps": [
+        "Enter invalid data in an assignment column",
+        "Click the Save changes button"
+      ],
+      "expected_result": "An error message is displayed indicating the data is invalid"
+    },
+    {
+      "id": "1G/GR(-017",
+      "title": "Save changes with maximum length data in assignment column",
+      "module_id": 12,
+      "module_title": "12. Gradebook / Grader Report (Teacher Only)",
+      "workflow": "Save changes in Edit mode",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "Grader report is in edit mode",
+      "steps": [
+        "Enter maximum length valid data in an assignment column",
+        "Click the Save changes button"
+      ],
+      "expected_result": "Changes are saved successfully and reflected in the Grader report"
+    },
+    {
+      "id": "15.PRO-004",
+      "title": "First name field empty",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Leave the first name field empty",
+        "Enter a valid last name",
+        "Enter a valid email address",
+        "Click the Update profile button"
+      ],
+      "expected_result": "An error message is displayed indicating the first name is required"
+    },
+    {
+      "id": "15.PRO-005",
+      "title": "Last name field empty",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Enter a valid first name",
+        "Leave the last name field empty",
+        "Enter a valid email address",
+        "Click the Update profile button"
+      ],
+      "expected_result": "An error message is displayed indicating the last name is required"
+    },
+    {
+      "id": "15.PRO-006",
+      "title": "Email address field empty",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Enter a valid first name",
+        "Enter a valid last name",
+        "Leave the email address field empty",
+        "Click the Update profile button"
+      ],
+      "expected_result": "An error message is displayed indicating the email address is required"
+    },
+    {
+      "id": "15.PRO-007",
+      "title": "Upload file exceeding maximum size",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Attempt to upload a file larger than 100 MB",
+        "Click the Update profile button"
+      ],
+      "expected_result": "An error message is displayed indicating the file size exceeds the limit"
+    },
+    {
+      "id": "15.PRO-008",
+      "title": "Upload more than one file",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Attempt to upload more than one file",
+        "Click the Update profile button"
+      ],
+      "expected_result": "An error message is displayed indicating only one file can be uploaded"
+    },
+    {
+      "id": "15.PRO-009",
+      "title": "Upload unsupported file type",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Attempt to upload a file with an unsupported file type",
+        "Click the Update profile button"
+      ],
+      "expected_result": "An error message is displayed indicating the file type is not supported"
+    },
+    {
+      "id": "15.PRO-010",
+      "title": "Update profile with maximum length first name",
+      "module_id": 15,
+      "module_title": "15. Profile",
+      "workflow": "Update profile",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is logged in and on the profile page",
+      "steps": [
+        "Click on the Edit profile link",
+        "Enter a first name with maximum allowed characters",
+        "Enter a valid last name",
+        "Enter a valid email address",
+        "Click the Update profile button"
+      ],
+      "expected_result": "Profile is updated successfully with the maximum length first name"
+    }
+  ],
+  "summary": {
+    "total_tests": 180,
+    "by_type": {
+      "positive": 136,
+      "negative": 32,
+      "edge_case": 12
+    },
+    "by_priority": {
+      "High": 69,
+      "Medium": 92,
+      "Low": 19
+    },
+    "by_module": {
+      "1. Login": 8,
+      "2. Dashboard": 15,
+      "3. My Courses": 12,
+      "4. Course Page": 21,
+      "5. Adding Activities (Teacher Only)": 19,
+      "6. Course Settings (Teacher Only)": 6,
+      "7. Participants": 17,
+      "8. Assignment (Teacher View)": 18,
+      "9. Assignment Submissions (Teacher Only)": 11,
+      "10. Assignment (Student View)": 9,
+      "11. Advanced Grading (Teacher Only)": 4,
+      "12. Gradebook / Grader Report (Teacher Only)": 17,
+      "13. Grades / User Report (Student View)": 5,
+      "14. Activities (Student View)": 8,
+      "15. Profile": 10
+    },
+    "post_verification": {
+      "tests_needing_verification": 22,
+      "full_coverage": 2,
+      "partial_coverage": 4,
+      "no_coverage": 16,
+      "coverage_gaps": [
+        "None of the test cases confirm changes in the Grader report. They only check for the presence of UI elements.",
+        "The test case operates on the correct module and accesses the Assignments section, but it does not explicitly confirm the presence of the section itself.",
+        "None of the test cases access or display the profile picture, which is necessary for the before_after strategy to observe the data.",
+        "No verification scenarios identified",
+        "None of the test cases check for the presence of activity names in the Assignments section. They focus on due dates, submission status, or the presence of the section itself.",
+        "All candidate test cases focus on different sections or elements of the Activities page and do not address the Resources section.",
+        "All candidate test cases focus on verifying the presence of specific sections (Assignments, Forums, Resources) within the Activities module, but none check the page heading itself.",
+        "None of the test cases access or display the activity names in the Assignments section. They focus on due dates, submission status, and the presence of the Assignments section itself.",
+        "All candidate test cases focus on the enrollment process itself and do not include steps to verify the participants list for the new user with the correct role after enrollment.",
+        "All candidate test cases focus on the enrollment process itself and do not include steps to verify the presence of the user in the participants list with the correct role and duration after enrollment."
+      ]
+    },
+    "execution_plans": {
+      "total_plans": 15,
+      "coverage_distribution": {
+        "full": 2,
+        "partial": 3,
+        "minimal": 0,
+        "none": 10
+      },
+      "total_automated_steps": 6,
+      "total_manual_steps": 11,
+      "automation_rate": 35.3,
+      "before_after_plans": 1,
+      "after_only_plans": 14
+    }
+  },
+  "execution_plans": {
+    "2.DAS-003": {
+      "source_test_id": "2.DAS-003",
+      "source_test_title": "Create a new calendar entry for a future date",
+      "source_module": "2. Dashboard",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "2.DAS-003",
+          "test_title": "Create a new calendar entry for a future date",
+          "purpose": "Execute the action: Create a new calendar entry for a future date",
+          "note": "Run 2.DAS-003 — this is the state-changing action being verified",
+          "confidence": 1.0
+        },
+        {
+          "step": 2,
+          "phase": "post_verify",
+          "action": "execute_test_partial",
+          "test_id": "2.DAS-002",
+          "test_title": "Verify event names are displayed on dates with events",
+          "purpose": "Verify the new calendar event appears on the selected future date",
+          "note": "This test can be adapted to verify if the new event is displayed on a specific date by modifying it to check the selected future date instead of any date with an existing event.",
+          "confidence": 0.6,
+          "limitation": "The test operates on the correct module and accesses the calendar to display event names. However, it does not specifically confirm the presence of a new event on a selected future date."
+        }
+      ],
+      "manual_steps": [],
+      "verification_coverage": "partial",
+      "notes": "Execute 2.DAS-003 → then verify with 2.DAS-002",
+      "has_before_after": false
+    },
+    "2.DAS-004": {
+      "source_test_id": "2.DAS-004",
+      "source_test_title": "Create a new calendar entry for the current date",
+      "source_module": "2. Dashboard",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "2.DAS-004",
+          "test_title": "Create a new calendar entry for the current date",
+          "purpose": "Execute the action: Create a new calendar entry for the current date",
+          "note": "Run 2.DAS-004 — this is the state-changing action being verified",
+          "confidence": 1.0
+        },
+        {
+          "step": 2,
+          "phase": "post_verify",
+          "action": "execute_test",
+          "test_id": "2.DAS-002",
+          "test_title": "Verify event names are displayed on dates with events",
+          "purpose": "Verify the new calendar event appears on the current date",
+          "note": "Use this test to open the Calendar block and verify that the new event is displayed on the current date.",
+          "confidence": 0.8
+        }
+      ],
+      "manual_steps": [],
+      "verification_coverage": "full",
+      "notes": "Execute 2.DAS-004 → then verify with 2.DAS-002",
+      "has_before_after": false
+    },
+    "2.DAS-007": {
+      "source_test_id": "2.DAS-007",
+      "source_test_title": "Verify block is added to the dashboard",
+      "source_module": "2. Dashboard",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "2.DAS-007",
+          "test_title": "Verify block is added to the dashboard",
+          "purpose": "Execute the action: Verify block is added to the dashboard",
+          "note": "Run 2.DAS-007 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the new block is added to the dashboard",
+          "suggested_step": "Manually check the dashboard for the presence of the new block after the action.",
+          "reason": "None of the test cases access or display the presence of a new block on the dashboard.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 2.DAS-007 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "6CS(O-001": {
+      "source_test_id": "6CS(O-001",
+      "source_test_title": "Save course settings with all valid inputs",
+      "source_module": "6. Course Settings (Teacher Only)",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "6CS(O-001",
+          "test_title": "Save course settings with all valid inputs",
+          "purpose": "Execute the action: Save course settings with all valid inputs",
+          "note": "Run 6CS(O-001 — this is the state-changing action being verified",
+          "confidence": 1.0
+        },
+        {
+          "step": 2,
+          "phase": "post_verify",
+          "action": "execute_test_partial",
+          "test_id": "6CS(O-005",
+          "test_title": "Course start date and end date are the same",
+          "purpose": "Verify the course settings are saved and displayed correctly",
+          "note": "This test case verifies that course settings are saved successfully, but it does not explicitly confirm that all settings are displayed correctly.",
+          "confidence": 0.5,
+          "limitation": "The test case operates on the correct module and confirms that settings are saved, but it focuses on a specific condition (same start and end date) rather than verifying all settings are displayed correctly."
+        }
+      ],
+      "manual_steps": [],
+      "verification_coverage": "partial",
+      "notes": "Execute 6CS(O-001 → then verify with 6CS(O-005",
+      "has_before_after": false
+    },
+    "7.PAR-003": {
+      "source_test_id": "7.PAR-003",
+      "source_test_title": "Enroll user with valid username and role",
+      "source_module": "7. Participants",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "7.PAR-003",
+          "test_title": "Enroll user with valid username and role",
+          "purpose": "Execute the action: Enroll user with valid username and role",
+          "note": "Run 7.PAR-003 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the user is enrolled with the selected role",
+          "suggested_step": "Manually check the participants list to confirm the new user is listed with the selected role.",
+          "reason": "All candidate test cases focus on the enrollment process itself, but none verify the outcome by checking the participants list for the new user with the correct role.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 7.PAR-003 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "7.PAR-004": {
+      "source_test_id": "7.PAR-004",
+      "source_test_title": "Enroll user with valid email and role",
+      "source_module": "7. Participants",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "7.PAR-004",
+          "test_title": "Enroll user with valid email and role",
+          "purpose": "Execute the action: Enroll user with valid email and role",
+          "note": "Run 7.PAR-004 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the user is enrolled with the selected role",
+          "suggested_step": "After enrolling a user, manually check the participants list to confirm the user is listed with the correct role.",
+          "reason": "All candidate test cases focus on the enrollment process itself and do not include steps to verify the participants list for the new user with the correct role after enrollment.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 7.PAR-004 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "7.PAR-008": {
+      "source_test_id": "7.PAR-008",
+      "source_test_title": "Enroll user with enrollment duration set",
+      "source_module": "7. Participants",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "7.PAR-008",
+          "test_title": "Enroll user with enrollment duration set",
+          "purpose": "Execute the action: Enroll user with enrollment duration set",
+          "note": "Run 7.PAR-008 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the user is enrolled with the selected role and duration",
+          "suggested_step": "After enrolling a user, manually check the participants list to confirm the user is listed with the correct role and duration.",
+          "reason": "All candidate test cases focus on the enrollment process itself and do not include steps to verify the presence of the user in the participants list with the correct role and duration after enrollment.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 7.PAR-008 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "9AS(O-003": {
+      "source_test_id": "9AS(O-003",
+      "source_test_title": "Grade a submission using the Grade button",
+      "source_module": "9. Assignment Submissions (Teacher Only)",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "9AS(O-003",
+          "test_title": "Grade a submission using the Grade button",
+          "purpose": "Execute the action: Grade a submission using the Grade button",
+          "note": "Run 9AS(O-003 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the grade is displayed correctly for the submission",
+          "suggested_step": "Manually check the submission table to ensure the grade is displayed correctly for the submission.",
+          "reason": "None of the test cases access or display the grade for a submission, which is necessary to confirm the expected outcome in an after_only strategy.",
+          "execution_strategy": "after_only"
+        },
+        {
+          "purpose": "Verify the grade appears in the Grader report",
+          "suggested_step": "Manually check the Grader report to confirm the updated grade is displayed.",
+          "reason": "None of the test cases access or confirm the presence of a specific grade in the Grader report.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 9AS(O-003 → Manual verification needed for 2 item(s)",
+      "has_before_after": false
+    },
+    "1A(V-001": {
+      "source_test_id": "1A(V-001",
+      "source_test_title": "Verify Activities page heading displays correctly",
+      "source_module": "14. Activities (Student View)",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "1A(V-001",
+          "test_title": "Verify Activities page heading displays correctly",
+          "purpose": "Execute the action: Verify Activities page heading displays correctly",
+          "note": "Run 1A(V-001 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the page heading 'Activities' is displayed correctly",
+          "suggested_step": "Manually navigate to the Activities page and verify that the page heading is 'Activities'.",
+          "reason": "All candidate test cases focus on verifying the presence of specific sections (Assignments, Forums, Resources) within the Activities module, but none check the page heading itself.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 1A(V-001 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "1A(V-002": {
+      "source_test_id": "1A(V-002",
+      "source_test_title": "Verify Assignments section is displayed",
+      "source_module": "14. Activities (Student View)",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "1A(V-002",
+          "test_title": "Verify Assignments section is displayed",
+          "purpose": "Execute the action: Verify Assignments section is displayed",
+          "note": "Run 1A(V-002 — this is the state-changing action being verified",
+          "confidence": 1.0
+        },
+        {
+          "step": 2,
+          "phase": "post_verify",
+          "action": "execute_test_partial",
+          "test_id": "1A(V-005",
+          "test_title": "Verify activity name is displayed in Assignments section",
+          "purpose": "Verify the Assignments section is displayed on the Activities page",
+          "note": "This test can be adapted to verify the presence of the Assignments section by confirming that it exists before checking for activity names.",
+          "confidence": 0.6,
+          "limitation": "The test operates on the correct module and accesses the Assignments section, but it does not explicitly confirm the presence of the Assignments section itself."
+        }
+      ],
+      "manual_steps": [],
+      "verification_coverage": "partial",
+      "notes": "Execute 1A(V-002 → then verify with 1A(V-005",
+      "has_before_after": false
+    },
+    "1A(V-004": {
+      "source_test_id": "1A(V-004",
+      "source_test_title": "Verify Resources section is displayed",
+      "source_module": "14. Activities (Student View)",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "1A(V-004",
+          "test_title": "Verify Resources section is displayed",
+          "purpose": "Execute the action: Verify Resources section is displayed",
+          "note": "Run 1A(V-004 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the Resources section is displayed on the Activities page",
+          "suggested_step": "Manually check the Activities page to confirm the Resources section is displayed.",
+          "reason": "All candidate test cases focus on different sections or elements of the Activities page and do not address the Resources section.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 1A(V-004 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "1A(V-005": {
+      "source_test_id": "1A(V-005",
+      "source_test_title": "Verify activity name is displayed in Assignments section",
+      "source_module": "14. Activities (Student View)",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "1A(V-005",
+          "test_title": "Verify activity name is displayed in Assignments section",
+          "purpose": "Execute the action: Verify activity name is displayed in Assignments section",
+          "note": "Run 1A(V-005 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify each activity in the Assignments section has a name displayed",
+          "suggested_step": "Manually navigate to the Assignments section in the Activities module and verify that each activity has a name displayed.",
+          "reason": "None of the test cases access or display the activity names in the Assignments section. They focus on due dates, submission status, and the presence of the Assignments section itself.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 1A(V-005 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "1G/GR(-001": {
+      "source_test_id": "1G/GR(-001",
+      "source_test_title": "Save changes with valid data in all fields",
+      "source_module": "12. Gradebook / Grader Report (Teacher Only)",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "1G/GR(-001",
+          "test_title": "Save changes with valid data in all fields",
+          "purpose": "Execute the action: Save changes with valid data in all fields",
+          "note": "Run 1G/GR(-001 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify changes are reflected in the Grader report",
+          "suggested_step": "Manually check the Grader report to ensure that the expected changes are visible and correctly reflected.",
+          "reason": "None of the test cases confirm changes in the Grader report. They only check for the presence of UI elements.",
+          "execution_strategy": "after_only"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 1G/GR(-001 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    },
+    "15.PRO-001": {
+      "source_test_id": "15.PRO-001",
+      "source_test_title": "Update profile with valid first name, last name, and email",
+      "source_module": "15. Profile",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "pre_verify",
+          "action": "execute_test",
+          "test_id": "15.PRO-002",
+          "test_title": "Verify profile fields are displayed correctly",
+          "purpose": "Record the current first name, last name, and email before the update",
+          "note": "Run 15.PRO-002 and RECORD the current values before the action",
+          "confidence": 0.9
+        },
+        {
+          "step": 2,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "15.PRO-001",
+          "test_title": "Update profile with valid first name, last name, and email",
+          "purpose": "Execute the action: Update profile with valid first name, last name, and email",
+          "note": "Run 15.PRO-001 — this is the state-changing action being verified",
+          "confidence": 1.0
+        },
+        {
+          "step": 3,
+          "phase": "post_verify",
+          "action": "execute_test",
+          "test_id": "15.PRO-002",
+          "test_title": "Verify profile fields are displayed correctly",
+          "purpose": "Compare the profile details and confirm they match the new inputs",
+          "note": "Run 15.PRO-002 AGAIN and COMPARE with baseline values recorded in pre-verify",
+          "confidence": 0.9
+        }
+      ],
+      "manual_steps": [],
+      "verification_coverage": "full",
+      "notes": "PRE: Record baseline with 15.PRO-002 → ACTION: Execute 15.PRO-001 → POST: Verify with 15.PRO-002 (compare against baseline)",
+      "has_before_after": true
+    },
+    "15.PRO-003": {
+      "source_test_id": "15.PRO-003",
+      "source_test_title": "Update profile with valid picture upload",
+      "source_module": "15. Profile",
+      "execution_order": [
+        {
+          "step": 1,
+          "phase": "action",
+          "action": "execute_test",
+          "test_id": "15.PRO-003",
+          "test_title": "Update profile with valid picture upload",
+          "purpose": "Execute the action: Update profile with valid picture upload",
+          "note": "Run 15.PRO-003 — this is the state-changing action being verified",
+          "confidence": 1.0
+        }
+      ],
+      "manual_steps": [
+        {
+          "purpose": "Verify the profile picture is updated successfully",
+          "suggested_step": "Manually navigate to the profile page and verify the profile picture is displayed correctly before and after the update.",
+          "reason": "None of the test cases access or display the profile picture, which is necessary for the before_after strategy to observe the data.",
+          "execution_strategy": "before_after"
+        }
+      ],
+      "verification_coverage": "none",
+      "notes": "Execute 15.PRO-003 → Manual verification needed for 1 item(s)",
+      "has_before_after": false
+    }
+  }
+}

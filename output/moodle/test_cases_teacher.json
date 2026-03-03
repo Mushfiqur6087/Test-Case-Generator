@@ -1,0 +1,2752 @@
+{
+  "project_name": "Moodle",
+  "base_url": "",
+  "generated_at": "2026-03-04T03:59:44.216077",
+  "navigation_graph": {
+    "login_module_id": 1,
+    "graph_image_path": "output/moodle/navigation_graph.png",
+    "nodes": [
+      {
+        "module_id": 1,
+        "title": "1. Login",
+        "requires_auth": false,
+        "url_path": "/login",
+        "connected_to": [
+          2
+        ],
+        "test_case_ids": [
+          "1.LOG-001",
+          "1.LOG-002",
+          "1.LOG-003",
+          "1.LOG-004",
+          "1.LOG-005",
+          "1.LOG-006",
+          "1.LOG-007",
+          "1.LOG-008"
+        ]
+      },
+      {
+        "module_id": 2,
+        "title": "2. Dashboard",
+        "requires_auth": true,
+        "url_path": "/dashboard",
+        "connected_to": [
+          3,
+          4,
+          12
+        ],
+        "test_case_ids": [
+          "2.DAS-001",
+          "2.DAS-002",
+          "2.DAS-003",
+          "2.DAS-004",
+          "2.DAS-005",
+          "2.DAS-006",
+          "2.DAS-007",
+          "2.DAS-008",
+          "2.DAS-009",
+          "2.DAS-010",
+          "2.DAS-011",
+          "2.DAS-012",
+          "2.DAS-013",
+          "2.DAS-014",
+          "2.DAS-015"
+        ]
+      },
+      {
+        "module_id": 3,
+        "title": "3. My Courses",
+        "requires_auth": true,
+        "url_path": "/my-courses",
+        "connected_to": [
+          4
+        ],
+        "test_case_ids": [
+          "3MC-001",
+          "3MC-002",
+          "3MC-003",
+          "3MC-004",
+          "3MC-005",
+          "3MC-006",
+          "3MC-007",
+          "3MC-008",
+          "3MC-009",
+          "3MC-010"
+        ]
+      },
+      {
+        "module_id": 4,
+        "title": "4. Course Page",
+        "requires_auth": true,
+        "url_path": "/course",
+        "connected_to": [
+          5,
+          6,
+          7,
+          11
+        ],
+        "test_case_ids": [
+          "4CP-001",
+          "4CP-002",
+          "4CP-003",
+          "4CP-004",
+          "4CP-005",
+          "4CP-006",
+          "4CP-007",
+          "4CP-008",
+          "4CP-009",
+          "4CP-010",
+          "4CP-011"
+        ]
+      },
+      {
+        "module_id": 5,
+        "title": "5. Adding Activities",
+        "requires_auth": true,
+        "url_path": "/course/activities",
+        "connected_to": [],
+        "test_case_ids": [
+          "5AA-001",
+          "5AA-002",
+          "5AA-003",
+          "5AA-004",
+          "5AA-005",
+          "5AA-006",
+          "5AA-007",
+          "5AA-008",
+          "5AA-009",
+          "5AA-010",
+          "5AA-011",
+          "5AA-012",
+          "5AA-013",
+          "5AA-014",
+          "5AA-015",
+          "5AA-016",
+          "5AA-017",
+          "5AA-018",
+          "5AA-019",
+          "5AA-020",
+          "5AA-021",
+          "5AA-022"
+        ]
+      },
+      {
+        "module_id": 6,
+        "title": "6. Course Settings",
+        "requires_auth": true,
+        "url_path": "/course/settings",
+        "connected_to": [],
+        "test_case_ids": [
+          "6CS-001",
+          "6CS-002",
+          "6CS-003",
+          "6CS-004",
+          "6CS-005",
+          "6CS-006",
+          "6CS-007",
+          "6CS-008",
+          "6CS-009",
+          "6CS-010"
+        ]
+      },
+      {
+        "module_id": 7,
+        "title": "7. Participants",
+        "requires_auth": true,
+        "url_path": "/course/participants",
+        "connected_to": [],
+        "test_case_ids": [
+          "7.PAR-001",
+          "7.PAR-002",
+          "7.PAR-003",
+          "7.PAR-004",
+          "7.PAR-005",
+          "7.PAR-006",
+          "7.PAR-007",
+          "7.PAR-008",
+          "7.PAR-009",
+          "7.PAR-010",
+          "7.PAR-011",
+          "7.PAR-012",
+          "7.PAR-013",
+          "7.PAR-014",
+          "7.PAR-015",
+          "7.PAR-016",
+          "7.PAR-017"
+        ]
+      },
+      {
+        "module_id": 8,
+        "title": "8. Assignment (Teacher View)",
+        "requires_auth": true,
+        "url_path": "/assignment",
+        "connected_to": [
+          9,
+          10
+        ],
+        "test_case_ids": [
+          "8A(V-001",
+          "8A(V-002",
+          "8A(V-003",
+          "8A(V-004",
+          "8A(V-005",
+          "8A(V-006",
+          "8A(V-007",
+          "8A(V-008",
+          "8A(V-009",
+          "8A(V-010"
+        ]
+      },
+      {
+        "module_id": 9,
+        "title": "9. Assignment Submissions",
+        "requires_auth": true,
+        "url_path": "/assignment/submissions",
+        "connected_to": [],
+        "test_case_ids": [
+          "9AS-001",
+          "9AS-002",
+          "9AS-003",
+          "9AS-004",
+          "9AS-005",
+          "9AS-006",
+          "9AS-007",
+          "9AS-008",
+          "9AS-009",
+          "9AS-010",
+          "9AS-011",
+          "9AS-012",
+          "9AS-013",
+          "9AS-014",
+          "9AS-015",
+          "9AS-016"
+        ]
+      },
+      {
+        "module_id": 10,
+        "title": "10. Advanced Grading",
+        "requires_auth": true,
+        "url_path": "/assignment/advanced-grading",
+        "connected_to": [],
+        "test_case_ids": [
+          "1AG-001",
+          "1AG-002",
+          "1AG-003",
+          "1AG-004"
+        ]
+      },
+      {
+        "module_id": 11,
+        "title": "11. Gradebook (Grader Report)",
+        "requires_auth": true,
+        "url_path": "/course/gradebook",
+        "connected_to": [],
+        "test_case_ids": [
+          "1G(R-001",
+          "1G(R-002",
+          "1G(R-003",
+          "1G(R-004",
+          "1G(R-005",
+          "1G(R-006",
+          "1G(R-007"
+        ]
+      },
+      {
+        "module_id": 12,
+        "title": "12. Profile",
+        "requires_auth": true,
+        "url_path": "/profile",
+        "connected_to": [
+          1
+        ],
+        "test_case_ids": [
+          "12.PRO-001",
+          "12.PRO-002",
+          "12.PRO-003",
+          "12.PRO-004",
+          "12.PRO-005",
+          "12.PRO-006",
+          "12.PRO-007",
+          "12.PRO-008",
+          "12.PRO-009",
+          "12.PRO-010",
+          "12.PRO-011",
+          "12.PRO-012"
+        ]
+      }
+    ]
+  },
+  "module_summaries": [
+    {
+      "module_id": 1,
+      "module_title": "1. Login",
+      "summary": "Line 1: Users can log in or access courses as guests.\nLine 2: Displays login form and guest access option.",
+      "verification_keywords": [
+        "login",
+        "access",
+        "username",
+        "password"
+      ],
+      "can_verify_states": [
+        "login_form",
+        "guest_access"
+      ],
+      "action_states": [
+        "user_authentication"
+      ]
+    },
+    {
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "summary": "Line 1: Users can view upcoming activities and manage events.\nLine 2: Displays timeline and calendar with deadlines.",
+      "verification_keywords": [
+        "timeline",
+        "calendar",
+        "activities",
+        "events"
+      ],
+      "can_verify_states": [
+        "activity_timeline",
+        "calendar_events"
+      ],
+      "action_states": [
+        "event_management"
+      ]
+    },
+    {
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "summary": "Line 1: Users can filter and search their enrolled courses.\nLine 2: Displays course cards with images and categories.",
+      "verification_keywords": [
+        "courses",
+        "filter",
+        "search",
+        "overview"
+      ],
+      "can_verify_states": [
+        "course_list"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "summary": "Line 1: Users can navigate and view course content sections.\nLine 2: Displays full course name and organized sections.",
+      "verification_keywords": [
+        "course",
+        "sections",
+        "content",
+        "navigation"
+      ],
+      "can_verify_states": [
+        "course_content"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "summary": "Line 1: Users can add and manage course activities.\nLine 2: Displays editing tools and activity options.",
+      "verification_keywords": [
+        "edit",
+        "activities",
+        "resources",
+        "management"
+      ],
+      "can_verify_states": [],
+      "action_states": [
+        "course_activity_management"
+      ]
+    },
+    {
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "summary": "Line 1: Users can configure course settings and properties.\nLine 2: Displays course details and configuration options.",
+      "verification_keywords": [
+        "settings",
+        "configuration",
+        "course",
+        "properties"
+      ],
+      "can_verify_states": [
+        "course_settings"
+      ],
+      "action_states": [
+        "course_configuration"
+      ]
+    },
+    {
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "summary": "Line 1: Users can manage course participants and enrollment.\nLine 2: Displays participant list and filtering options.",
+      "verification_keywords": [
+        "participants",
+        "enrollment",
+        "filter",
+        "list"
+      ],
+      "can_verify_states": [
+        "participant_list"
+      ],
+      "action_states": [
+        "participant_management"
+      ]
+    },
+    {
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "summary": "Line 1: Users can view and manage assignment details.\nLine 2: Displays assignment information and grading options.",
+      "verification_keywords": [
+        "assignment",
+        "grading",
+        "details",
+        "summary"
+      ],
+      "can_verify_states": [
+        "assignment_details"
+      ],
+      "action_states": [
+        "assignment_management"
+      ]
+    },
+    {
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "summary": "Line 1: Users can filter and grade student submissions.\nLine 2: Displays submission table with grading options.",
+      "verification_keywords": [
+        "submissions",
+        "grading",
+        "filter",
+        "table"
+      ],
+      "can_verify_states": [
+        "submission_list"
+      ],
+      "action_states": [
+        "submission_grading"
+      ]
+    },
+    {
+      "module_id": 10,
+      "module_title": "10. Advanced Grading",
+      "summary": "Line 1: Users can create and manage advanced grading forms.\nLine 2: Displays grading method options and notifications.",
+      "verification_keywords": [
+        "grading",
+        "forms",
+        "method",
+        "notification"
+      ],
+      "can_verify_states": [
+        "grading_forms"
+      ],
+      "action_states": [
+        "grading_method_management"
+      ]
+    },
+    {
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "summary": "Line 1: Users can view and filter grade reports.\nLine 2: Displays gradebook with user grades and course totals.",
+      "verification_keywords": [
+        "gradebook",
+        "grades",
+        "filter",
+        "report"
+      ],
+      "can_verify_states": [
+        "grade_report"
+      ],
+      "action_states": []
+    },
+    {
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "summary": "Line 1: Users can view and edit their profile information.\nLine 2: Displays user details and profile description.",
+      "verification_keywords": [
+        "profile",
+        "details",
+        "edit",
+        "description"
+      ],
+      "can_verify_states": [
+        "user_profile"
+      ],
+      "action_states": [
+        "profile_editing"
+      ]
+    }
+  ],
+  "test_cases": [
+    {
+      "id": "1.LOG-001",
+      "title": "Successful login with valid username and password",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username in the Username field",
+        "Enter a valid password in the Password field",
+        "Click the Log in button"
+      ],
+      "expected_result": "Redirects to the Dashboard"
+    },
+    {
+      "id": "1.LOG-002",
+      "title": "Username field empty",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the Username field empty",
+        "Enter a valid password in the Password field",
+        "Click the Log in button"
+      ],
+      "expected_result": "Error message appears indicating the Username field is required"
+    },
+    {
+      "id": "1.LOG-003",
+      "title": "Password field empty",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username in the Username field",
+        "Leave the Password field empty",
+        "Click the Log in button"
+      ],
+      "expected_result": "Error message appears indicating the Password field is required"
+    },
+    {
+      "id": "1.LOG-004",
+      "title": "Invalid credentials",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter an invalid username in the Username field",
+        "Enter an invalid password in the Password field",
+        "Click the Log in button"
+      ],
+      "expected_result": "Error message appears indicating invalid credentials"
+    },
+    {
+      "id": "1.LOG-005",
+      "title": "Username field remains populated after error",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Attempted login with invalid credentials",
+      "steps": [
+        "Enter an invalid username in the Username field",
+        "Enter an invalid password in the Password field",
+        "Click the Log in button"
+      ],
+      "expected_result": "Username field remains populated for correction after error"
+    },
+    {
+      "id": "1.LOG-006",
+      "title": "Check presence of 'Lost password?' link",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Verify the presence of the 'Lost password?' link on the page"
+      ],
+      "expected_result": "'Lost password?' link is displayed on the page"
+    },
+    {
+      "id": "1.LOG-007",
+      "title": "Check presence of 'Access as a guest' button",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Verify the presence of the 'Access as a guest' button on the page"
+      ],
+      "expected_result": "'Access as a guest' button is displayed on the page"
+    },
+    {
+      "id": "1.LOG-008",
+      "title": "Check presence of Cookies notice button",
+      "module_id": 1,
+      "module_title": "1. Login",
+      "workflow": "Login with credentials",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Verify the presence of the Cookies notice button on the page"
+      ],
+      "expected_result": "Cookies notice button is displayed on the page"
+    },
+    {
+      "id": "2.DAS-001",
+      "title": "Display user greeting with waving hand emoji",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is logged in",
+      "steps": [
+        "Verify the greeting message 'Hi, [Name]!' is displayed with a waving hand emoji"
+      ],
+      "expected_result": "Greeting message is displayed correctly with the emoji"
+    },
+    {
+      "id": "2.DAS-002",
+      "title": "Display 'No activities require action' message when no pending activities",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "No activities are pending",
+      "steps": [
+        "Verify the message 'No activities require action' is displayed with the appropriate icon"
+      ],
+      "expected_result": "Message is displayed correctly with the icon"
+    },
+    {
+      "id": "2.DAS-003",
+      "title": "Highlight current date on the calendar",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Verify the current date is highlighted on the calendar"
+      ],
+      "expected_result": "Current date is highlighted"
+    },
+    {
+      "id": "2.DAS-004",
+      "title": "Display event names on dates with events",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "There are events scheduled",
+      "steps": [
+        "Verify dates with events display the event names"
+      ],
+      "expected_result": "Event names are displayed on the respective dates"
+    },
+    {
+      "id": "2.DAS-005",
+      "title": "Verify 'New event' button functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'New event' button"
+      ],
+      "expected_result": "A new event creation form is displayed"
+    },
+    {
+      "id": "2.DAS-006",
+      "title": "Verify 'Next 7 days' dropdown functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'Next 7 days' dropdown",
+        "Select an option from the dropdown"
+      ],
+      "expected_result": "The calendar updates to show events for the selected period"
+    },
+    {
+      "id": "2.DAS-007",
+      "title": "Verify 'Sort by dates' dropdown functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'Sort by dates' dropdown",
+        "Select an option from the dropdown"
+      ],
+      "expected_result": "The events are sorted according to the selected option"
+    },
+    {
+      "id": "2.DAS-008",
+      "title": "Verify 'All courses' dropdown functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "User is enrolled in multiple courses",
+      "steps": [
+        "Click on the 'All courses' dropdown",
+        "Select a specific course"
+      ],
+      "expected_result": "The calendar updates to show events related to the selected course"
+    },
+    {
+      "id": "2.DAS-009",
+      "title": "Verify 'Full calendar' link functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'Full calendar' link"
+      ],
+      "expected_result": "The full calendar view is displayed"
+    },
+    {
+      "id": "2.DAS-010",
+      "title": "Verify 'Import or export calendars' link functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'Import or export calendars' link"
+      ],
+      "expected_result": "The import/export calendar options are displayed"
+    },
+    {
+      "id": "2.DAS-011",
+      "title": "Verify 'Edit mode' toggle functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Toggle the 'Edit mode' switch"
+      ],
+      "expected_result": "The page enters or exits edit mode"
+    },
+    {
+      "id": "2.DAS-012",
+      "title": "Verify 'Reset page to default' button functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Page layout has been customized",
+      "steps": [
+        "Click on the 'Reset page to default' button"
+      ],
+      "expected_result": "The page layout resets to the default configuration"
+    },
+    {
+      "id": "2.DAS-013",
+      "title": "Verify '+ Add a block' button functionality",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the '+ Add a block' button"
+      ],
+      "expected_result": "The 'Add a block' modal is displayed"
+    },
+    {
+      "id": "2.DAS-014",
+      "title": "Verify 'Cancel' button in 'Add a block' modal",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "'Add a block' modal is open",
+      "steps": [
+        "Click on the 'Cancel' button"
+      ],
+      "expected_result": "The 'Add a block' modal is closed without adding a block"
+    },
+    {
+      "id": "2.DAS-015",
+      "title": "Verify 'X' button in 'Add a block' modal",
+      "module_id": 2,
+      "module_title": "2. Dashboard",
+      "workflow": "Create calendar entries",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "'Add a block' modal is open",
+      "steps": [
+        "Click on the 'X' button"
+      ],
+      "expected_result": "The 'Add a block' modal is closed without adding a block"
+    },
+    {
+      "id": "3MC-001",
+      "title": "Verify My Courses page displays correct headings",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check for the presence of 'My courses' heading",
+        "Check for the presence of 'Course overview' subheading"
+      ],
+      "expected_result": "Both headings are displayed correctly"
+    },
+    {
+      "id": "3MC-002",
+      "title": "Verify courses are displayed as visual cards",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Verify each course is displayed as a visual card"
+      ],
+      "expected_result": "Courses are displayed as visual cards"
+    },
+    {
+      "id": "3MC-003",
+      "title": "Verify search functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a course name in the search field",
+        "Press enter or click the search icon"
+      ],
+      "expected_result": "Courses matching the search criteria are displayed"
+    },
+    {
+      "id": "3MC-004",
+      "title": "Verify course card displays course image",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check for the presence of a course image on each course card"
+      ],
+      "expected_result": "Course image is displayed on each course card"
+    },
+    {
+      "id": "3MC-005",
+      "title": "Verify course card displays course name as a link",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check for the presence of a course name link on each course card"
+      ],
+      "expected_result": "Course name is displayed as a clickable link on each course card"
+    },
+    {
+      "id": "3MC-006",
+      "title": "Verify course card displays category name",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check for the presence of a category name on each course card"
+      ],
+      "expected_result": "Category name is displayed on each course card"
+    },
+    {
+      "id": "3MC-007",
+      "title": "Verify functionality of 'All' dropdown",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the 'All' dropdown",
+        "Select an option from the dropdown"
+      ],
+      "expected_result": "Courses are filtered based on the selected option"
+    },
+    {
+      "id": "3MC-008",
+      "title": "Verify sorting by course name",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select an option from the 'Sort by course name' dropdown"
+      ],
+      "expected_result": "Courses are sorted according to the selected option"
+    },
+    {
+      "id": "3MC-009",
+      "title": "Verify 'Star this course' option functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the three-dot menu on a course card",
+        "Select 'Star this course' option"
+      ],
+      "expected_result": "Course is marked as starred"
+    },
+    {
+      "id": "3MC-010",
+      "title": "Verify 'Remove from view' option functionality",
+      "module_id": 3,
+      "module_title": "3. My Courses",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the three-dot menu on a course card",
+        "Select 'Remove from view' option"
+      ],
+      "expected_result": "Course is removed from the current view"
+    },
+    {
+      "id": "4CP-001",
+      "title": "Verify course full name is displayed as heading",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check the course full name is displayed at the top of the page"
+      ],
+      "expected_result": "Course full name is displayed correctly as a heading"
+    },
+    {
+      "id": "4CP-002",
+      "title": "Verify Course tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Course tab"
+      ],
+      "expected_result": "Course tab is clickable and navigates to the course content"
+    },
+    {
+      "id": "4CP-003",
+      "title": "Verify Course Index is displayed",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check the Course Index is displayed on the page"
+      ],
+      "expected_result": "Course Index is visible and displays the course structure"
+    },
+    {
+      "id": "4CP-004",
+      "title": "Verify Settings tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Settings tab"
+      ],
+      "expected_result": "Settings tab is clickable and navigates to the settings page"
+    },
+    {
+      "id": "4CP-005",
+      "title": "Verify Participants tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Participants tab"
+      ],
+      "expected_result": "Participants tab is clickable and navigates to the participants list"
+    },
+    {
+      "id": "4CP-006",
+      "title": "Verify Grades tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Grades tab"
+      ],
+      "expected_result": "Grades tab is clickable and navigates to the grades overview"
+    },
+    {
+      "id": "4CP-007",
+      "title": "Verify Activities tab is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Activities tab"
+      ],
+      "expected_result": "Activities tab is clickable and navigates to the activities section"
+    },
+    {
+      "id": "4CP-008",
+      "title": "Verify Collapse all link collapses sections",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Collapse all link"
+      ],
+      "expected_result": "All sections are collapsed"
+    },
+    {
+      "id": "4CP-009",
+      "title": "Verify Chevron arrow expands a section",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Chevron arrow next to a section name"
+      ],
+      "expected_result": "The section expands to show its content"
+    },
+    {
+      "id": "4CP-010",
+      "title": "Verify Close course index button hides the index",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Course Index is open",
+      "steps": [
+        "Click on the Close course index button"
+      ],
+      "expected_result": "Course Index is hidden"
+    },
+    {
+      "id": "4CP-011",
+      "title": "Verify More dropdown is clickable",
+      "module_id": 4,
+      "module_title": "4. Course Page",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Click on the More dropdown"
+      ],
+      "expected_result": "More dropdown is clickable and displays additional options"
+    },
+    {
+      "id": "5AA-001",
+      "title": "Enable edit mode",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the edit mode toggle"
+      ],
+      "expected_result": "Edit mode is enabled"
+    },
+    {
+      "id": "5AA-002",
+      "title": "Open Activity Chooser",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Click on the + button",
+        "Select 'Add an activity or resource' option"
+      ],
+      "expected_result": "Activity Chooser modal is displayed"
+    },
+    {
+      "id": "5AA-003",
+      "title": "Add Assignment activity",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Select 'Assignment' option from the grid",
+        "Click on the Add button"
+      ],
+      "expected_result": "Assignment activity is added to the course section"
+    },
+    {
+      "id": "5AA-004",
+      "title": "Add Book resource",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Select 'Book' option from the grid",
+        "Click on the Add button"
+      ],
+      "expected_result": "Book resource is added to the course section"
+    },
+    {
+      "id": "5AA-005",
+      "title": "Create new assignment with valid data and save to course",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Enter a valid description",
+        "Check 'Display description on course page'",
+        "Enter valid activity instructions",
+        "Upload valid additional files within size limit",
+        "Set valid 'Allow submissions from' date/time",
+        "Set valid 'Due date' date/time",
+        "Set valid 'Cut-off date' date/time",
+        "Set valid 'Remind me to grade by' date/time",
+        "Check 'Always show description'",
+        "Check 'Online text'",
+        "Check 'File submissions'",
+        "Select maximum number of uploaded files",
+        "Select maximum submission size within limit",
+        "Enter valid accepted file types",
+        "Check 'Send content change notification'",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Assignment is created and user is returned to the course page"
+    },
+    {
+      "id": "5AA-006",
+      "title": "Create new assignment with valid data and save and display",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Enter a valid description",
+        "Check 'Display description on course page'",
+        "Enter valid activity instructions",
+        "Upload valid additional files within size limit",
+        "Set valid 'Allow submissions from' date/time",
+        "Set valid 'Due date' date/time",
+        "Set valid 'Cut-off date' date/time",
+        "Set valid 'Remind me to grade by' date/time",
+        "Check 'Always show description'",
+        "Check 'Online text'",
+        "Check 'File submissions'",
+        "Select maximum number of uploaded files",
+        "Select maximum submission size within limit",
+        "Enter valid accepted file types",
+        "Check 'Send content change notification'",
+        "Click 'Save and display' button"
+      ],
+      "expected_result": "Assignment is created and displayed"
+    },
+    {
+      "id": "5AA-007",
+      "title": "Assignment name field empty",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "negative",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Leave assignment name field empty",
+        "Enter a valid description",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating that the assignment name is required"
+    },
+    {
+      "id": "5AA-008",
+      "title": "Search for an activity",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Enter a valid activity name in the search field"
+      ],
+      "expected_result": "Relevant activities are filtered and displayed"
+    },
+    {
+      "id": "5AA-009",
+      "title": "Filter by Assessment category",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Select 'Assessment' from category filters"
+      ],
+      "expected_result": "Only activities under Assessment category are displayed"
+    },
+    {
+      "id": "5AA-010",
+      "title": "Cancel assignment creation",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Enter a valid description",
+        "Click 'Cancel' button"
+      ],
+      "expected_result": "No assignment is created and changes are discarded"
+    },
+    {
+      "id": "5AA-011",
+      "title": "Add activity with invalid search",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Enter an invalid activity name in the search field"
+      ],
+      "expected_result": "No activities are displayed"
+    },
+    {
+      "id": "5AA-012",
+      "title": "Add activity without selecting",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Click on the Add button without selecting an activity"
+      ],
+      "expected_result": "No activity is added; user is prompted to select an activity"
+    },
+    {
+      "id": "5AA-013",
+      "title": "Upload file exceeding maximum size limit",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Upload a file exceeding 100 MB",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating file size exceeds the maximum limit"
+    },
+    {
+      "id": "5AA-014",
+      "title": "Set 'Allow submissions from' date after 'Due date'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Set 'Allow submissions from' date after 'Due date'",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating invalid date configuration"
+    },
+    {
+      "id": "5AA-015",
+      "title": "Set 'Due date' before 'Allow submissions from' date",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Set 'Due date' before 'Allow submissions from' date",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating invalid date configuration"
+    },
+    {
+      "id": "5AA-016",
+      "title": "Set 'Cut-off date' before 'Due date'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Set 'Cut-off date' before 'Due date'",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating invalid date configuration"
+    },
+    {
+      "id": "5AA-017",
+      "title": "Set 'Remind me to grade by' date before 'Due date'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Set 'Remind me to grade by' date before 'Due date'",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating invalid date configuration"
+    },
+    {
+      "id": "5AA-018",
+      "title": "Maximum submission size exceeds site upload limit",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Select maximum submission size exceeding 100 MB",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Error message indicating submission size exceeds site upload limit"
+    },
+    {
+      "id": "5AA-019",
+      "title": "Close Activity Chooser",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Click on the X button"
+      ],
+      "expected_result": "Activity Chooser modal is closed"
+    },
+    {
+      "id": "5AA-020",
+      "title": "Star an activity",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Add an activity or resource",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "Activity Chooser modal is open",
+      "steps": [
+        "Click on the Star button next to an activity"
+      ],
+      "expected_result": "Activity is marked as starred"
+    },
+    {
+      "id": "5AA-021",
+      "title": "Set same start and end date for 'Allow submissions from' and 'Due date'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Set same date/time for 'Allow submissions from' and 'Due date'",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Assignment is created with the same start and end date"
+    },
+    {
+      "id": "5AA-022",
+      "title": "Set future date for 'Allow submissions from'",
+      "module_id": 5,
+      "module_title": "5. Adding Activities",
+      "workflow": "Create and configure a new assignment",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid assignment name",
+        "Set future date for 'Allow submissions from'",
+        "Click 'Save and return to course' button"
+      ],
+      "expected_result": "Assignment is created with future 'Allow submissions from' date"
+    },
+    {
+      "id": "6CS-001",
+      "title": "Configure course settings with all required fields filled",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid course full name",
+        "Enter a valid course short name",
+        "Select a valid course category from the dropdown",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Course settings are saved successfully and displayed"
+    },
+    {
+      "id": "6CS-002",
+      "title": "Upload a valid course image",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Upload a valid image file in the file upload area for course images",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Course image is uploaded and displayed successfully"
+    },
+    {
+      "id": "6CS-003",
+      "title": "Course full name field empty",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Leave the course full name field empty",
+        "Enter a valid course short name",
+        "Select a valid course category from the dropdown",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Error message displayed indicating course full name is required"
+    },
+    {
+      "id": "6CS-004",
+      "title": "Course short name field empty",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid course full name",
+        "Leave the course short name field empty",
+        "Select a valid course category from the dropdown",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Error message displayed indicating course short name is required"
+    },
+    {
+      "id": "6CS-005",
+      "title": "Course category field empty",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid course full name",
+        "Enter a valid course short name",
+        "Leave the course category field empty",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Error message displayed indicating course category is required"
+    },
+    {
+      "id": "6CS-006",
+      "title": "Set course end date in the past",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select a past date for the course end date",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Error message displayed indicating course end date cannot be in the past"
+    },
+    {
+      "id": "6CS-007",
+      "title": "Upload an invalid file type as course image",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Attempt to upload an invalid file type in the file upload area for course images",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Error message displayed indicating invalid file type"
+    },
+    {
+      "id": "6CS-008",
+      "title": "Verify course visibility dropdown default selection",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Check the default selection of the course visibility dropdown"
+      ],
+      "expected_result": "Default selection is set to the expected value"
+    },
+    {
+      "id": "6CS-009",
+      "title": "Verify maximum upload size dropdown default selection",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "positive",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Check the default selection of the maximum upload size dropdown"
+      ],
+      "expected_result": "Default selection is set to the expected value"
+    },
+    {
+      "id": "6CS-010",
+      "title": "Set course start date and end date to the same day",
+      "module_id": 6,
+      "module_title": "6. Course Settings",
+      "workflow": "Configure course settings",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Select the same date for course start date and course end date",
+        "Click the Save and display button"
+      ],
+      "expected_result": "Course settings are saved successfully with the same start and end date"
+    },
+    {
+      "id": "7.PAR-001",
+      "title": "Apply filter by name",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Select 'Name' from the filter dropdown",
+        "Enter a valid name",
+        "Click on 'Apply filters' button"
+      ],
+      "expected_result": "Count displays the number of participants matching the name"
+    },
+    {
+      "id": "7.PAR-002",
+      "title": "Apply filter by attribute",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Select an attribute from the filter dropdown",
+        "Enter a valid attribute value",
+        "Click on 'Apply filters' button"
+      ],
+      "expected_result": "Count displays the number of participants matching the attribute"
+    },
+    {
+      "id": "7.PAR-003",
+      "title": "Enroll user using username",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Enrol users button",
+        "Enter a valid username in the search field",
+        "Select a role from the role dropdown",
+        "Click on the Enrol users button at bottom right"
+      ],
+      "expected_result": "User is successfully enrolled in the course"
+    },
+    {
+      "id": "7.PAR-004",
+      "title": "Enroll user using email",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Enrol users button",
+        "Enter a valid email in the search field",
+        "Select a role from the role dropdown",
+        "Click on the Enrol users button at bottom right"
+      ],
+      "expected_result": "User is successfully enrolled in the course"
+    },
+    {
+      "id": "7.PAR-005",
+      "title": "Add multiple filter conditions",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on '+ Add condition' link",
+        "Select 'Name' from the first filter dropdown",
+        "Enter a valid name",
+        "Select an attribute from the second filter dropdown",
+        "Enter a valid attribute value",
+        "Click on 'Apply filters' button"
+      ],
+      "expected_result": "Count displays the number of participants matching all conditions"
+    },
+    {
+      "id": "7.PAR-006",
+      "title": "Clear filters",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Filters are applied",
+      "steps": [
+        "Click on 'Clear filters' button"
+      ],
+      "expected_result": "All filters are removed and count displays total number of participants"
+    },
+    {
+      "id": "7.PAR-007",
+      "title": "Apply alphabetical filter",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on an alphabetical filter button (e.g., 'A')"
+      ],
+      "expected_result": "Count displays the number of participants whose names start with the selected letter"
+    },
+    {
+      "id": "7.PAR-008",
+      "title": "Enroll user with specific enrollment duration",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Enrol users button",
+        "Enter a valid username in the search field",
+        "Select a role from the role dropdown",
+        "Set a specific enrollment duration",
+        "Click on the Enrol users button at bottom right"
+      ],
+      "expected_result": "User is successfully enrolled with the specified duration"
+    },
+    {
+      "id": "7.PAR-009",
+      "title": "Verify Enrol users button is displayed",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Enrol users button is visible on the page"
+      ],
+      "expected_result": "Enrol users button is displayed"
+    },
+    {
+      "id": "7.PAR-010",
+      "title": "Filter with empty name field",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select 'Name' from the filter dropdown",
+        "Leave the name field empty",
+        "Click on 'Apply filters' button"
+      ],
+      "expected_result": "No participants are displayed and count shows zero"
+    },
+    {
+      "id": "7.PAR-011",
+      "title": "Filter with empty attribute field",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select an attribute from the filter dropdown",
+        "Leave the attribute field empty",
+        "Click on 'Apply filters' button"
+      ],
+      "expected_result": "No participants are displayed and count shows zero"
+    },
+    {
+      "id": "7.PAR-012",
+      "title": "Search field empty",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Enrol users button",
+        "Leave the search field empty",
+        "Select a role from the role dropdown",
+        "Click on the Enrol users button at bottom right"
+      ],
+      "expected_result": "Error message is displayed indicating the search field cannot be empty"
+    },
+    {
+      "id": "7.PAR-013",
+      "title": "Role not selected",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Enrol users button",
+        "Enter a valid username in the search field",
+        "Leave the role dropdown unselected",
+        "Click on the Enrol users button at bottom right"
+      ],
+      "expected_result": "Error message is displayed indicating a role must be selected"
+    },
+    {
+      "id": "7.PAR-014",
+      "title": "Filter with special characters in name",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Select 'Name' from the filter dropdown",
+        "Enter special characters in the name field",
+        "Click on 'Apply filters' button"
+      ],
+      "expected_result": "Count displays the number of participants matching the special character criteria"
+    },
+    {
+      "id": "7.PAR-015",
+      "title": "Filter with maximum length name",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Apply filters",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Select 'Name' from the filter dropdown",
+        "Enter a name with maximum allowed length",
+        "Click on 'Apply filters' button"
+      ],
+      "expected_result": "Count displays the number of participants matching the maximum length name"
+    },
+    {
+      "id": "7.PAR-016",
+      "title": "Enroll user with maximum enrollment duration",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Enrol users button",
+        "Enter a valid username in the search field",
+        "Select a role from the role dropdown",
+        "Set the maximum allowed enrollment duration",
+        "Click on the Enrol users button at bottom right"
+      ],
+      "expected_result": "User is successfully enrolled with the maximum duration"
+    },
+    {
+      "id": "7.PAR-017",
+      "title": "Enroll user with minimum enrollment duration",
+      "module_id": 7,
+      "module_title": "7. Participants",
+      "workflow": "Enroll additional users",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Enrol users button",
+        "Enter a valid username in the search field",
+        "Select a role from the role dropdown",
+        "Set the minimum allowed enrollment duration",
+        "Click on the Enrol users button at bottom right"
+      ],
+      "expected_result": "User is successfully enrolled with the minimum duration"
+    },
+    {
+      "id": "8A(V-001",
+      "title": "Verify assignment page elements are displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check if breadcrumbs are visible",
+        "Check if assignment icon is displayed",
+        "Verify ASSIGNMENT heading is present",
+        "Verify assignment name is displayed",
+        "Check if Assignment tab is visible",
+        "Check if Settings tab is visible",
+        "Check if Submissions tab is visible",
+        "Check if Advanced grading tab is visible",
+        "Check if More dropdown is visible",
+        "Verify Opened date is displayed",
+        "Verify Due date is displayed",
+        "Check if assignment description text is visible",
+        "Verify Grade button is present",
+        "Check if Grading summary section is visible",
+        "Verify Hidden from students row is displayed",
+        "Verify Participants count row is displayed",
+        "Verify Submitted count row is displayed",
+        "Verify Needs grading count row is displayed",
+        "Verify Time remaining until due date row is displayed"
+      ],
+      "expected_result": "All elements are displayed correctly on the assignment page"
+    },
+    {
+      "id": "8A(V-002",
+      "title": "Verify grading can be started by clicking Grade button",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Grade button"
+      ],
+      "expected_result": "Grading interface is opened"
+    },
+    {
+      "id": "8A(V-003",
+      "title": "Verify assignment name is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the assignment name is displayed"
+      ],
+      "expected_result": "Assignment name is displayed correctly"
+    },
+    {
+      "id": "8A(V-004",
+      "title": "Verify Opened date is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Opened date is displayed"
+      ],
+      "expected_result": "Opened date is displayed correctly"
+    },
+    {
+      "id": "8A(V-005",
+      "title": "Verify Due date is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Due date is displayed"
+      ],
+      "expected_result": "Due date is displayed correctly"
+    },
+    {
+      "id": "8A(V-006",
+      "title": "Verify assignment description text is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the assignment description text is displayed"
+      ],
+      "expected_result": "Assignment description text is displayed correctly"
+    },
+    {
+      "id": "8A(V-007",
+      "title": "Verify Participants count is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Participants count row is displayed"
+      ],
+      "expected_result": "Participants count is displayed correctly"
+    },
+    {
+      "id": "8A(V-008",
+      "title": "Verify Submitted count is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Submitted count row is displayed"
+      ],
+      "expected_result": "Submitted count is displayed correctly"
+    },
+    {
+      "id": "8A(V-009",
+      "title": "Verify Needs grading count is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Needs grading count row is displayed"
+      ],
+      "expected_result": "Needs grading count is displayed correctly"
+    },
+    {
+      "id": "8A(V-010",
+      "title": "Verify Time remaining until due date is displayed correctly",
+      "module_id": 8,
+      "module_title": "8. Assignment (Teacher View)",
+      "workflow": "Start grading",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check if the Time remaining until due date row is displayed"
+      ],
+      "expected_result": "Time remaining until due date is displayed correctly"
+    },
+    {
+      "id": "9AS-001",
+      "title": "Verify all elements are displayed on the Submissions tab",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check the presence of Search users field",
+        "Check the presence of Filter by name dropdown",
+        "Check the presence of Status filter",
+        "Check the presence of Advanced dropdown",
+        "Check the presence of Grade button",
+        "Check the presence of Quick grading checkbox",
+        "Check the presence of Actions dropdown",
+        "Check the presence of Select checkbox",
+        "Check the presence of First name / Last name link",
+        "Check the presence of Email address",
+        "Check the presence of Status",
+        "Check the presence of Grade",
+        "Check the presence of Last modified (submission)",
+        "Check the presence of Online text",
+        "Check the presence of File submissions",
+        "Check the presence of Submission comments",
+        "Check the presence of Last modified (grade)",
+        "Check the presence of Feedback comments",
+        "Check the presence of Feedback files",
+        "Check the presence of Final grade",
+        "Check the presence of Three-dot menus"
+      ],
+      "expected_result": "All elements are displayed correctly on the Submissions tab"
+    },
+    {
+      "id": "9AS-002",
+      "title": "Search for a user using the Search users field",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Enter a valid username in the Search users field",
+        "Press the Enter key"
+      ],
+      "expected_result": "The table displays submissions related to the searched user"
+    },
+    {
+      "id": "9AS-003",
+      "title": "Grade a submission using the Grade button",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "A submission is available for grading",
+      "steps": [
+        "Click the Grade button for a specific submission",
+        "Enter a valid grade",
+        "Save the grade"
+      ],
+      "expected_result": "The submission is graded and the grade is displayed in the table"
+    },
+    {
+      "id": "9AS-004",
+      "title": "Check the final grade",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "A final grade is available",
+      "steps": [
+        "Locate the Final grade section for a specific submission"
+      ],
+      "expected_result": "Final grade is displayed"
+    },
+    {
+      "id": "9AS-005",
+      "title": "Filter submissions by name using the Filter by name dropdown",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select a valid name from the Filter by name dropdown"
+      ],
+      "expected_result": "The table displays submissions related to the selected name"
+    },
+    {
+      "id": "9AS-006",
+      "title": "Filter submissions by status using the Status filter",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select a specific status from the Status filter"
+      ],
+      "expected_result": "The table displays submissions with the selected status"
+    },
+    {
+      "id": "9AS-007",
+      "title": "Use the Advanced dropdown to apply additional filters",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Open the Advanced dropdown",
+        "Select additional filter options"
+      ],
+      "expected_result": "The table displays submissions based on the advanced filters applied"
+    },
+    {
+      "id": "9AS-008",
+      "title": "Enable quick grading using the Quick grading checkbox",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the Quick grading checkbox"
+      ],
+      "expected_result": "Quick grading mode is enabled"
+    },
+    {
+      "id": "9AS-009",
+      "title": "Perform an action using the Actions dropdown",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Select an action from the Actions dropdown",
+        "Confirm the action"
+      ],
+      "expected_result": "The selected action is performed successfully"
+    },
+    {
+      "id": "9AS-010",
+      "title": "Select a submission using the Select checkbox",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check the Select checkbox for a specific submission"
+      ],
+      "expected_result": "The submission is selected"
+    },
+    {
+      "id": "9AS-011",
+      "title": "Access user details by clicking on First name / Last name link",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the First name / Last name link for a specific submission"
+      ],
+      "expected_result": "User details are displayed"
+    },
+    {
+      "id": "9AS-012",
+      "title": "Access user details by clicking on Email address",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Email address for a specific submission"
+      ],
+      "expected_result": "User details are displayed"
+    },
+    {
+      "id": "9AS-013",
+      "title": "View submission comments",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Submission comments are available",
+      "steps": [
+        "Locate the Submission comments section for a specific submission"
+      ],
+      "expected_result": "Submission comments are displayed"
+    },
+    {
+      "id": "9AS-014",
+      "title": "View feedback comments",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Feedback comments are available",
+      "steps": [
+        "Locate the Feedback comments section for a specific submission"
+      ],
+      "expected_result": "Feedback comments are displayed"
+    },
+    {
+      "id": "9AS-015",
+      "title": "View feedback files",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "Feedback files are available",
+      "steps": [
+        "Locate the Feedback files section for a specific submission"
+      ],
+      "expected_result": "Feedback files are displayed"
+    },
+    {
+      "id": "9AS-016",
+      "title": "Access additional options using the Three-dot menu",
+      "module_id": 9,
+      "module_title": "9. Assignment Submissions",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Click on the Three-dot menu for a specific submission",
+        "Select an option from the menu"
+      ],
+      "expected_result": "The selected option is executed successfully"
+    },
+    {
+      "id": "1AG-001",
+      "title": "Verify default grading method is set to Rubric",
+      "module_id": 10,
+      "module_title": "10. Advanced Grading",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Check the 'Change active grading method to' dropdown"
+      ],
+      "expected_result": "The dropdown is set to 'Rubric' by default"
+    },
+    {
+      "id": "1AG-002",
+      "title": "Verify notification message is displayed when grading form is not ready",
+      "module_id": 10,
+      "module_title": "10. Advanced Grading",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "None",
+      "steps": [
+        "Ensure the grading form is not in a valid status"
+      ],
+      "expected_result": "Notification message is displayed: 'Please note: the advanced grading form is not ready at the moment. Simple grading method will be used until the form has a valid status.'"
+    },
+    {
+      "id": "1AG-003",
+      "title": "Verify 'Define new grading form from scratch' option is available",
+      "module_id": 10,
+      "module_title": "10. Advanced Grading",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check for the presence of the 'Define new grading form from scratch' card"
+      ],
+      "expected_result": "The 'Define new grading form from scratch' card is displayed"
+    },
+    {
+      "id": "1AG-004",
+      "title": "Verify 'Create new grading form from a template' option is available",
+      "module_id": 10,
+      "module_title": "10. Advanced Grading",
+      "workflow": "Main workflow",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "None",
+      "steps": [
+        "Check for the presence of the 'Create new grading form from a template' card"
+      ],
+      "expected_result": "The 'Create new grading form from a template' card is displayed"
+    },
+    {
+      "id": "1G(R-001",
+      "title": "Save changes with valid data in all columns",
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "workflow": "Save changes when Edit mode is enabled",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Enter valid data in BUS301 - Case Study Analysis column",
+        "Enter valid data in BUS301 - Business Plan Draft column",
+        "Enter valid data in BUS301 - Final Presentation column",
+        "Enter valid data in r column",
+        "Enter valid data in Course total column",
+        "Click the Save changes button"
+      ],
+      "expected_result": "Changes are saved successfully and reflected in the Gradebook"
+    },
+    {
+      "id": "1G(R-002",
+      "title": "Verify columns are displayed correctly in Edit mode",
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "workflow": "Save changes when Edit mode is enabled",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Verify that the BUS301 - Case Study Analysis column is visible",
+        "Verify that the BUS301 - Business Plan Draft column is visible",
+        "Verify that the BUS301 - Final Presentation column is visible",
+        "Verify that the r column is visible",
+        "Verify that the Course total column is visible"
+      ],
+      "expected_result": "All specified columns are displayed correctly in Edit mode"
+    },
+    {
+      "id": "1G(R-003",
+      "title": "Save changes with empty BUS301 - Case Study Analysis column",
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "workflow": "Save changes when Edit mode is enabled",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Leave the BUS301 - Case Study Analysis column empty",
+        "Enter valid data in BUS301 - Business Plan Draft column",
+        "Enter valid data in BUS301 - Final Presentation column",
+        "Enter valid data in r column",
+        "Enter valid data in Course total column",
+        "Click the Save changes button"
+      ],
+      "expected_result": "An error message is displayed indicating that the BUS301 - Case Study Analysis column cannot be empty"
+    },
+    {
+      "id": "1G(R-004",
+      "title": "Save changes with empty BUS301 - Business Plan Draft column",
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "workflow": "Save changes when Edit mode is enabled",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Enter valid data in BUS301 - Case Study Analysis column",
+        "Leave the BUS301 - Business Plan Draft column empty",
+        "Enter valid data in BUS301 - Final Presentation column",
+        "Enter valid data in r column",
+        "Enter valid data in Course total column",
+        "Click the Save changes button"
+      ],
+      "expected_result": "An error message is displayed indicating that the BUS301 - Business Plan Draft column cannot be empty"
+    },
+    {
+      "id": "1G(R-005",
+      "title": "Save changes with empty BUS301 - Final Presentation column",
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "workflow": "Save changes when Edit mode is enabled",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Enter valid data in BUS301 - Case Study Analysis column",
+        "Enter valid data in BUS301 - Business Plan Draft column",
+        "Leave the BUS301 - Final Presentation column empty",
+        "Enter valid data in r column",
+        "Enter valid data in Course total column",
+        "Click the Save changes button"
+      ],
+      "expected_result": "An error message is displayed indicating that the BUS301 - Final Presentation column cannot be empty"
+    },
+    {
+      "id": "1G(R-006",
+      "title": "Save changes with empty r column",
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "workflow": "Save changes when Edit mode is enabled",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Enter valid data in BUS301 - Case Study Analysis column",
+        "Enter valid data in BUS301 - Business Plan Draft column",
+        "Enter valid data in BUS301 - Final Presentation column",
+        "Leave the r column empty",
+        "Enter valid data in Course total column",
+        "Click the Save changes button"
+      ],
+      "expected_result": "An error message is displayed indicating that the r column cannot be empty"
+    },
+    {
+      "id": "1G(R-007",
+      "title": "Save changes with empty Course total column",
+      "module_id": 11,
+      "module_title": "11. Gradebook (Grader Report)",
+      "workflow": "Save changes when Edit mode is enabled",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "Edit mode is enabled",
+      "steps": [
+        "Enter valid data in BUS301 - Case Study Analysis column",
+        "Enter valid data in BUS301 - Business Plan Draft column",
+        "Enter valid data in BUS301 - Final Presentation column",
+        "Enter valid data in r column",
+        "Leave the Course total column empty",
+        "Click the Save changes button"
+      ],
+      "expected_result": "An error message is displayed indicating that the Course total column cannot be empty"
+    },
+    {
+      "id": "12.PRO-001",
+      "title": "Verify profile page elements are displayed correctly",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the profile page",
+      "steps": [
+        "Check if User initials are displayed",
+        "Check if Profile link is visible",
+        "Check if User's circular icon is present",
+        "Check if Full name is displayed",
+        "Check if Message button is visible",
+        "Check if Description text is present",
+        "Check if Reset page to default button is visible",
+        "Check if User details card is displayed",
+        "Check if Edit profile link is visible"
+      ],
+      "expected_result": "All profile page elements are displayed correctly"
+    },
+    {
+      "id": "12.PRO-002",
+      "title": "Update profile with valid data",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Enter valid first name",
+        "Enter valid last name",
+        "Enter valid email address",
+        "Select a timezone from the dropdown",
+        "Enter a description in the rich text editor",
+        "Click on the Update profile button"
+      ],
+      "expected_result": "Profile is updated successfully with the new data"
+    },
+    {
+      "id": "12.PRO-003",
+      "title": "Verify timezone selection is saved",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Select a timezone from the dropdown",
+        "Click on the Update profile button",
+        "Reopen the Edit profile form",
+        "Verify the selected timezone is displayed"
+      ],
+      "expected_result": "Selected timezone is saved and displayed correctly"
+    },
+    {
+      "id": "12.PRO-004",
+      "title": "Verify description text is saved",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "High",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Enter a description in the rich text editor",
+        "Click on the Update profile button",
+        "Reopen the Edit profile form",
+        "Verify the entered description is displayed"
+      ],
+      "expected_result": "Entered description is saved and displayed correctly"
+    },
+    {
+      "id": "12.PRO-005",
+      "title": "Verify email visibility dropdown options",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "positive",
+      "priority": "Medium",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Check the options available in the Email visibility dropdown"
+      ],
+      "expected_result": "All expected options are present in the Email visibility dropdown"
+    },
+    {
+      "id": "12.PRO-006",
+      "title": "First name field empty",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Leave the First name field empty",
+        "Enter valid last name",
+        "Enter valid email address",
+        "Click on the Update profile button"
+      ],
+      "expected_result": "Error message is displayed indicating that the first name is required"
+    },
+    {
+      "id": "12.PRO-007",
+      "title": "Last name field empty",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Enter valid first name",
+        "Leave the Last name field empty",
+        "Enter valid email address",
+        "Click on the Update profile button"
+      ],
+      "expected_result": "Error message is displayed indicating that the last name is required"
+    },
+    {
+      "id": "12.PRO-008",
+      "title": "Email address field empty",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Enter valid first name",
+        "Enter valid last name",
+        "Leave the Email address field empty",
+        "Click on the Update profile button"
+      ],
+      "expected_result": "Error message is displayed indicating that the email address is required"
+    },
+    {
+      "id": "12.PRO-009",
+      "title": "Upload image exceeding maximum file size",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Navigate to the User picture section",
+        "Attempt to upload an image file larger than 100 MB"
+      ],
+      "expected_result": "Error message is displayed indicating that the file size exceeds the maximum limit"
+    },
+    {
+      "id": "12.PRO-010",
+      "title": "Upload multiple image files",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Navigate to the User picture section",
+        "Attempt to upload more than one image file"
+      ],
+      "expected_result": "Error message is displayed indicating that only one file can be uploaded"
+    },
+    {
+      "id": "12.PRO-011",
+      "title": "Upload unsupported image file type",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "negative",
+      "priority": "Medium",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Navigate to the User picture section",
+        "Attempt to upload an unsupported file type"
+      ],
+      "expected_result": "Error message is displayed indicating that the file type is not supported"
+    },
+    {
+      "id": "12.PRO-012",
+      "title": "Verify maximum length handling for description",
+      "module_id": 12,
+      "module_title": "12. Profile",
+      "workflow": "Update profile",
+      "test_type": "edge_case",
+      "priority": "Low",
+      "preconditions": "User is on the Edit profile form",
+      "steps": [
+        "Enter a description with maximum allowed characters in the rich text editor",
+        "Click on the Update profile button"
+      ],
+      "expected_result": "Profile is updated successfully and description is saved with maximum length"
+    }
+  ],
+  "summary": {
+    "total_tests": 142,
+    "by_type": {
+      "positive": 101,
+      "negative": 33,
+      "edge_case": 8
+    },
+    "by_priority": {
+      "High": 38,
+      "Medium": 88,
+      "Low": 16
+    },
+    "by_module": {
+      "1. Login": 8,
+      "2. Dashboard": 15,
+      "3. My Courses": 10,
+      "4. Course Page": 11,
+      "5. Adding Activities": 22,
+      "6. Course Settings": 10,
+      "7. Participants": 17,
+      "8. Assignment (Teacher View)": 10,
+      "9. Assignment Submissions": 16,
+      "10. Advanced Grading": 4,
+      "11. Gradebook (Grader Report)": 7,
+      "12. Profile": 12
+    },
+    "post_verification": {
+      "tests_needing_verification": 0,
+      "full_coverage": 0,
+      "partial_coverage": 0,
+      "no_coverage": 0,
+      "coverage_gaps": []
+    },
+    "execution_plans": {
+      "total_plans": 0,
+      "coverage_distribution": {},
+      "total_automated_steps": 0,
+      "total_manual_steps": 0,
+      "automation_rate": 0,
+      "before_after_plans": 0,
+      "after_only_plans": 0
+    }
+  }
+}
